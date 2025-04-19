@@ -119,11 +119,13 @@ module top_basys3 (
      *  Project functional top module
      */
 
+    import vector_pkg::*;
+
     wire [7:0] x_ch;
     wire [7:0] y_ch;
 
     top_vector_display #(
-        .CH_WIDTH(8)
+        .CH_WIDTH()
     ) u_vector_display (
         .enable(1),
         .clk(pclk),

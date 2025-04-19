@@ -31,10 +31,10 @@ set xdc_files {
 
 # Specify SystemVerilog design files location   -- EDIT
 set sv_files {
-    ../rtl/vector_pkg.sv
-    ../rtl/top_vector_display.sv
-    ../rtl/xdac.sv
-    ../rtl/ydac.sv
+    ../rtl/vector_display/vector_pkg.sv
+    ../rtl/vector_display/top_vector_display.sv
+    ../rtl/vector_display/xdac.sv
+    ../rtl/vector_display/ydac.sv
     ../rtl/counter.sv
     ../rtl/clk_div.sv
     rtl/top_basys3.sv
