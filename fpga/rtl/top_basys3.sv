@@ -125,7 +125,7 @@ module top_basys3 (
     wire [7:0] y_ch;
 
     top_vector_display #(
-        .CH_WIDTH()
+        .OUT_WIDTH(DAC_WIDTH)
     ) u_vector_display (
         .enable(1),
         .clk(pclk),
