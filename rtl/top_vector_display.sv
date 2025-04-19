@@ -15,24 +15,14 @@ module top_vector_display #(parameter int CH_WIDTH)(
     timeunit 1ns;
     timeprecision 1ps;
 
-
-
+    wire clk_div_val;
 
     clk_div #(
-        .DIVIDER(100)
+        .DIVIDER(1000)
     ) x_clk_div (
         .clk_in(clk),
         .rst(rst),
-        .clk_out(x_val)
-    );
-
-
-    clk_div #(
-        .DIVIDER(200)
-    ) y_clk_div (
-        .clk_in(clk),
-        .rst(rst),
-        .clk_out(y_val)
+        .clk_out(clk_div_val)
     );
 
 
@@ -43,7 +33,7 @@ module top_vector_display #(parameter int CH_WIDTH)(
     ) x_counter (
 
         //    CONTROL SIGNALS
-        .clk(x_val),
+        .clk(clk_div_val),
         .rst(rst),
         .enable(1),
         .countdown(0),
@@ -63,14 +53,14 @@ module top_vector_display #(parameter int CH_WIDTH)(
     ) y_counter (
 
         //    CONTROL SIGNALS
-        .clk(y_val),
+        .clk(clk_div_val),
         .rst(rst),
         .enable(1),
-        .countdown(1),
+        .countdown(0),
 
-        //    INPUTS
+        //    LOAD
         .load(0),
-        .load_number(200),
+        .load_number(100),
 
         //    OUTPUTS
         .count_out(y_ch)
