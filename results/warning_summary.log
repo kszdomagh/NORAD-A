@@ -1,6 +1,6 @@
 Warnings, critical warnings and errors from synthesis and implementation
 
-Created: 2025-04-19 18:30:06
+Created: 2025-04-20 01:13:55
 
 ----SYNTHESIS----
 WARNING: [Synth 8-7129] Port enable in module top_vector_display is either unconnected or has no load

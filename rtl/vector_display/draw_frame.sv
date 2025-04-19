@@ -17,25 +17,25 @@ module draw_frame #(
 	always_comb begin
 
         if(rst == 1)begin
-            x_out_nxt = 0;
-            y_out_nxt = 0;
+            x_out_nxt = FRAME_MIN;
+            y_out_nxt = FRAME_MIN;
 
         end else if (enable) begin
 
             // Y COUNTING UP; X CONSTANT FRAME_MIN
-            if ( (y_out != FRAME_MAX) || (x_out == FRAME_MIN ) ) begin
+            if ( (y_out != FRAME_MAX) && (x_out == FRAME_MIN ) ) begin
 
                 x_out_nxt = FRAME_MIN;
                 y_out_nxt = y_out + 1;
 
             // Y CONSTANT FRAME_MAX; X COUNTING UP
-            end else if( (y_out == FRAME_MAX) || (x_out != FRAME_MAX ) ) begin
+            end else if( (y_out == FRAME_MAX) && (x_out != FRAME_MAX ) ) begin
 
                 x_out_nxt = x_out + 1;
                 y_out_nxt = FRAME_MAX;
 
             // Y COUNTING DOWN; X CONSTANT FRAME_MAX
-            end else if( (y_out != FRAME_MIN) || (x_out == FRAME_MAX ) ) begin
+            end else if( (y_out != FRAME_MIN) && (x_out == FRAME_MAX ) ) begin
 
                 x_out_nxt = FRAME_MAX;
                 y_out_nxt = y_out - 1;
@@ -43,7 +43,7 @@ module draw_frame #(
 
 
             // Y CONSTANT FRAME_MIN; X COUNTING DOWN
-            end else if( (y_out == FRAME_MIN) || (x_out != FRAME_MIN ) ) begin
+            end else if( (y_out == FRAME_MIN) && (x_out != FRAME_MIN ) ) begin
 
                 x_out_nxt = x_out - 1;
                 y_out_nxt = FRAME_MIN;
