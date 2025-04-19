@@ -1,6 +1,6 @@
 
 module counter #(
-	parameter int MAXCOUNT = 256,
+	parameter int MAXCOUNT = 255,
 	parameter int COUNT_WIDTH = 8
 	)(
 	input logic clk,
@@ -17,7 +17,6 @@ module counter #(
 
 
 	logic [COUNT_WIDTH-1:0] count_nxt;
-	logic carryout_nxt;
 
 	always_comb begin
 
@@ -33,7 +32,7 @@ module counter #(
             if (countdown) begin
                 //      COUNTING DOWN
                 if (count_out == 0) begin //zeroing after overflow
-                    count_nxt = 0;
+                    count_nxt = MAXCOUNT;
                 end else begin      //normal operation
                     count_nxt = count_out - 1;
                 end
@@ -41,7 +40,7 @@ module counter #(
             end else begin
                 //      COUNTING UP
                 if (count_out == (MAXCOUNT)) begin //zeroing after overflow
-                    count_nxt = load_number;
+                    count_nxt = 255;
                 end else begin      //normal operation
                     count_nxt = count_out + 1;
                 end

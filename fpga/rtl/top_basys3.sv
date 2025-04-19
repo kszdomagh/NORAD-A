@@ -137,18 +137,18 @@ module top_basys3 (
     wire [7:0] xdac_out_wire;
     wire [7:0] ydac_out_wire;
 
-    dac x_dac (
+    xdac x_dac (
         .dac_in(x_ch),
         .dac_out(xdac_out_wire)
     );
 
-    dac y_dac (
+    ydac y_dac (
         .dac_in(y_ch),
         .dac_out(ydac_out_wire)
     );
 
 
     assign JB  = xdac_out_wire;
-    assign JC  = xdac_out_wire;
+    assign JC  = ydac_out_wire;
 
 endmodule

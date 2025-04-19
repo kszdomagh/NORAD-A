@@ -33,7 +33,8 @@ set xdc_files {
 set sv_files {
     ../rtl/vector_pkg.sv
     ../rtl/top_vector_display.sv
-    ../rtl/dac.sv
+    ../rtl/xdac.sv
+    ../rtl/ydac.sv
     ../rtl/counter.sv
     ../rtl/clk_div.sv
     rtl/top_basys3.sv

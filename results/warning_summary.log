@@ -1,0 +1,10 @@
+Warnings, critical warnings and errors from synthesis and implementation
+
+Created: 2025-04-19 14:12:41
+
+----SYNTHESIS----
+WARNING: [Synth 8-7129] Port enable in module top_vector_display is either unconnected or has no load
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+
+----IMPLEMENTATION----
+CLEAR :)
