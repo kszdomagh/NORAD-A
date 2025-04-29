@@ -1,10 +1,11 @@
 Warnings, critical warnings and errors from synthesis and implementation
 
-Created: 2025-04-20 01:13:55
+Created: 2025-04-29 13:34:06
 
 ----SYNTHESIS----
-WARNING: [Synth 8-7129] Port enable in module top_vector_display is either unconnected or has no load
-WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+ERROR: [Synth 8-439] module 'top_rtl' not found [fpga/rtl/top_basys3.sv:126]
+ERROR: [Synth 8-6156] failed synthesizing module 'top_basys3' [fpga/rtl/top_basys3.sv:15]
+ERROR: [Common 17-69] Command failed: Synthesis failed - please see the console or run log file for details
 
 ----IMPLEMENTATION----
-CLEAR :)
+No implementation log file found!
