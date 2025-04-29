@@ -1,26 +1,24 @@
 module draw_frame #(
-	parameter int OUT_WIDTH = 8,
+    parameter int OUT_WIDTH = 8,
     parameter int FRAME_MIN = 0,
     parameter int FRAME_MAX = 255
-	)(
-	input logic clk,
-	input logic rst,
-	input logic enable,
+    )(
+    input logic clk,
+    input logic rst,
+    input logic enable,
 
     output logic [OUT_WIDTH-1:0] x_out,
-	output logic [OUT_WIDTH-1:0] y_out
+    output logic [OUT_WIDTH-1:0] y_out
 );
 
     logic [OUT_WIDTH-1:0] x_out_nxt;
     logic [OUT_WIDTH-1:0] y_out_nxt;
 
-	always_comb begin
 
-        if(rst == 1)begin
-            x_out_nxt = FRAME_MIN;
-            y_out_nxt = FRAME_MIN;
 
-        end else if (enable) begin
+    always_comb begin
+
+        if (enable) begin
 
             // Y COUNTING UP; X CONSTANT FRAME_MIN
             if ( (y_out != FRAME_MAX) && (x_out == FRAME_MIN ) ) begin
@@ -58,18 +56,29 @@ module draw_frame #(
             end
 
         //IF NOT ENABLED STAY IN PLACE
-		end else begin
+        end else begin
             x_out_nxt = x_out;
             y_out_nxt = y_out;
-		end
-	
-	end
+        end
+
+    end
 
 
 
-	always_ff@(posedge clk) begin
-		x_out <= x_out_nxt;
-		y_out <= y_out_nxt;
-	end
+    always_ff@(posedge clk) begin
+        if(rst == 1)begin
+
+            x_out <= FRAME_MIN;
+            y_out <= FRAME_MIN;
+
+        end else begin
+
+            x_out <= x_out_nxt;
+            y_out <= y_out_nxt;
+
+        end
+
+    end
+
 endmodule
 

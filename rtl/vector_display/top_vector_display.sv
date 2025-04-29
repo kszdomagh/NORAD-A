@@ -1,4 +1,9 @@
-module top_vector_display #(parameter int OUT_WIDTH)(
+module top_vector_display #(
+    
+    parameter int OUT_WIDTH = 8,
+    parameter int CLK_DIV_VALUE = 100
+    
+    )(
 
     input logic clk,
     input logic rst,
@@ -6,8 +11,6 @@ module top_vector_display #(parameter int OUT_WIDTH)(
 
     output logic [OUT_WIDTH-1:0] x_ch,
     output logic [OUT_WIDTH-1:0] y_ch
-
-
 
 );
 
@@ -20,7 +23,7 @@ module top_vector_display #(parameter int OUT_WIDTH)(
     wire clk_div_val;
 
     clk_div #(
-        .DIVIDER(100)
+        .DIVIDER(CLK_DIV_VALUE)
     ) x_clk_div (
         .clk_in(clk),
         .rst(rst),
@@ -34,7 +37,7 @@ module top_vector_display #(parameter int OUT_WIDTH)(
         .FRAME_MAX(VECTOR_MAX) 
     ) u_draw_frame (
         .clk(clk_div_val),
-        .enable(1),
+        .enable(enable),
         .rst(rst),
         .x_out(x_ch),
         .y_out(y_ch)

@@ -129,7 +129,7 @@ module top_basys3 (
         .rst(btnC),
 
 
-        .xch( {JC[3], JC[2], JC[1], JC[0], JC[7], JC[6], JC[5], JC[4]} ),
+        .xch( {JB[4], JB[5], JB[6], JB[7], JB[0], JB[1], JB[2], JB[3]} ),
         .ych( {JC[0], JC[1], JC[2], JC[3], JC[4], JC[5], JC[6], JC[7]} )
     );
 

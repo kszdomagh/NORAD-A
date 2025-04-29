@@ -1,38 +1,9 @@
 Warnings, critical warnings and errors from synthesis and implementation
 
-Created: 2025-04-29 14:10:59
+Created: 2025-04-29 18:20:02
 
 ----SYNTHESIS----
-WARNING: [Synth 8-3848] Net JB in module/entity top_basys3 does not have driver. [fpga/rtl/top_basys3.sv:22]
-WARNING: [Synth 8-7129] Port enable in module top_vector_display is either unconnected or has no load
-WARNING: [Synth 8-7129] Port JB[7] in module top_basys3 is either unconnected or has no load
-WARNING: [Synth 8-7129] Port JB[6] in module top_basys3 is either unconnected or has no load
-WARNING: [Synth 8-7129] Port JB[5] in module top_basys3 is either unconnected or has no load
-WARNING: [Synth 8-7129] Port JB[4] in module top_basys3 is either unconnected or has no load
-WARNING: [Synth 8-7129] Port JB[3] in module top_basys3 is either unconnected or has no load
-WARNING: [Synth 8-7129] Port JB[2] in module top_basys3 is either unconnected or has no load
-WARNING: [Synth 8-7129] Port JB[1] in module top_basys3 is either unconnected or has no load
-WARNING: [Synth 8-7129] Port JB[0] in module top_basys3 is either unconnected or has no load
 WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
-WARNING: [Synth 8-7129] Port JB[7] in module top_basys3 is either unconnected or has no load
-WARNING: [Synth 8-7129] Port JB[6] in module top_basys3 is either unconnected or has no load
-WARNING: [Synth 8-7129] Port JB[5] in module top_basys3 is either unconnected or has no load
-WARNING: [Synth 8-7129] Port JB[4] in module top_basys3 is either unconnected or has no load
-WARNING: [Synth 8-7129] Port JB[3] in module top_basys3 is either unconnected or has no load
-WARNING: [Synth 8-7129] Port JB[2] in module top_basys3 is either unconnected or has no load
-WARNING: [Synth 8-7129] Port JB[1] in module top_basys3 is either unconnected or has no load
-WARNING: [Synth 8-7129] Port JB[0] in module top_basys3 is either unconnected or has no load
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'u_top_rtl/u_vector_display/u_draw_frame/x_out_reg[7]/Q' [rtl/vector_display/draw_frame.sv:71]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [rtl/vector_display/draw_frame.sv:71]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [rtl/vector_display/draw_frame.sv:71]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin JC_OBUF[0] with 1st driver pin 'u_top_rtl/u_vector_display/u_draw_frame/x_out_reg[4]/Q' [rtl/vector_display/draw_frame.sv:71]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin JC_OBUF[0] with 2nd driver pin 'u_top_rtl/u_vector_display/u_draw_frame/y_out_reg[7]/Q' [rtl/vector_display/draw_frame.sv:72]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin JC_OBUF[7] with 1st driver pin 'u_top_rtl/u_vector_display/u_draw_frame/x_out_reg[3]/Q' [rtl/vector_display/draw_frame.sv:71]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin JC_OBUF[7] with 2nd driver pin 'u_top_rtl/u_vector_display/u_draw_frame/y_out_reg[0]/Q' [rtl/vector_display/draw_frame.sv:72]
-INFO: [runtcl-6] Synthesis results are not added to the cache due to CRITICAL_WARNING
 
 ----IMPLEMENTATION----
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_top_rtl/u_vector_display/u_draw_frame/UNCONN_OUT has multiple drivers: u_top_rtl/u_vector_display/u_draw_frame/y_out_reg[7]/Q, and u_top_rtl/u_vector_display/u_draw_frame/x_out_reg[4]/Q.
-ERROR: [DRC MDRV-1] Multiple Driver Nets: Net u_top_rtl/u_vector_display/u_draw_frame/UNCONN_OUT_0 has multiple drivers: u_top_rtl/u_vector_display/u_draw_frame/y_out_reg[0]/Q, and u_top_rtl/u_vector_display/u_draw_frame/x_out_reg[3]/Q.
-ERROR: [Vivado_Tcl 4-78] Error(s) found during DRC. Opt_design not run.
-ERROR: [Common 17-39] 'opt_design' failed due to earlier errors.
+CLEAR :)

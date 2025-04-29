@@ -1,24 +1,3 @@
-/**
- * San Jose State University
- * EE178 Lab #4
- * Author: prof. Eric Crabilla
- *
- * Modified by:
- * 2025  AGH University of Science and Technology
- * MTM UEC2
- * Piotr Kaczmarczyk
- *
- * Description:
- * Testbench for top_vga.
- * Thanks to the tiff_writer module, an expected image
- * produced by the project is exported to a tif file.
- * Since the vs signal is connected to the go input of
- * the tiff_writer, the first (top-left) pixel of the tif
- * will not correspond to the vga project (0,0) pixel.
- * The active image (not blanked space) in the tif file
- * will be shifted down by the number of lines equal to
- * the difference between VER_SYNC_START and VER_TOTAL_TIME.
- */
 
 module top_vector_display_tb;
 
@@ -29,16 +8,17 @@ module top_vector_display_tb;
      *  Local parameters
      */
 
-    localparam CLK_PERIOD = 25;     // 40 MHz
+    localparam CLK_PERIOD = 100; //10MHz
 
 
     /**
      * Local variables and signals
      */
 
-    logic clk, rst;
-    wire vs, hs;
-    wire [3:0] r, g, b;
+    logic clk, rst, enable;
+
+    logic [7:0] y_ch;
+    logic [7:0] x_ch;
 
 
     /**
@@ -55,14 +35,19 @@ module top_vector_display_tb;
      * Submodules instances
      */
 
-    top_vector_display dut (
+    top_vector_display #(
+        
+        .OUT_WIDTH(8),
+        .CLK_DIV_VALUE(1)
 
-        .clk(clk)
-        .rst(rst)
-        .enable(1),
+    ) dut (
 
-        .x_ch(),
-        .y_ch(),
+        .clk(clk),
+        .rst(rst),
+        .enable(enable),
+
+        .x_ch(x_ch),
+        .y_ch(y_ch)
 
     );
 
@@ -74,20 +59,27 @@ module top_vector_display_tb;
 
     initial begin
         rst = 1'b0;
+        enable = 1'b0;
+
         # 30 rst = 1'b1;
         # 30 rst = 1'b0;
+
+        #30 enable = 1'b1;
 
         $display("If simulation ends before the testbench");
         $display("completes, use the menu option to run all.");
         $display("Prepare to wait a long time...");
 
-        wait (vs == 1'b0);
-        @(negedge vs) $display("Info: negedge VS at %t",$time);
-        @(negedge vs) $display("Info: negedge VS at %t",$time);
+        #200
+
+        if( (x_ch == 'x) || (y_ch == 'x) ) begin
+            $display("x_ch or y_ch - high impendace for some time. Check waveforms.");
+            $finish;
+        end
 
         // End the simulation.
-        $display("Simulation is over, check the waveforms.");
-        $finish;
+        // $display("Simulation is over, check the waveforms.");
+        // $finish;
     end
 
 endmodule
