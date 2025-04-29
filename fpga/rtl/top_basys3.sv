@@ -121,36 +121,19 @@ module top_basys3 (
 
     import vector_pkg::*;
 
-    wire [7:0] x_ch;
-    wire [7:0] y_ch;
 
-    top_vector_display #(
-        .OUT_WIDTH(DAC_WIDTH)
-    ) u_vector_display (
-        .enable(1),
+
+
+    top_rtl u_top_rtl(
         .clk(pclk),
         .rst(btnC),
-        
-        .x_ch(x_ch),
-        .y_ch(y_ch)
+
+
+        .xch( {JC[3], JC[2], JC[1], JC[0], JC[7], JC[6], JC[5], JC[4]} ),
+        .ych( {JC[0], JC[1], JC[2], JC[3], JC[4], JC[5], JC[6], JC[7]} )
     );
 
 
-    wire [7:0] xdac_out_wire;
-    wire [7:0] ydac_out_wire;
 
-    xdac x_dac (
-        .dac_in(x_ch),
-        .dac_out(xdac_out_wire)
-    );
-
-    ydac y_dac (
-        .dac_in(y_ch),
-        .dac_out(ydac_out_wire)
-    );
-
-
-    assign JB  = xdac_out_wire;
-    assign JC  = ydac_out_wire;
 
 endmodule

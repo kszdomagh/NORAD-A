@@ -20,7 +20,7 @@ module top_vector_display #(parameter int OUT_WIDTH)(
     wire clk_div_val;
 
     clk_div #(
-        .DIVIDER(10)
+        .DIVIDER(100)
     ) x_clk_div (
         .clk_in(clk),
         .rst(rst),
