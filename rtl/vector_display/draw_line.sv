@@ -42,8 +42,6 @@ logic [OUT_WIDTH-1:0] x_line_nxt;
 logic [OUT_WIDTH-1:0] y_line_nxt;
 logic draw_done_nxt;
 
-
-
 logic signed [9:0] dx, dy, offset, e2;
 logic right, down;
 
@@ -53,7 +51,7 @@ enum logic [3:0] {
     DRAWING  = 4'b0010,
     DONE     = 4'b0100,
     POSITION = 4'b1000
- } state, state_nxt;
+} state, state_nxt;
 
 
 //  next state seq with reset
@@ -66,9 +64,7 @@ always_ff @(posedge clk) begin
         x_line <= x_line_nxt;
         y_line <= y_line_nxt;
 
-        
-
-
+        draw_done <= draw_done_nxt;
     end
 
 end
@@ -84,7 +80,9 @@ always_comb begin
             x_line_nxt = x_line;
             y_line_nxt = y_line;
 
-            if(draw) begin
+            if(pos) begin
+                state_nxt = POSITION;
+            end else if(draw) begin
                 dx = x_end - x_start;
                 right = (dx >= 0);
 
@@ -111,6 +109,7 @@ always_comb begin
         DRAWING: begin
             x_line_nxt = x_start;
             y_line_nxt = y_start;
+            draw_done_nxt = 1'b0;
 
 
             if ( (x_line == x_end) && (y_line ==y_end) ) begin
@@ -139,7 +138,7 @@ always_comb begin
                     end
                 end
 
-                state_nxt = DRAWING
+                state_nxt = DRAWING;
             end
 
         end
