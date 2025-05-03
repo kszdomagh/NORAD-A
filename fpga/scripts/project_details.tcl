@@ -46,7 +46,7 @@ set sv_files {
 
 # Specify Verilog design files location         -- EDIT
 # set verilog_files {
-#     path/to/file.v
+#    path/to/file.v
 # }
 
 # Specify VHDL design files location            -- EDIT

@@ -10,8 +10,8 @@
 
 
 sv work ../../rtl/vector_display/vector_pkg.sv \
-        ../../rtl/vector_display/draw_line.sv \
+        ../../rtl/vector_display/linedraw.v \
         ../../rtl/counter.sv \
         ../../rtl/clk_div.sv \
-        draw_line_tb.sv
+        linedraw_tb.sv
 
