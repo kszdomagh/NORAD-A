@@ -14,7 +14,7 @@ module linedraw_tb;
 
     // DUT instantiation
     linedraw dut (
-        .pclk(clk),
+        .clk(clk),
         .go(go),
         .busy(busy),
         .stax(stax),
@@ -70,7 +70,19 @@ module linedraw_tb;
         wait (!busy);
         #200;
 
-        // Test 3: Vertical line
+
+        // Test 3: Random Line
+        stax = 152;
+        stay = 46;
+        endx = 82;
+        endy = 43;
+        go = 1;
+        #CLK_PERIOD go = 0;
+
+        wait (!busy);
+        #200;
+
+        // Test 4: Vertical line
         stax = 100;
         stay = 30;
         endx = 100;

@@ -1,8 +1,11 @@
 Warnings, critical warnings and errors from synthesis and implementation
 
-Created: 2025-04-29 18:20:02
+Created: 2025-05-04 03:08:54
 
 ----SYNTHESIS----
+WARNING: [Synth 8-689] width (16) of port connection 'addr' does not match port width (4) of module 'uwu_rom' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/top_vector_display.sv:72]
+WARNING: [Synth 8-689] width (16) of port connection 'count_adr' does not match port width (18) of module 'ram_manage' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/top_vector_display.sv:83]
+WARNING: [Synth 8-7129] Port enable in module top_vector_display is either unconnected or has no load
 WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
 
 ----IMPLEMENTATION----

@@ -35,19 +35,24 @@ set sv_files {
     ../rtl/vector_display/vector_pkg.sv
     ../rtl/vector_display/top_vector_display.sv
     ../rtl/vector_display/draw_frame.sv
-    ../rtl/vector_display/xdac.sv
-    ../rtl/vector_display/ydac.sv
 
+    ../rtl/vector_display/draw_vector_master.sv
+    ../rtl/vector_display/ram_manage.sv
+    ../rtl/uwu_rom.sv
+
+
+    ../rtl/template_ram.sv
     ../rtl/top_rtl.sv
     ../rtl/counter.sv
     ../rtl/clk_div.sv
+    ../rtl/template_ram.sv
     rtl/top_basys3.sv
 }
 
 # Specify Verilog design files location         -- EDIT
-# set verilog_files {
-#    path/to/file.v
-# }
+set verilog_files {
+    ../rtl/vector_display/linedraw.v
+}
 
 # Specify VHDL design files location            -- EDIT
 # set vhdl_files {

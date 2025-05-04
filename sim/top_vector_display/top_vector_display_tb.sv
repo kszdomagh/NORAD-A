@@ -1,85 +1,130 @@
-
 module top_vector_display_tb;
 
-    timeunit 1ns;
-    timeprecision 1ps;
+    // Testbench signals
+    logic clk;
+    logic rst;
+    logic pos;
+    logic draw;
+    logic busy;
+    logic [7:0] i_x, i_y;
+    logic [7:0] o_start_x, o_start_y, o_end_x, o_end_y;
+    logic go;
+    
+    // Signals for linedraw
+    logic wr;
+    logic [7:0] xout, yout;
 
-    /**
-     *  Local parameters
-     */
+    // Data entries (x, y, draw, pos)
+    typedef struct {
+        logic [7:0] x;
+        logic [7:0] y;
+        logic draw;
+        logic pos;
+    } data_entry_t;
 
-    localparam CLK_PERIOD = 100; //10MHz
+    data_entry_t data_entries[15] = '{
+        '{174, 162, 1, 1},
+        '{161, 147, 1, 0},
+        '{148, 162, 1, 0},
+        '{92 , 148, 0, 1},
+        '{80 , 165, 1, 0},
+        '{105, 167, 1, 0},
+        '{210, 98 , 0, 1},
+        '{208, 65 , 1, 0},
+        '{189, 49 , 1, 0},
+        '{151, 49 , 1, 0},
+        '{133, 68 , 1, 0},
+        '{118, 50 , 1, 0},
+        '{79 , 51 , 1, 0},
+        '{54 , 65 , 1, 0},
+        '{54 , 105, 1, 0}
+    };
 
-
-    /**
-     * Local variables and signals
-     */
-
-    logic clk, rst, enable;
-
-    logic [7:0] y_ch;
-    logic [7:0] x_ch;
-
-
-    /**
-     * Clock generation
-     */
-
-    initial begin
-        clk = 1'b0;
-        forever #(CLK_PERIOD/2) clk = ~clk;
-    end
-
-
-    /**
-     * Submodules instances
-     */
-
-    top_vector_display #(
-        
-        .OUT_WIDTH(8),
-        .CLK_DIV_VALUE(1)
-
-    ) dut (
-
+    // Instantiate the draw_vector_master module
+    draw_vector_master #(
+        .OUT_WIDTH(8)
+    ) u_draw_vector_master (
         .clk(clk),
         .rst(rst),
-        .enable(enable),
-
-        .x_ch(x_ch),
-        .y_ch(y_ch)
-
+        .pos(pos),
+        .draw(draw),
+        .busy(busy),
+        .i_x(i_x),
+        .i_y(i_y),
+        .go(go), // Controlled by testbench
+        .o_start_x(o_start_x),
+        .o_start_y(o_start_y),
+        .o_end_x(o_end_x),
+        .o_end_y(o_end_y)
+    );
+    
+    // Instantiate the linedraw module
+    linedraw u_linedraw (
+        .clk(clk),
+        .go(go), // Controlled by testbench
+        .busy(busy),
+        .stax(o_start_x),
+        .stay(o_start_y),
+        .endx(o_end_x),
+        .endy(o_end_y),
+        .wr(wr),
+        .xout(xout),
+        .yout(yout)
     );
 
+    // Clock generation
+    always #5 clk = ~clk; // 100MHz clock
 
-
-    /**
-     * Main test
-     */
-
+    // Stimulus block
     initial begin
-        rst = 1'b0;
-        enable = 1'b0;
+        // Initialize signals
+        clk = 0;
+        rst = 0;
+        pos = 0;
+        draw = 0;
+        i_x = 8'd50;
+        i_y = 8'd50;
+        go = 0; // Ensure go is initially off
+        
+        // Reset the design
+        rst = 1;
+        #10 rst = 0;
+        
+        // Iterate over data_entries
+        foreach (data_entries[i]) begin
+            // Wait until busy is low
+            wait(busy == 0); // Wait for busy to be low
+            
+            // Set position and draw based on data
+            pos = data_entries[i].pos;
+            draw = data_entries[i].draw;
+            i_x = data_entries[i].x;
+            i_y = data_entries[i].y;
 
-        # 30 rst = 1'b1;
-        # 30 rst = 1'b0;
+            // Assert go signal to start drawing
+            go = 1;
+            #10; // Wait for one clock cycle
+            go = 0; // Deassert go signal
 
-        #30 enable = 1'b1;
+            // Assert pos and draw, wait for the next cycle
+            #10; // Apply position signal
+            pos = 0; // Deassert pos
 
-        $display("If simulation ends before the testbench");
-        $display("completes, use the menu option to run all.");
-        $display("Prepare to wait a long time...");
+            #20; // Apply draw signal
+            draw = 0; // Deassert draw
 
-        #200
-
-        if( (x_ch == 'x) || (y_ch == 'x) ) begin
-            $display("x_ch or y_ch - high impendace for some time. Check waveforms.");
-            $finish;
+            // Wait until busy is low again before proceeding
+            wait(busy == 0); // Ensure we don't apply new data until the system is idle
         end
+        
+        // Finish the simulation
+        $finish;
+    end
 
-        // End the simulation.
-        // $display("Simulation is over, check the waveforms.");
-        // $finish;
+    // Monitor outputs
+    initial begin
+        $monitor("At time %t: pos=%b, draw=%b, xout=%d, yout=%d, o_start_x=%d, o_start_y=%d, o_end_x=%d, o_end_y=%d", 
+                 $time, pos, draw, xout, yout, o_start_x, o_start_y, o_end_x, o_end_y);
     end
 
 endmodule

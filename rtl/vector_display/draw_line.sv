@@ -130,7 +130,7 @@ always_comb begin
                 offset_nxt = offset + dy;
                 x_line_nxt = right ? x_line + 1 : x_line - 1;
             end
- 
+
             if ((e2_tmp <<< 1) < dx) begin
                 offset_nxt = offset_nxt + dx;
                 y_line_nxt = down ? y_line + 1 : y_line - 1;

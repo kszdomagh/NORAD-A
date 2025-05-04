@@ -12,8 +12,8 @@
 
 module linedraw (
 
-  //  
-  input wire pclk,
+  //  control signals
+  input wire clk,
   input wire go,
   output wire busy,
 
@@ -43,7 +43,7 @@ wire signed [8:0] err_next, err1, err2, e2;
 wire  in_loop, right, down, complete, e2_lt_dx, e2_gt_dy;
 
 //FSM
-always @ (posedge pclk)
+always @ (posedge clk)
 begin
   case (state)
     IDLE : if (go)
@@ -103,7 +103,7 @@ assign ya = down ? (y + 1) : (y - 1);
 
 assign complete = ( (x == x1) && (y == y1) );
 
-always @(posedge pclk)
+always @(posedge clk)
  begin
     err <= err_next;
     x <= next_x;
