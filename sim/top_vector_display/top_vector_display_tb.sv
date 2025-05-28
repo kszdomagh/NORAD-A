@@ -51,7 +51,7 @@ module top_vector_display_tb;
         .busy(busy),
         .i_x(i_x),
         .i_y(i_y),
-        .go(go), // Controlled by testbench
+        // .go(go), // Controlled by testbench
         .o_start_x(o_start_x),
         .o_start_y(o_start_y),
         .o_end_x(o_end_x),
@@ -61,7 +61,7 @@ module top_vector_display_tb;
     // Instantiate the linedraw module
     linedraw u_linedraw (
         .clk(clk),
-        .go(go), // Controlled by testbench
+        // .go(go), 
         .busy(busy),
         .stax(o_start_x),
         .stay(o_start_y),

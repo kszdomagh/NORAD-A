@@ -7,24 +7,24 @@ module draw_vector_master #(
     // control signals
     input logic clk,
     input logic rst,
-
-    input logic pos,
-    input logic draw,
-
     input logic busy,
 
+    // memory control outputs
+    output logic zero,
+    output logic inc,
 
-    // inputs
+
+    // vector inputs
+    input logic pos,
+    input logic draw,
     input logic [OUT_WIDTH-1:0] i_x,
     input logic [OUT_WIDTH-1:0] i_y,
 
 
     //  outputs
     output logic go,
-
     output logic [OUT_WIDTH-1:0] o_start_x,
     output logic [OUT_WIDTH-1:0] o_start_y,
-
     output logic [OUT_WIDTH-1:0] o_end_x,
     output logic [OUT_WIDTH-1:0] o_end_y
 
@@ -42,11 +42,17 @@ module draw_vector_master #(
 
     logic go_nxt;
 
+    logic inc_nxt;
+    logic zero_nxt;
+
 
     always_comb begin
 
         //  IF THE LINEDRAW IS NOT DRAWING
         if(~busy) begin
+
+            inc_nxt = 
+
 
             //  POSITION CURSOR IN THE COORDINATES
             if (pos) begin
@@ -105,6 +111,8 @@ module draw_vector_master #(
             y_prev <= FRAME_MIN;
 
             go <= go_nxt;
+            zero <= 1;
+            inc <= 0;
 
 
         end else begin
@@ -118,6 +126,9 @@ module draw_vector_master #(
             y_prev <= i_y;
 
             go <= go_nxt;
+
+            inc <= inc_nxt;
+            zero <= zero_nxt;
 
 
         end

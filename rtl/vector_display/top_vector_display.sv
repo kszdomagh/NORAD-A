@@ -1,13 +1,20 @@
 module top_vector_display #(
     
     parameter int OUT_WIDTH = 8,
-    parameter int CLK_DIV_VALUE = 100
+    parameter int CLK_DIV_VALUE = 100,
+    parameter int ADDRESSWIDTH = 8,
+    parameter int DATAWIDTH = 18
     
     )(
 
+    //control signals
     input logic clk,
     input logic rst,
     input logic enable,
+
+    //data signals
+    output logic [ADDRESSWIDTH-1:0] addr,
+    input logic [DATAWIDTH-1:0] data_in,
 
     output logic [OUT_WIDTH-1:0] x_ch,
     output logic [OUT_WIDTH-1:0] y_ch
@@ -32,56 +39,15 @@ module top_vector_display #(
 
 
 
-    logic write_en_ram1;
-
-    logic [15:0] rw_adress_ram1;
-    logic [17:0] data_in_ram1;
-
-    logic [15:0] r_adress_ram1;
-    logic [17:0] r_data_out_ram1;
-
-
-    /* 
-
-    template_ram #(
-        .ADDRESSWIDTH(16),
-        .BITWIDTH(18),     // x + y + draw + pos = 8 + 8 + 1 + 1 = 18
-        .DEPTH(32)
-    ) vector_ram1 (
-        .clk(clk),
-
-        .we(write_en_ram1),     //  write enable
-        .a(rw_adress_ram1),     //  read n write adress / in
-        .din(data_in_ram1),     //  read n write data / in
-
-        .dpra(r_adress_ram1),   //  read only adress / in
-        .dpo(r_data_out_ram1)   //  read only data / out
-
-        // ram data is      {x, y, draw, pos}
-
-
-    );
-
-    */
-
-    uwu_rom #(
-        .ADDRESSWIDTH(4)
-    ) u_uwu_rom (
-
-
-        .addr(r_adress_ram1),
-        .data_out(r_data_out_ram1)
-
-    );
-
     logic draw_busy;
 
 
-    ram_manage #(
+    memory_manage #(
         .ADDRESSWIDTH(18)
-    ) u_ram_manage (
-        .count_adr(r_adress_ram1),
+    ) u_memory_manage (
+        .count_adr(addr),
         .inc(draw_busy),
+        .zero(zero),
         .clk(clk_div_val)
     );
 
@@ -104,10 +70,10 @@ module top_vector_display #(
         .busy(draw_busy),
     
         // input signals
-        .pos(r_data_out_ram1 [0]),
-        .draw(r_data_out_ram1 [1]),
-        .i_x(r_data_out_ram1 [9:2]),
-        .i_y(r_data_out_ram1 [17:10]),
+        .pos(data_in [0]),
+        .draw(data_in [1]),
+        .i_x(data_in [9:2]),
+        .i_y(data_in [17:10]),
     
         //  output signals
         .go(go),
@@ -117,7 +83,6 @@ module top_vector_display #(
         .o_end_y(endy)
     );
 
-    logic write;
 
     linedraw u_linedraw (
 
@@ -131,16 +96,9 @@ module top_vector_display #(
         .endx(endx),
         .endy(endy),
 
-        .wr(write),
-
         .xout(x_ch),
         .yout(y_ch)
 
     );
-
-
-
-
-
 
 endmodule
