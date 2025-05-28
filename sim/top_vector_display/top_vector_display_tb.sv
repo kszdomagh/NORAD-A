@@ -41,22 +41,27 @@ module top_vector_display_tb;
     };
 
     // Instantiate the draw_vector_master module
-    draw_vector_master #(
-        .OUT_WIDTH(8)
-    ) u_draw_vector_master (
+    memory_draw_vector_master #(
+        .OUT_WIDTH(8),
+        .ADDRESSWIDTH(10),
+        .FRAME_MIN(0),
+        .FRAME_MAX(255)
+    ) u_memory_draw_vector_master (
         .clk(clk),
-        .rst(rst),
+        .rst_n(rst),
         .pos(pos),
         .draw(draw),
         .busy(busy),
         .i_x(i_x),
         .i_y(i_y),
-        .go(go), // Controlled by testbench
+        .go(go_un), // Controlled by testbench
         .o_start_x(o_start_x),
         .o_start_y(o_start_y),
         .o_end_x(o_end_x),
         .o_end_y(o_end_y)
     );
+
+    wire go_uc;
     
     // Instantiate the linedraw module
     linedraw u_linedraw (
@@ -91,9 +96,10 @@ module top_vector_display_tb;
         #10 rst = 0;
         
         // Iterate over data_entries
+        go = 1;
+        
         foreach (data_entries[i]) begin
-            // Wait until busy is low
-            wait(busy == 0); // Wait for busy to be low
+            wait(busy == 0);
             
             // Set position and draw based on data
             pos = data_entries[i].pos;
@@ -101,7 +107,7 @@ module top_vector_display_tb;
             i_x = data_entries[i].x;
             i_y = data_entries[i].y;
 
-            // Assert go signal to start drawing
+            // Assert go signal to start draw
             go = 1;
             #10; // Wait for one clock cycle
             go = 0; // Deassert go signal
@@ -113,8 +119,7 @@ module top_vector_display_tb;
             #20; // Apply draw signal
             draw = 0; // Deassert draw
 
-            // Wait until busy is low again before proceeding
-            wait(busy == 0); // Ensure we don't apply new data until the system is idle
+            wait(busy == 0); 
         end
         
         // Finish the simulation

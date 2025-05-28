@@ -36,7 +36,7 @@ set sv_files {
     ../rtl/vector_display/top_vector_display.sv
     ../rtl/vector_display/draw_frame.sv
 
-    ../rtl/vector_display/draw_vector_master.sv
+    ../rtl/vector_display/memory_draw_vector_master.sv
     ../rtl/vector_display/ram_manage.sv
     ../rtl/uwu_rom.sv
 

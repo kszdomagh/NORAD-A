@@ -1,8 +1,9 @@
 module uwu_rom #(
-    parameter int ADDRESSWIDTH = 4  // 4 bits => 16 entries
+    parameter int ADDRESSWIDTH = 4,  // 4 bits => 16 entries
+    parameter int DATAWIDTH = 18
 )(
     input logic [ADDRESSWIDTH-1:0] addr,
-    output logic [17:0] data_out  // 8+8+1+1 = 18 bits
+    output logic [DATAWIDTH-1:0] data_out  // 8+8+1+1 = 18 bits
 );
 
     always_comb begin

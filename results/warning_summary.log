@@ -1,10 +1,14 @@
 Warnings, critical warnings and errors from synthesis and implementation
 
-Created: 2025-05-04 03:08:54
+Created: 2025-05-28 23:50:59
 
 ----SYNTHESIS----
-WARNING: [Synth 8-689] width (16) of port connection 'addr' does not match port width (4) of module 'uwu_rom' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/top_vector_display.sv:72]
-WARNING: [Synth 8-689] width (16) of port connection 'count_adr' does not match port width (18) of module 'ram_manage' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/top_vector_display.sv:83]
+WARNING: [Synth 8-689] width (16) of port connection 'addr' does not match port width (4) of module 'uwu_rom' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/top_vector_display.sv:74]
+WARNING: [Synth 8-689] width (16) of port connection 'count_adr' does not match port width (18) of module 'memory_draw_vector_master' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/top_vector_display.sv:115]
+WARNING: [Synth 8-7071] port 'count_adrr' of module 'top_vector_display' is unconnected for instance 'u_vector_display' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/top_rtl.sv:20]
+WARNING: [Synth 8-7023] instance 'u_vector_display' of module 'top_vector_display' has 6 connections declared, but only 5 given [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/top_rtl.sv:20]
+WARNING: [Synth 8-3848] Net count_adrr in module/entity top_vector_display does not have driver. [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/top_vector_display.sv:15]
+WARNING: [Synth 8-7129] Port count_adrr in module top_vector_display is either unconnected or has no load
 WARNING: [Synth 8-7129] Port enable in module top_vector_display is either unconnected or has no load
 WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
 
