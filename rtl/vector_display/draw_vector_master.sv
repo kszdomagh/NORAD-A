@@ -51,7 +51,7 @@ module draw_vector_master #(
         //  IF THE LINEDRAW IS NOT DRAWING
         if(~busy) begin
 
-            inc_nxt = 
+            inc_nxt = inc + 1;
 
 
             //  POSITION CURSOR IN THE COORDINATES
