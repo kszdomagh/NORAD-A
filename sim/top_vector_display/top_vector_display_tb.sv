@@ -4,11 +4,12 @@ module top_vector_display_tb;
     logic clk;
     logic rst;
     logic pos;
-    logic draw;
+    logic line;
     logic busy;
     logic [7:0] i_x, i_y;
     logic [7:0] o_start_x, o_start_y, o_end_x, o_end_y;
     logic go;
+    logic inc;
     
     // Signals for linedraw
     logic wr;
@@ -18,12 +19,12 @@ module top_vector_display_tb;
     typedef struct {
         logic [7:0] x;
         logic [7:0] y;
-        logic draw;
+        logic line;
         logic pos;
     } data_entry_t;
 
     data_entry_t data_entries[15] = '{
-        '{174, 162, 1, 1},
+        '{174, 162, 1, 0},
         '{161, 147, 1, 0},
         '{148, 162, 1, 0},
         '{92 , 148, 0, 1},
@@ -47,21 +48,22 @@ module top_vector_display_tb;
         .clk(clk),
         .rst(rst),
         .pos(pos),
-        .draw(draw),
+        .line(line),
         .busy(busy),
         .i_x(i_x),
         .i_y(i_y),
-        // .go(go), // Controlled by testbench
+        .go(go), // Controlled by testbench
         .o_start_x(o_start_x),
         .o_start_y(o_start_y),
         .o_end_x(o_end_x),
-        .o_end_y(o_end_y)
+        .o_end_y(o_end_y),
+        .inc(inc)
     );
     
     // Instantiate the linedraw module
     linedraw u_linedraw (
         .clk(clk),
-        // .go(go), 
+        .go(go), 
         .busy(busy),
         .stax(o_start_x),
         .stay(o_start_y),
@@ -81,50 +83,34 @@ module top_vector_display_tb;
         clk = 0;
         rst = 0;
         pos = 0;
-        draw = 0;
-        i_x = 8'd50;
-        i_y = 8'd50;
-        go = 0; // Ensure go is initially off
-        
+        line = 0;
+
         // Reset the design
         rst = 1;
         #10 rst = 0;
-        
-        // Iterate over data_entries
+
         foreach (data_entries[i]) begin
-            // Wait until busy is low
-            wait(busy == 0); // Wait for busy to be low
+
+            // wait for con dutions to write memory
+            wait(busy == 0);
+            wait(inc == 1);
             
-            // Set position and draw based on data
+            // set memory
             pos = data_entries[i].pos;
-            draw = data_entries[i].draw;
+            line = data_entries[i].line;
             i_x = data_entries[i].x;
             i_y = data_entries[i].y;
-
-            // Assert go signal to start drawing
-            go = 1;
-            #10; // Wait for one clock cycle
-            go = 0; // Deassert go signal
-
-            // Assert pos and draw, wait for the next cycle
-            #10; // Apply position signal
-            pos = 0; // Deassert pos
-
-            #20; // Apply draw signal
-            draw = 0; // Deassert draw
-
-            // Wait until busy is low again before proceeding
-            wait(busy == 0); // Ensure we don't apply new data until the system is idle
+            
+            // wait for operation
+            wait(busy == 1); // Wait for the system to be idle
+            wait(busy == 0); // Ensure the system is idle
         end
-        
-        // Finish the simulation
-        $finish;
     end
 
     // Monitor outputs
     initial begin
-        $monitor("At time %t: pos=%b, draw=%b, xout=%d, yout=%d, o_start_x=%d, o_start_y=%d, o_end_x=%d, o_end_y=%d", 
-                 $time, pos, draw, xout, yout, o_start_x, o_start_y, o_end_x, o_end_y);
+        $monitor("At time %t: pos=%b, line=%b, xout=%d, yout=%d, o_start_x=%d, o_start_y=%d, o_end_x=%d, o_end_y=%d", 
+                 $time, pos, line, xout, yout, o_start_x, o_start_y, o_end_x, o_end_y);
     end
 
 endmodule

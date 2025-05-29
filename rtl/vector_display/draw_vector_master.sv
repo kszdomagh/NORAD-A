@@ -16,7 +16,7 @@ module draw_vector_master #(
 
     // vector inputs
     input logic pos,
-    input logic draw,
+    input logic line,
     input logic [OUT_WIDTH-1:0] i_x,
     input logic [OUT_WIDTH-1:0] i_y,
 
@@ -40,6 +40,9 @@ module draw_vector_master #(
     logic [OUT_WIDTH-1:0] x_prev;
     logic [OUT_WIDTH-1:0] y_prev;
 
+    logic [OUT_WIDTH-1:0] x_prev_nxt;
+    logic [OUT_WIDTH-1:0] y_prev_nxt;
+
     logic go_nxt;
 
     logic inc_nxt;
@@ -51,7 +54,7 @@ module draw_vector_master #(
         //  IF THE LINEDRAW IS NOT DRAWING
         if(~busy) begin
 
-            inc_nxt = 
+            inc_nxt = inc + 1;
 
 
             //  POSITION CURSOR IN THE COORDINATES
@@ -63,9 +66,12 @@ module draw_vector_master #(
                 o_end_x_nxt = i_x;
                 o_end_y_nxt = i_y;
 
+                x_prev_nxt = i_x;
+                y_prev_nxt = i_y;
+
 
             //  DRAW A LINE BETWEEN COORDINATES
-            end else if (draw) begin 
+            end else if (line) begin 
 
                 go_nxt = 1'b1;
                 o_start_x_nxt = x_prev;
@@ -87,11 +93,15 @@ module draw_vector_master #(
         end else begin
 
             go_nxt = 1'b0;
+            inc_nxt = inc;
 
             o_start_x_nxt = o_start_x;
             o_start_y_nxt = o_start_y;
             o_end_x_nxt = o_end_x;
             o_end_y_nxt = o_end_y;
+
+            x_prev_nxt = x_prev;
+            y_prev_nxt = y_prev;
 
         end
 
@@ -122,8 +132,8 @@ module draw_vector_master #(
             o_end_x <= o_end_x_nxt;
             o_end_y <= o_end_y_nxt;
 
-            x_prev <= i_x;
-            y_prev <= i_y;
+            x_prev <= x_prev_nxt;
+            y_prev <= y_prev_nxt;
 
             go <= go_nxt;
 
