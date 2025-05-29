@@ -51,11 +51,23 @@ module draw_vector_master #(
 
     always_comb begin
 
+        // Default assignments to avoid 'X' states on signals
+        go_nxt         = 1'b0;
+        inc_nxt        = inc;
+        zero_nxt       = zero;
+
+        o_start_x_nxt  = o_start_x;
+        o_start_y_nxt  = o_start_y;
+        o_end_x_nxt    = o_end_x;
+        o_end_y_nxt    = o_end_y;
+
+        x_prev_nxt     = x_prev;
+        y_prev_nxt     = y_prev;
+
         //  IF THE LINEDRAW IS NOT DRAWING
         if(~busy) begin
 
             inc_nxt = inc + 1;
-
 
             //  POSITION CURSOR IN THE COORDINATES
             if (pos) begin
@@ -79,14 +91,11 @@ module draw_vector_master #(
                 o_end_x_nxt = i_x;
                 o_end_y_nxt = i_y;
 
+                x_prev_nxt = i_x;
+                y_prev_nxt = i_y;
+
             end else begin
-
-                go_nxt = 1'b1;
-                o_start_x_nxt = o_start_x;
-                o_start_y_nxt = o_start_y;
-                o_end_x_nxt = o_end_x;
-                o_end_y_nxt = o_end_y;
-
+                // (already assigned above as defaults)
             end
 
         //  IF IT IS BUSY THEN STAY IN PLACE
@@ -120,10 +129,9 @@ module draw_vector_master #(
             x_prev <= FRAME_MIN;
             y_prev <= FRAME_MIN;
 
-            go <= go_nxt;
+            go <= 1'b0;
             zero <= 1;
             inc <= 0;
-
 
         end else begin
 
@@ -140,10 +148,8 @@ module draw_vector_master #(
             inc <= inc_nxt;
             zero <= zero_nxt;
 
-
         end
 
     end
 
 endmodule
-

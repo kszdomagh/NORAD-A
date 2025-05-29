@@ -5,6 +5,10 @@
 // simulation time units are (1 ns here) and what
 // the simulator time step should be (1 ps here).
 
+// https://github.com/kavinr/Bresenham-Line-Drawing-Algorithm
+// Author: kavinr
+//  Modification: Krzysztof Domanski, AGH UST, MTM, 29th may 2025 
+
 `timescale 1 ns / 1 ps
 
 // Declare the module and its ports. This is
@@ -106,8 +110,19 @@ assign complete = ( (x == x1) && (y == y1) );
 always @(posedge clk)
  begin
     err <= err_next;
-    x <= next_x;
-    y <= next_y;
+
+    // modification for overshoot 
+    if(x == x1) begin
+      x <= x1;
+      y <= next_y;
+    end else if(y == y1) begin
+      x <= next_x;
+      y <= y1;
+    end  else begin
+      x <= next_x;
+      y <= next_y;
+    end
+
  end
 
 assign busy = in_loop;

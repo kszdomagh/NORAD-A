@@ -23,7 +23,7 @@ module top_vector_display_tb;
         logic pos;
     } data_entry_t;
 
-    data_entry_t data_entries[15] = '{
+    data_entry_t data_entries[16] = '{
         '{174, 162, 1, 0},
         '{161, 147, 1, 0},
         '{148, 162, 1, 0},
@@ -38,7 +38,8 @@ module top_vector_display_tb;
         '{118, 50 , 1, 0},
         '{79 , 51 , 1, 0},
         '{54 , 65 , 1, 0},
-        '{54 , 105, 1, 0}
+        '{54 , 105, 1, 0},
+        '{255 , 255, 0, 1}
     };
 
     // Instantiate the draw_vector_master module
