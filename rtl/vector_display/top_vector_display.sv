@@ -71,7 +71,7 @@ module top_vector_display #(
     
         // input signals
         .pos(data_in [0]),
-        .draw(data_in [1]),
+        .line(data_in [1]),
         .i_x(data_in [9:2]),
         .i_y(data_in [17:10]),
     
