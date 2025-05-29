@@ -86,6 +86,7 @@ module top_vector_display_tb;
         pos = 0;
         line = 0;
 
+
         // Reset the design
         rst = 1;
         #10 rst = 0;
@@ -94,7 +95,6 @@ module top_vector_display_tb;
 
             // wait for con dutions to write memory
             wait(busy == 0);
-            wait(inc == 1);
             
             // set memory
             pos = data_entries[i].pos;
