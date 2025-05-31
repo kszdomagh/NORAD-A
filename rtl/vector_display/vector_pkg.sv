@@ -23,17 +23,14 @@ package vector_pkg;
     localparam X_D7 = 8;
 
 
-
-
-
-
-
-
-
-
-
     //PARAMETERS FOR VECTOR DISPLAY 255x255
     localparam VECTOR_MAX = 255;
     localparam VECTOR_MIN = 0;
+
+
+
+    //PARAMETERS FOR DATA
+    parameter int ADDRESSWIDTH = 8;
+    parameter int DATAWIDTH = 18;
 
 endpackage

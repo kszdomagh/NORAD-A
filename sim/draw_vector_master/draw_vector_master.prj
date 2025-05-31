@@ -1,0 +1,25 @@
+# Copyright (C) 2025  AGH University of Science and Technology
+# MTM UEC2
+# Author: Piotr Kaczmarczyk
+#
+# Description:
+# List of files defining the modules used during the test.
+# Specify the file paths relative to THIS file.
+# For syntax detail see AMD Xilinx UG 900:
+# https://docs.xilinx.com/r/en-US/ug900-vivado-logic-simulation/Project-File-.prj-Syntax
+
+
+sv work ../../rtl/vector_display/vector_pkg.sv \
+        ../../rtl/vector_display/top_vector_display.sv \
+        ../../rtl/vector_display/draw_frame.sv \
+        ../../rtl/vector_display/draw_line.sv \
+        ../../rtl/vector_display/draw_vector_master.sv \
+        ../../rtl/vector_display/linedraw.v \
+        ../../rtl/vector_display/memory_manage.sv \
+        ../../rtl/vector_display/top_vector_display.sv \
+        ../../rtl/top_rtl.sv \
+        ../../rtl/uwu_rom.sv \
+        ../../rtl/counter.sv \
+        ../../rtl/clk_div.sv \
+        top_vector_display_tb.sv
+

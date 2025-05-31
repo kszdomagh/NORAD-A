@@ -113,11 +113,11 @@ always @(posedge clk)
 
     // modification for overshoot 
     if(x == x1) begin
-      x <= x1;
+      x <= endx;
       y <= next_y;
     end else if(y == y1) begin
       x <= next_x;
-      y <= y1;
+      y <= endy;
     end  else begin
       x <= next_x;
       y <= next_y;
