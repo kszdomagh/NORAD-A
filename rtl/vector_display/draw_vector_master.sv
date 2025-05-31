@@ -20,6 +20,9 @@ module draw_vector_master #(
     input logic [OUT_WIDTH-1:0] i_x,
     input logic [OUT_WIDTH-1:0] i_y,
 
+    input logic [OUT_WIDTH-1:0] current_x,
+    input logic [OUT_WIDTH-1:0] current_y,
+
 
     //  outputs
     output logic go,
@@ -48,16 +51,17 @@ module draw_vector_master #(
     logic inc_nxt;
     logic zero_nxt;
 
-    logic delay;
-    logic delay_nxt;
+    logic [2:0] delayinc;  // max val = 8
+    logic [2:0] delayinc_nxt;
+
 
 
 
     always_comb begin
 
-        // Default assignments to avoid 'X' states on signals
+        // Default assignments
         go_nxt         = 1'b0;
-        inc_nxt        = inc;
+        inc_nxt        = 1'b0;
         zero_nxt       = 1'b0;
 
         o_start_x_nxt  = o_start_x;
@@ -68,56 +72,63 @@ module draw_vector_master #(
         x_prev_nxt     = x_prev;
         y_prev_nxt     = y_prev;
 
+        delayinc_nxt = delayinc;
 
-            //  IF THE LINEDRAW IS NOT DRAWING
-            if(~busy) begin
 
-            if(delay == 0) begin
-                inc_nxt = inc + 1;
+            if(pos & line) begin //RESET LIKE BEHAV
+                go_nxt         = 1'b0;
+                inc_nxt        = 1'b0;
+                zero_nxt       = 1'b1;
+
+                o_start_x_nxt  = FRAME_MIN;
+                o_start_y_nxt  = FRAME_MIN;
+                o_end_x_nxt    = FRAME_MIN;
+                o_end_y_nxt    = FRAME_MIN;
+                x_prev_nxt     = FRAME_MIN;
+                y_prev_nxt     = FRAME_MIN;
             end
 
-            delay_nxt = 1;
 
 
 
-            if(delay) begin
-
-                delay_nxt = 0;
-
-                //  POSITION CURSOR IN THE COORDINATES
-                if (pos) begin
-
-                    go_nxt = 1'b1;
-                    o_start_x_nxt = i_x;
-                    o_start_y_nxt = i_y;
-                    o_end_x_nxt = i_x;
-                    o_end_y_nxt = i_y;
-
-                    x_prev_nxt = i_x;
-                    y_prev_nxt = i_y;
-
-
-                //  DRAW A LINE BETWEEN COORDINATES
-                end else if (line) begin 
-
-                    go_nxt = 1'b1;
-                    o_start_x_nxt = x_prev;
-                    o_start_y_nxt = y_prev;
-                    o_end_x_nxt = i_x;
-                    o_end_y_nxt = i_y;
-
-                    x_prev_nxt = i_x;
-                    y_prev_nxt = i_y;
-
-                end else begin
-                    // (already assigned above as defaults)
+            if( (current_x == i_x) & (current_y == i_y) ) begin
+                delayinc_nxt = delayinc + 1;
+                if(delayinc == 4) begin
+                    inc_nxt = 1;
+                    delayinc_nxt = 0;
                 end
+            end else if(~busy) begin //  IF THE LINEDRAW IS NOT DRAWING
 
+                    //  POSITION CURSOR IN THE COORDINATES
+                    if (pos) begin
+
+                        go_nxt = 1'b1;
+                        o_start_x_nxt = i_x;
+                        o_start_y_nxt = i_y;
+                        o_end_x_nxt = i_x;
+                        o_end_y_nxt = i_y;
+
+                        x_prev_nxt = i_x;
+                        y_prev_nxt = i_y;
+
+
+                        //  DRAW A LINE BETWEEN COORDINATES
+                    end else if (line) begin 
+
+                        go_nxt = 1'b1;
+                        o_start_x_nxt = x_prev;
+                        o_start_y_nxt = y_prev;
+                        o_end_x_nxt = i_x;
+                        o_end_y_nxt = i_y;
+
+                        x_prev_nxt = i_x;
+                        y_prev_nxt = i_y;
+
+                    end else begin
+                            
+                    end
             //  IF IT IS BUSY THEN STAY IN PLACE
             end else begin
-
-                go_nxt = 1'b0;
-                inc_nxt = inc;
 
                 o_start_x_nxt = o_start_x;
                 o_start_y_nxt = o_start_y;
@@ -128,15 +139,12 @@ module draw_vector_master #(
                 y_prev_nxt = y_prev;
 
             end
-
-            end
-
     end
 
 
 
     always_ff@(posedge clk) begin
-        if(rst == 1)begin
+        if( (rst == 1) )begin
 
             o_start_x <= FRAME_MIN;
             o_start_y <= FRAME_MIN;
@@ -149,7 +157,7 @@ module draw_vector_master #(
             go <= 1'b0;
             zero <= 1;
             inc <= 0;
-            delay <= 0;
+            delayinc <= 0;
 
         end else begin
 
@@ -166,7 +174,7 @@ module draw_vector_master #(
             inc <= inc_nxt;
             zero <= zero_nxt;
 
-            delay <= delay_nxt;
+            delayinc <= delayinc_nxt;
 
         end
 

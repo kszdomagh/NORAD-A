@@ -1,7 +1,7 @@
 module top_vector_display #(
     
     parameter int OUT_WIDTH = 8,
-    parameter int CLK_DIV_VALUE = 100,
+    parameter int CLK_DIV_VALUE = 1,
     parameter int ADDRESSWIDTH = 8,
     parameter int DATAWIDTH = 18
     
@@ -28,6 +28,7 @@ module top_vector_display #(
     import vector_pkg::*;
 
     wire clk_div_val;
+    logic inc;
 
     clk_div #(
         .DIVIDER(CLK_DIV_VALUE)
@@ -40,15 +41,17 @@ module top_vector_display #(
 
 
     logic draw_busy;
+    logic zero;
 
 
     memory_manage #(
         .ADDRESSWIDTH(18)
     ) u_memory_manage (
         .count_adr(addr),
-        .inc(draw_busy),
+        .inc(inc),
         .zero(zero),
-        .clk(clk_div_val)
+        .clk(clk),
+        .rst(rst)
     );
 
 
@@ -74,19 +77,23 @@ module top_vector_display #(
         .line(data_in [1]),
         .i_x(data_in [9:2]),
         .i_y(data_in [17:10]),
+        .current_x(x_ch),
+        .current_y(y_ch),
     
         //  output signals
         .go(go),
         .o_start_x(stax),
         .o_start_y(stay),
         .o_end_x(endx),
-        .o_end_y(endy)
+        .o_end_y(endy),
+        .zero(zero),
+        .inc(inc)
     );
 
 
     linedraw u_linedraw (
 
-        .clk(clk_div_val),
+        .clk(clk),
         .go(go),
         .busy(draw_busy),
 

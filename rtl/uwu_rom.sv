@@ -23,6 +23,7 @@ module uwu_rom #(
             4'd12: data_out = {8'd79 , 8'd51 , 1'b1, 1'b0};
             4'd13: data_out = {8'd54 , 8'd65 , 1'b1, 1'b0};
             4'd14: data_out = {8'd54 , 8'd105, 1'b1, 1'b0};
+            4'd15: data_out = {8'd255 , 8'd255, 1'b1, 1'b1};
             default: data_out = '0;
         endcase
     end
