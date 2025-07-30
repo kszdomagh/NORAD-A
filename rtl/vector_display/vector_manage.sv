@@ -27,7 +27,8 @@ module vector_manage #(
     output logic [OUT_WIDTH-1:0] stay,
     output logic [OUT_WIDTH-1:0] endy,
 
-    output logic [ADR_WIDTH-1:0] adr
+    output logic [ADR_WIDTH-1:0] adr,
+    output logic vector_reset
 
 );
 
@@ -48,6 +49,7 @@ module vector_manage #(
     typedef enum logic [5:0] {
         RESET      = 6'b000001,
         GETDATA    = 6'b000010,
+        CHECKDATA  = 6'b000011,     //fix this later
         SENDDATA   = 6'b000100,
         GODOWN     = 6'b001000,
         WAITBUSY   = 6'b010000,
@@ -83,7 +85,8 @@ module vector_manage #(
     always_comb begin
         case(state)
             RESET: state_nxt = GETDATA;
-            GETDATA: state_nxt = (pos && line) ? RESET : (busy ? GETDATA : SENDDATA);
+            GETDATA: state_nxt = busy ? GETDATA : CHECKDATA;
+            CHECKDATA: state_nxt = (pos && line) ? RESET : SENDDATA;
             SENDDATA: state_nxt = GODOWN;
             GODOWN: state_nxt = WAITBUSY;
             WAITBUSY: state_nxt = busy ? WAITBUSY : ADR;
@@ -106,6 +109,7 @@ module vector_manage #(
 
                 x_prev_nxt = 0;
                 y_prev_nxt = 0;
+                vector_reset = 1'b1;
 
             end
 
@@ -128,8 +132,10 @@ module vector_manage #(
                 end
                 
             end
+            
+            CHECKDATA: begin
 
-
+            end
 
             SENDDATA: begin
                 go_nxt = 1'b1;

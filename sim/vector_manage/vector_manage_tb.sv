@@ -18,6 +18,7 @@ module vector_manage_tb;
     typedef enum logic [5:0] {
         RESET      = 6'b000001,
         GETDATA    = 6'b000010,
+        CHECKDATA  = 6'b000011,     //fix this later
         SENDDATA   = 6'b000100,
         GODOWN     = 6'b001000,
         WAITBUSY   = 6'b010000,

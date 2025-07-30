@@ -30,7 +30,9 @@ module top_rtl#(
     //MODULE DECLARATIONS
 
     top_vector_display #(
-        .OUT_WIDTH(DAC_WIDTH)
+        .OUT_WIDTH(DAC_WIDTH),
+        .ADDRESSWIDTH(ADDRESSWIDTH),
+        .DATAWIDTH(DATAWIDTH)
     ) u_vector_display (
         .enable(1),
         .clk(clk),
@@ -51,7 +53,6 @@ module top_rtl#(
 
         .addr(uwu_addr),
         .data_out(uwu_data)
-
     );
 
 
