@@ -38,11 +38,6 @@ module top_vector_display #(
         .clk_out(clk_div_val)
     );
 
-
-
-
-
-
     logic go;
     logic [DAC_WIDTH-1:0] stax;
     logic [DAC_WIDTH-1:0] stay;
