@@ -1,4 +1,4 @@
-module draw_vector_master_tb;
+module vector_manage_tb;
 
     // Testbench signals
     logic clk;
@@ -9,11 +9,20 @@ module draw_vector_master_tb;
     logic [7:0] i_x, i_y;
     logic [7:0] o_start_x, o_start_y, o_end_x, o_end_y;
     logic go;
-    logic inc;
     
     // Signals for linedraw
     logic wr;
     logic [7:0] xout, yout;
+
+
+    typedef enum logic [5:0] {
+        RESET      = 6'b000001,
+        GETDATA    = 6'b000010,
+        SENDDATA   = 6'b000100,
+        GODOWN     = 6'b001000,
+        WAITBUSY   = 6'b010000,
+        ADR        = 6'b100000
+    } state_t;
 
     // Data entries (x, y, draw, pos)
     typedef struct {
@@ -25,8 +34,8 @@ module draw_vector_master_tb;
 
         //x     y  line pos
     data_entry_t data_entries[17] = '{
-        '{200, 200, 0, 1},
-        '{223, 234, 0, 1},
+        '{200, 210, 0, 1},
+        '{220, 230, 0, 1},
         '{160, 140, 0, 1},
         '{200, 160, 1, 0},
         '{92 , 148, 0, 1},
@@ -44,26 +53,36 @@ module draw_vector_master_tb;
         '{255 , 255, 1, 1}
     };
 
-    // Instantiate the draw_vector_master module
-    draw_vector_master #(
+    logic [7:0] addr;
+    logic [5:0] state_debug_bits;
+
+    vector_manage #(
+        .ADR_WIDTH(8),
+        .FRAME_MAX(255),
+        .FRAME_MIN(0),
         .OUT_WIDTH(8)
-    ) u_draw_vector_master (
+    ) u_vector_manage (
         .clk(clk),
         .rst(rst),
-        .pos(pos),
+
+        .x(i_x),
+        .y(i_y),
         .line(line),
+        .pos(pos),
+
         .busy(busy),
-        .i_x(i_x),
-        .i_y(i_y),
-        .go(go), // Controlled by testbench
-        .o_start_x(o_start_x),
-        .o_start_y(o_start_y),
-        .o_end_x(o_end_x),
-        .o_end_y(o_end_y),
-        .inc(inc)
+
+        .go(go),
+        .stax(o_start_x),
+        .endx(o_end_x),
+        .stay(o_start_y),
+        .endy(o_end_y),
+
+        .adr(addr),
+        .state_debug(state_debug_bits)
     );
-    
-    // Instantiate the linedraw module
+
+
     linedraw u_linedraw (
         .clk(clk),
         .go(go), 
@@ -77,48 +96,31 @@ module draw_vector_master_tb;
         .yout(yout)
     );
 
+    state_t state_debug;
+    assign state_debug = state_t'(state_debug_bits); // cast from raw wire
+
     // Clock generation
     always #5 clk = ~clk; // 100MHz clock
 
-    // Stimulus block
     initial begin
-        // Initialize signals
         clk = 0;
-        rst = 0;
-        pos = 0;
-        line = 0;
-
-
-        // Reset the design
         rst = 1;
-        #10 rst = 0;
+        #20 rst = 0;
 
-        foreach (data_entries[i]) begin
+        $monitor("At time %t: pos=%b, line=%b, xout=%d, yout=%d, o_start_x=%d, o_start_y=%d, o_end_x=%d, o_end_y=%d", 
+                $time, pos, line, xout, yout, o_start_x, o_start_y, o_end_x, o_end_y);
+    end
 
-            if(pos & line) begin
-                i = 0;
-            end
+    always @(posedge clk) begin
+        pos  <= data_entries[addr].pos;
+        line <= data_entries[addr].line;
+        i_x  <= data_entries[addr].x;
+        i_y  <= data_entries[addr].y;
 
-            // wait for con dutions to write memory
-            wait(busy == 0);
-            
-            // set memory
-            pos = data_entries[i].pos;
-            line = data_entries[i].line;
-            i_x = data_entries[i].x;
-            i_y = data_entries[i].y;
-            
-            // wait for operation
-            wait(busy == 1); // Wait for the system to be idle
-            wait(busy == 0); // Ensure the system is idle
-            #5;
+        // end if adr = 100
+        if (addr == 8'd100) begin
+            $display("Simulation ended because addr == 100 at time %t", $time);
+            $finish;
         end
     end
-
-    // Monitor outputs
-    initial begin
-        $monitor("At time %t: pos=%b, line=%b, xout=%d, yout=%d, o_start_x=%d, o_start_y=%d, o_end_x=%d, o_end_y=%d", 
-                 $time, pos, line, xout, yout, o_start_x, o_start_y, o_end_x, o_end_y);
-    end
-
 endmodule

@@ -40,19 +40,7 @@ module top_vector_display #(
 
 
 
-    logic draw_busy;
-    logic zero;
 
-
-    memory_manage #(
-        .ADDRESSWIDTH(18)
-    ) u_memory_manage (
-        .count_adr(addr),
-        .inc(inc),
-        .zero(zero),
-        .clk(clk),
-        .rst(rst)
-    );
 
 
     logic go;
@@ -61,34 +49,34 @@ module top_vector_display #(
     logic [DAC_WIDTH-1:0] endx;
     logic [DAC_WIDTH-1:0] endy;
 
-    draw_vector_master #(
-        .OUT_WIDTH(8),
-        .FRAME_MIN(0),
-        .FRAME_MAX(255)
-    ) u_draw_vector_master (
-    
-        //  control signals
+    vector_manage #(
+        .ADR_WIDTH(ADDRESSWIDTH),
+        .FRAME_MAX(VECTOR_MAX),
+        .FRAME_MIN(VECTOR_MIN),
+        .OUT_WIDTH(OUT_WIDTH)
+
+    ) u_vector_manage (
         .clk(clk),
         .rst(rst),
-        .busy(draw_busy),
-    
-        // input signals
-        .pos(data_in [0]),
+
+        .x(data_in [9:2]),
+        .y(data_in [17:10]),
         .line(data_in [1]),
-        .i_x(data_in [9:2]),
-        .i_y(data_in [17:10]),
-        .current_x(x_ch),
-        .current_y(y_ch),
-    
-        //  output signals
+        .pos(data_in [0]),
+
+        .busy(draw_busy),
+
         .go(go),
-        .o_start_x(stax),
-        .o_start_y(stay),
-        .o_end_x(endx),
-        .o_end_y(endy),
-        .zero(zero),
-        .inc(inc)
+        .stax(stax),
+        .endx(endx),
+        .stay(stay),
+        .endy(endy),
+
+        .adr(addr)
     );
+
+
+
 
 
     linedraw u_linedraw (
