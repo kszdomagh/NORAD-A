@@ -114,7 +114,7 @@ module vector_manage #(
             end
 
             GETDATA: begin
-
+                vector_reset = 1'b0;
                 if(pos) begin
                     stax_nxt = x;
                     endx_nxt = x;
@@ -130,7 +130,6 @@ module vector_manage #(
                     x_prev_nxt = x;
                     y_prev_nxt = x;
                 end
-                
             end
             
             CHECKDATA: begin
