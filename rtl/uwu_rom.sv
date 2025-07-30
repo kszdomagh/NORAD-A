@@ -8,6 +8,7 @@ module uwu_rom #(
 
     always_comb begin
         unique case (addr)
+            //                  x       y       line    pos
             4'd0:  data_out = {8'd174, 8'd162, 1'b0, 1'b1};
             4'd1:  data_out = {8'd161, 8'd147, 1'b1, 1'b0};
             4'd2:  data_out = {8'd148, 8'd162, 1'b1, 1'b0};

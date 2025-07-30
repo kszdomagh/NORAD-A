@@ -1,4 +1,4 @@
-module top_vector_display_tb;
+module draw_vector_master_tb;
 
     // Testbench signals
     logic clk;
@@ -23,10 +23,12 @@ module top_vector_display_tb;
         logic pos;
     } data_entry_t;
 
-    data_entry_t data_entries[16] = '{
-        '{174, 162, 1, 0},
-        '{161, 147, 1, 0},
-        '{148, 162, 1, 0},
+        //x     y  line pos
+    data_entry_t data_entries[17] = '{
+        '{200, 200, 0, 1},
+        '{223, 234, 0, 1},
+        '{160, 140, 0, 1},
+        '{200, 160, 1, 0},
         '{92 , 148, 0, 1},
         '{80 , 165, 1, 0},
         '{105, 167, 1, 0},
@@ -109,6 +111,7 @@ module top_vector_display_tb;
             // wait for operation
             wait(busy == 1); // Wait for the system to be idle
             wait(busy == 0); // Ensure the system is idle
+            #5;
         end
     end
 
