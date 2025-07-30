@@ -9,6 +9,7 @@ module vector_manage_tb;
     logic [7:0] i_x, i_y;
     logic [7:0] o_start_x, o_start_y, o_end_x, o_end_y;
     logic go;
+    logic vector_reset;
     
     // Signals for linedraw
     logic wr;
@@ -80,7 +81,8 @@ module vector_manage_tb;
         .endy(o_end_y),
 
         .adr(addr),
-        .state_debug(state_debug_bits)
+        .state_debug(state_debug_bits),
+        .vector_reset(vector_reset)
     );
 
 
@@ -108,9 +110,14 @@ module vector_manage_tb;
         rst = 1;
         #20 rst = 0;
 
+        
+
         $monitor("At time %t: pos=%b, line=%b, xout=%d, yout=%d, o_start_x=%d, o_start_y=%d, o_end_x=%d, o_end_y=%d", 
                 $time, pos, line, xout, yout, o_start_x, o_start_y, o_end_x, o_end_y);
     end
+
+    int reset_count;
+    logic prev_reset;
 
     always @(posedge clk) begin
         pos  <= data_entries[addr].pos;
@@ -118,10 +125,11 @@ module vector_manage_tb;
         i_x  <= data_entries[addr].x;
         i_y  <= data_entries[addr].y;
 
-        // end if adr = 100
-        if (addr == 8'd100) begin
-            $display("Simulation ended because addr == 100 at time %t", $time);
+        if (vector_reset && !prev_reset && ++reset_count == 3) begin
+            $display("Recieved three vector resets at time: %t", $time);
+            $display("PASSED :3");
             $finish;
         end
+        prev_reset <= vector_reset;
     end
 endmodule
