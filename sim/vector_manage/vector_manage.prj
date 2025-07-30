@@ -16,9 +16,10 @@ sv work ../../rtl/vector_display/vector_pkg.sv \
         ../../rtl/vector_display/linedraw.v \
         ../../rtl/vector_display/memory_manage.sv \
         ../../rtl/vector_display/top_vector_display.sv \
+        ../../rtl/vector_display/vector_manage.sv \
         ../../rtl/top_rtl.sv \
         ../../rtl/uwu_rom.sv \
         ../../rtl/counter.sv \
         ../../rtl/clk_div.sv \
-        draw_vector_master_tb.sv
+        vector_manage_tb.sv
 

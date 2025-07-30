@@ -2,12 +2,13 @@ module vector_manage #(
     parameter int OUT_WIDTH = 8,
     parameter int FRAME_MIN = 0,
     parameter int FRAME_MAX = 255,
-    parameter int ADR_WIDTH
+    parameter int ADR_WIDTH = 8
     )(
 
     // control signals
     input logic clk,
     input logic rst,
+    output logic [5:0] state_debug,
 
 
     // data inputs
@@ -45,11 +46,12 @@ module vector_manage #(
 
 
     typedef enum logic [5:0] {
-        RESET    = 6'b000001,
-        GETDATA  = 6'b000010,
-        SENDDATA = 6'b000100,
-        WAIT     = 6'b001000,
-        ADR      = 6'b010000
+        RESET      = 6'b000001,
+        GETDATA    = 6'b000010,
+        SENDDATA   = 6'b000100,
+        GODOWN     = 6'b001000,
+        WAITBUSY   = 6'b010000,
+        ADR        = 6'b100000
     } state_t;
 
     state_t state, state_nxt;
@@ -62,6 +64,7 @@ module vector_manage #(
 
         end else begin
             state <= state_nxt;
+            state_debug <= state_nxt;
             
             go <= go_nxt;
             adr <= adr_nxt;
@@ -80,9 +83,10 @@ module vector_manage #(
     always_comb begin
         case(state)
             RESET: state_nxt = GETDATA;
-            GETDATA: state_nxt = (pos && line) ? RESET : SENDDATA;
-            SENDDATA: state_nxt = WAIT;
-            WAIT: state_nxt = ADR;
+            GETDATA: state_nxt = (pos && line) ? RESET : (busy ? GETDATA : SENDDATA);
+            SENDDATA: state_nxt = GODOWN;
+            GODOWN: state_nxt = WAITBUSY;
+            WAITBUSY: state_nxt = busy ? WAITBUSY : ADR;
             ADR: state_nxt = GETDATA;
         endcase
     end
@@ -131,7 +135,11 @@ module vector_manage #(
                 go_nxt = 1'b1;
             end
 
-            WAIT: begin
+            GODOWN: begin
+                go_nxt = 1'b0;
+            end
+
+            WAITBUSY: begin
                 go_nxt = 1'b0;
             end
 
