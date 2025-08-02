@@ -34,6 +34,7 @@ set sv_files {
 
     ../rtl/vector_display/vector_pkg.sv
     ../rtl/vector_display/top_vector_display.sv
+    ../rtl/vector_display/vector_manage.sv
     ../rtl/vector_display/draw_frame.sv
 
     ../rtl/vector_display/draw_vector_master.sv

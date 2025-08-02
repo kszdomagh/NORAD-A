@@ -40,9 +40,12 @@ parameter [1:0] DONE = 2'd2;
 
 reg [1:0] state;
 reg signed [8:0] err;
-reg signed [7:0] x, y;
-wire signed [7:0] deltax, deltay, dx, dy, x0, x1, y0, y1, next_x, next_y, xa, ya, xb, yb;
+wire signed [8:0] deltax, deltay;
+wire signed [8:0] dx, dy, next_x, next_y, xa, ya, xb, yb;
 wire signed [8:0] err_next, err1, err2, e2;
+
+reg [7:0] x, y;
+wire [7:0] x0, x1, y0, y1;
 
 wire  in_loop, right, down, complete, e2_lt_dx, e2_gt_dy;
 
@@ -77,13 +80,14 @@ begin
 assign x0 =  stax;
 assign x1 =  endx;
 assign deltax = x1 - x0;
-assign right = ~(deltax[7]);
+assign right = ~(deltax[8]);
 assign dx = (!right) ? (-deltax) : (deltax);
+
 
 assign y0 = stay;
 assign y1 = endy;
 assign deltay = y1 - y0;
-assign down = ~(deltay[7]);
+assign down = ~(deltay[8]);
 assign dy = (down) ? (-deltay) : (deltay);
 
 //Data Path for Error

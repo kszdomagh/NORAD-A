@@ -55,16 +55,4 @@ module top_rtl#(
         .data_out(uwu_data)
     );
 
-
-
-
-
-
-
-
-
-
-
-
-
 endmodule

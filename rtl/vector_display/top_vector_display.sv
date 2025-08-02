@@ -11,6 +11,7 @@ module top_vector_display #(
     input logic clk,
     input logic rst,
     input logic enable,
+    output logic frame_drawn,
 
     //data signals
     output logic [ADDRESSWIDTH-1:0] addr,
@@ -20,14 +21,12 @@ module top_vector_display #(
     output logic [OUT_WIDTH-1:0] y_ch
 
 );
-
-
     timeunit 1ns;
     timeprecision 1ps;
 
     import vector_pkg::*;
 
-    wire clk_div_val;
+    wire clk_div;
     logic inc;
 
     clk_div #(
@@ -35,7 +34,7 @@ module top_vector_display #(
     ) x_clk_div (
         .clk_in(clk),
         .rst(rst),
-        .clk_out(clk_div_val)
+        .clk_out(clk_div)
     );
 
     logic go;
@@ -51,7 +50,7 @@ module top_vector_display #(
         .OUT_WIDTH(OUT_WIDTH)
 
     ) u_vector_manage (
-        .clk(clk),
+        .clk(clk_div),
         .rst(rst),
 
         .x(data_in [9:2]),
@@ -67,16 +66,13 @@ module top_vector_display #(
         .stay(stay),
         .endy(endy),
 
-        .adr(addr)
+        .adr(addr),
+        .vector_reset(frame_drawn)
     );
-
-
-
-
 
     linedraw u_linedraw (
 
-        .clk(clk),
+        .clk(clk_div),
         .go(go),
         .busy(draw_busy),
 
