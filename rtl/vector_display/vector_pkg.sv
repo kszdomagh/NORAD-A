@@ -30,7 +30,7 @@ package vector_pkg;
 
 
     //PARAMETERS FOR DATA
-    parameter int ADDRESSWIDTH = 8;
+    parameter int ADDRESSWIDTH = 4;
     parameter int DATAWIDTH = 18;
 
 endpackage

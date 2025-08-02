@@ -73,6 +73,7 @@ module vector_manage #(
 
             stax <= stax_nxt;
             endx <= endx_nxt;
+            
             stay <= stay_nxt;
             endy <= endy_nxt;
             
@@ -118,17 +119,21 @@ module vector_manage #(
                 if(pos) begin
                     stax_nxt = x;
                     endx_nxt = x;
+
                     stay_nxt = y;
                     endy_nxt = y;
+
                     x_prev_nxt = x;
-                    y_prev_nxt = x;
+                    y_prev_nxt = y; // x was here before and it took me 2 days to notice it - now fixed
                 end else if(line) begin
                     stax_nxt = x_prev;
                     endx_nxt = x;
+
                     stay_nxt = y_prev;
                     endy_nxt = y;
+
                     x_prev_nxt = x;
-                    y_prev_nxt = x;
+                    y_prev_nxt = y; //same thing as before
                 end
             end
             

@@ -1,20 +1,88 @@
 Warnings, critical warnings and errors from synthesis and implementation
 
-Created: 2025-05-29 21:28:38
+Created: 2025-07-31 03:08:12
 
 ----SYNTHESIS----
-WARNING: [Synth 8-689] width (8) of port connection 'count_adr' does not match port width (18) of module 'memory_manage' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/top_vector_display.sv:48]
-WARNING: [Synth 8-7071] port 'zero' of module 'draw_vector_master' is unconnected for instance 'u_draw_vector_master' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/top_vector_display.sv:68]
-WARNING: [Synth 8-7071] port 'inc' of module 'draw_vector_master' is unconnected for instance 'u_draw_vector_master' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/top_vector_display.sv:68]
-WARNING: [Synth 8-7023] instance 'u_draw_vector_master' of module 'draw_vector_master' has 14 connections declared, but only 12 given [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/top_vector_display.sv:68]
-WARNING: [Synth 8-7071] port 'wr' of module 'linedraw' is unconnected for instance 'u_linedraw' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/top_vector_display.sv:90]
-WARNING: [Synth 8-7023] instance 'u_linedraw' of module 'linedraw' has 10 connections declared, but only 9 given [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/top_vector_display.sv:90]
-WARNING: [Synth 8-689] width (8) of port connection 'addr' does not match port width (4) of module 'uwu_rom' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/top_rtl.sv:52]
-WARNING: [Synth 8-87] always_comb on 'delay_nxt_reg' did not result in combinational logic [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/draw_vector_master.sv:79]
-WARNING: [Synth 8-3848] Net zero in module/entity top_vector_display does not have driver. [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/top_vector_display.sv:50]
+WARNING: [Synth 8-11067] parameter 'ADDRESSWIDTH' declared inside package 'vector_pkg' shall be treated as localparam [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_pkg.sv:33]
+WARNING: [Synth 8-11067] parameter 'DATAWIDTH' declared inside package 'vector_pkg' shall be treated as localparam [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_pkg.sv:34]
+WARNING: [Synth 8-7071] port 'state_debug' of module 'vector_manage' is unconnected for instance 'u_vector_manage' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/top_vector_display.sv:52]
+WARNING: [Synth 8-7023] instance 'u_vector_manage' of module 'vector_manage' has 15 connections declared, but only 14 given [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/top_vector_display.sv:52]
+WARNING: [Synth 8-7071] port 'wr' of module 'linedraw' is unconnected for instance 'u_linedraw' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/top_vector_display.sv:73]
+WARNING: [Synth 8-7023] instance 'u_linedraw' of module 'linedraw' has 10 connections declared, but only 9 given [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/top_vector_display.sv:73]
+WARNING: [Synth 8-7071] port 'frame_drawn' of module 'top_vector_display' is unconnected for instance 'u_vector_display' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/top_rtl.sv:36]
+WARNING: [Synth 8-7023] instance 'u_vector_display' of module 'top_vector_display' has 8 connections declared, but only 7 given [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/top_rtl.sv:36]
+WARNING: [Synth 8-689] width (8) of port connection 'addr' does not match port width (4) of module 'uwu_rom' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/top_rtl.sv:54]
+WARNING: [Synth 8-6014] Unused sequential element count_reg was removed.  [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/clk_div.sv:17]
+WARNING: [Synth 8-87] always_comb on 'state_nxt_reg' did not result in combinational logic [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_manage.sv:87]
+WARNING: [Synth 8-87] always_comb on 'go_nxt_reg' did not result in combinational logic [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_manage.sv:102]
+WARNING: [Synth 8-87] always_comb on 'adr_nxt_reg' did not result in combinational logic [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_manage.sv:103]
+WARNING: [Synth 8-87] always_comb on 'stax_nxt_reg' did not result in combinational logic [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_manage.sv:105]
+WARNING: [Synth 8-87] always_comb on 'endx_nxt_reg' did not result in combinational logic [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_manage.sv:106]
+WARNING: [Synth 8-87] always_comb on 'stay_nxt_reg' did not result in combinational logic [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_manage.sv:107]
+WARNING: [Synth 8-87] always_comb on 'endy_nxt_reg' did not result in combinational logic [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_manage.sv:108]
+WARNING: [Synth 8-87] always_comb on 'x_prev_nxt_reg' did not result in combinational logic [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_manage.sv:110]
+WARNING: [Synth 8-87] always_comb on 'y_prev_nxt_reg' did not result in combinational logic [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_manage.sv:111]
+WARNING: [Synth 8-87] always_comb on 'vector_reset_reg' did not result in combinational logic [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_manage.sv:112]
 WARNING: [Synth 8-7129] Port enable in module top_vector_display is either unconnected or has no load
-WARNING: [Synth 8-327] inferring latch for variable 'delay_nxt_reg' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/draw_vector_master.sv:79]
+WARNING: [Synth 8-327] inferring latch for variable 'state_nxt_reg' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_manage.sv:87]
+WARNING: [Synth 8-327] inferring latch for variable 'go_nxt_reg' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_manage.sv:102]
+WARNING: [Synth 8-327] inferring latch for variable 'stax_nxt_reg' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_manage.sv:105]
+WARNING: [Synth 8-327] inferring latch for variable 'endx_nxt_reg' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_manage.sv:106]
+WARNING: [Synth 8-327] inferring latch for variable 'stay_nxt_reg' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_manage.sv:107]
+WARNING: [Synth 8-327] inferring latch for variable 'endy_nxt_reg' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_manage.sv:108]
+WARNING: [Synth 8-327] inferring latch for variable 'adr_nxt_reg' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_manage.sv:103]
+WARNING: [Synth 8-327] inferring latch for variable 'vector_reset_reg' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_manage.sv:112]
 WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/adr_nxt_reg[7]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/adr_nxt_reg[6]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/adr_nxt_reg[5]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/adr_nxt_reg[4]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/vector_reset_reg) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/state_nxt_reg[5]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/state_nxt_reg[4]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/state_nxt_reg[3]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/state_nxt_reg[2]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/state_nxt_reg[1]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/state_nxt_reg[0]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/go_nxt_reg) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/stax_nxt_reg[7]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/stax_nxt_reg[6]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/stax_nxt_reg[5]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/stax_nxt_reg[4]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/stax_nxt_reg[3]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/stax_nxt_reg[2]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/stax_nxt_reg[1]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/stax_nxt_reg[0]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/endx_nxt_reg[7]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/endx_nxt_reg[6]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/endx_nxt_reg[5]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/endx_nxt_reg[4]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/endx_nxt_reg[3]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/endx_nxt_reg[2]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/endx_nxt_reg[1]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/endx_nxt_reg[0]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/stay_nxt_reg[7]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/stay_nxt_reg[6]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/stay_nxt_reg[5]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/stay_nxt_reg[4]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/stay_nxt_reg[3]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/stay_nxt_reg[2]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/stay_nxt_reg[1]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/stay_nxt_reg[0]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/endy_nxt_reg[7]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/endy_nxt_reg[6]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/endy_nxt_reg[5]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/endy_nxt_reg[4]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/endy_nxt_reg[3]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/endy_nxt_reg[2]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/endy_nxt_reg[1]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/endy_nxt_reg[0]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/adr_nxt_reg[3]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/adr_nxt_reg[2]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/adr_nxt_reg[1]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_vector_manage/adr_nxt_reg[0]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_linedraw/FSM_sequential_state_reg[1]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_linedraw/FSM_sequential_state_reg[0]) is unused and will be removed from module top_basys3.
 
 ----IMPLEMENTATION----
 CLEAR :)
