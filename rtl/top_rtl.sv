@@ -7,7 +7,10 @@ module top_rtl#(
     parameter int DATAWIDTH = 18
     )(
 
-        input logic clk,
+        input logic clk100MHz,
+        input logic clk40MHz,
+        input logic clk5MHz,
+
         input logic rst,
         
         output wire [7:0] xch,
@@ -34,8 +37,7 @@ module top_rtl#(
         .ADDRESSWIDTH(ADDRESSWIDTH),
         .DATAWIDTH(DATAWIDTH)
     ) u_vector_display (
-        .enable(1),
-        .clk(clk),
+        .clk(clk5MHz),
         .rst(rst),
 
         .data_in(uwu_data),
@@ -50,7 +52,6 @@ module top_rtl#(
         .ADDRESSWIDTH(4),
         .DATAWIDTH(18)
     ) u_uwu_rom (
-
         .addr(uwu_addr),
         .data_out(uwu_data)
     );

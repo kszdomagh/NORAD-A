@@ -36,8 +36,23 @@ module top_basys3 (
 
     import vector_pkg::*;
 
+    logic clk5MHz;
+    logic clk100MHz;
+    logic clk40MHz;
+
+    clk_wiz_0 u_clk_manager (
+        .clk_in1(clk),
+
+        .clk100MHz(clk100MHz),
+        .clk40MHz(clk40MHz),
+        .clk5MHz(clk5MHz)
+
+    );
+
     top_rtl u_top_rtl(
-        .clk(pclk),
+        .clk100MHz(clk100MHz),
+        .clk40MHz(clk40MHz),
+        .clk5MHz(clk5MHz),
         .rst(btnC),
 
 
