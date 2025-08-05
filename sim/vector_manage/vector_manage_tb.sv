@@ -5,15 +5,13 @@ module vector_manage_tb;
     logic rst;
     logic pos;
     logic line;
-    logic busy;
     logic [7:0] i_x, i_y;
-    logic [7:0] o_start_x, o_start_y, o_end_x, o_end_y;
+    logic signed [8:0] o_start_x, o_start_y, o_end_x, o_end_y;
     logic go;
     logic vector_reset;
     
     // Signals for linedraw
-    logic wr;
-    logic [7:0] xout, yout;
+    logic signed [8:0] xout, yout;
 
 
     typedef enum logic [5:0] {
@@ -53,6 +51,8 @@ module vector_manage_tb;
 
     logic [7:0] addr;
     logic [5:0] state_debug_bits;
+    logic done;
+    logic busy;
 
     vector_manage #(
         .ADR_WIDTH(8),
@@ -68,6 +68,7 @@ module vector_manage_tb;
         .line(line),
         .pos(pos),
 
+        .done(done),
         .busy(busy),
 
         .go(go),
@@ -81,18 +82,23 @@ module vector_manage_tb;
         .vector_reset(vector_reset)
     );
 
+    logic output_valid;
 
-    linedraw u_linedraw (
+
+    bresenham u_bresenham (
         .clk(clk),
+        .rst(rst),
         .go(go), 
         .busy(busy),
         .stax(o_start_x),
         .stay(o_start_y),
         .endx(o_end_x),
         .endy(o_end_y),
-        .wr(wr),
-        .xout(xout),
-        .yout(yout)
+        .x(xout),
+        .y(yout),
+        .drawing(output_valid),
+
+        .done(done)
     );
 
     state_t state_debug;

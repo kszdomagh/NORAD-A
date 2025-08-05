@@ -1,15 +1,22 @@
+//////////////////////////////////////////////////////////////////////////////
+/*
+ Module name:   bresenham
+ Author:        https://projectf.io/posts/lines-and-triangles/
+ Description:  module used for drawing straight lines using bresenham algorithm
 
-// https://projectf.io/posts/lines-and-triangles/
-
+  Change log: 
+    05.08.2025 - kszdom - changed signed values to unsigned values
+ */
+//////////////////////////////////////////////////////////////////////////////
 module bresenham #(
-    parameter   OUTWIDTH = 8
+    parameter   BRES_WIDTH = 9
     )(  // signed coordinate width
     input  wire logic clk,             // clock
     input  wire logic rst,             // reset
-    input  wire logic start,           // start line drawing
-    input  wire logic signed [OUTWIDTH-1:0] stax, stay,  // point 0
-    input  wire logic signed [OUTWIDTH-1:0] endx, endy,  // point 1
-    output      logic signed [OUTWIDTH-1:0] x,  y,   // drawing position
+    input  wire logic go,           // start line drawing
+    input  wire logic signed [BRES_WIDTH-1:0] stax, stay,  // point 0
+    input  wire logic signed [BRES_WIDTH-1:0] endx, endy,  // point 1
+    output      logic signed [BRES_WIDTH-1:0] x,  y,   // drawing position
     output      logic drawing,         // actively drawing
     output      logic busy,            // drawing request in progress
     output      logic done             // drawing is complete (high for one tick)
@@ -18,11 +25,11 @@ module bresenham #(
     // line properties
     logic swap;   // swap points to ensure endy >= stay
     logic right;  // drawing direction
-    logic signed [OUTWIDTH-1:0] xa, ya;  // start point
-    logic signed [OUTWIDTH-1:0] xb, yb;  // end point
-    logic signed [OUTWIDTH-1:0] x_end, y_end;  // register end point
+    logic signed [BRES_WIDTH-1:0] xa, ya;  // start point
+    logic signed [BRES_WIDTH-1:0] xb, yb;  // end point
+    logic signed [BRES_WIDTH-1:0] x_end, y_end;  // register end point
     always_comb begin
-        swap = (stay > endy);  // swap points if stay is below endy
+        swap = (stay > endy);  // swap points if stay is below endy - FOR NOW IT WORKS BUT MAKE IT NOT SWAP
         xa = swap ? endx : stax;
         xb = swap ? stax : endx;
         ya = swap ? endy : stay;
@@ -30,8 +37,8 @@ module bresenham #(
     end
 
     // error values
-    logic signed [OUTWIDTH:0] err;  // a bit wider as signed
-    logic signed [OUTWIDTH:0] dx, dy;
+    logic signed [BRES_WIDTH:0] err;  // a bit wider as signed
+    logic signed [BRES_WIDTH:0] dx, dy;
     logic movx, movy;  // horizontal/vertical move required
     always_comb begin
         movx = (2*err >= dy);
@@ -80,7 +87,7 @@ module bresenham #(
             end
             default: begin  // IDLE
                 done <= 0;
-                if (start) begin
+                if (go) begin
                     state <= INIT_0;
                     right <= (xa < xb);  // draw right to left?
                     busy <= 1;
