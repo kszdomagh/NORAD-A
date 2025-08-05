@@ -1,7 +1,6 @@
 module top_vector_display #(
     
     parameter int OUT_WIDTH = 8,
-    parameter int CLK_DIV_VALUE = 1,
     parameter int ADDRESSWIDTH = 8,
     parameter int DATAWIDTH = 18
     
@@ -10,7 +9,6 @@ module top_vector_display #(
     //control signals
     input logic clk,
     input logic rst,
-    input logic enable,
     output logic frame_drawn,
 
     //data signals
@@ -26,23 +24,27 @@ module top_vector_display #(
 
     import vector_pkg::*;
 
-    wire clk_div;
-    logic inc;
-
     logic go;
-    logic [DAC_WIDTH-1:0] stax;
-    logic [DAC_WIDTH-1:0] stay;
-    logic [DAC_WIDTH-1:0] endx;
-    logic [DAC_WIDTH-1:0] endy;
+    logic [OUT_WIDTH:0] stax;
+    logic [OUT_WIDTH:0] stay;
+    logic [OUT_WIDTH:0] endx;
+    logic [OUT_WIDTH:0] endy;
+
+    logic [OUT_WIDTH:0] xbres;
+    logic [OUT_WIDTH:0] ybres;
+    logic valid_drawing;
+
+    logic done;
 
     vector_manage #(
         .ADR_WIDTH(ADDRESSWIDTH),
         .FRAME_MAX(VECTOR_MAX),
         .FRAME_MIN(VECTOR_MIN),
-        .OUT_WIDTH(OUT_WIDTH)
+        .OUT_WIDTH(OUT_WIDTH),
+        .BRES_WIDTH(OUT_WIDTH+1)
 
     ) u_vector_manage (
-        .clk(clk_div),
+        .clk(clk),
         .rst(rst),
 
         .x(data_in [9:2]),
@@ -63,10 +65,15 @@ module top_vector_display #(
         .vector_reset(frame_drawn)
     );
 
-    bresenham u_bresenham (
+    bresenham #(
+        .BRES_WIDTH(OUT_WIDTH+1)
+    ) u_bresenham (
         .clk(clk),
+        .rst(rst),
         .go(go), 
+
         .done(done),
+        .busy(draw_busy),
 
         .stax(stax),
         .stay(stay),
@@ -74,8 +81,24 @@ module top_vector_display #(
         .endx(endx),
         .endy(endy),
 
-        .x(x_ch),
-        .y(y_ch)
+        .x(xbres),
+        .y(ybres),
+        .drawing(valid_drawing)
+    );
+
+    valid_buf #(
+        .BRES_WIDTH(OUT_WIDTH+1),
+        .OUTWIDTH(OUT_WIDTH)
+    ) u_valid_buf (
+        .clk(clk),
+        .rst(rst),
+
+        .valid(valid_drawing),
+
+        .inx(xbres),
+        .iny(ybres),
+        .outx(x_ch),
+        .outy(y_ch)
     );
 
 endmodule

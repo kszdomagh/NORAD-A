@@ -21,11 +21,9 @@ module top_vector_display_tb;
     // DUT
     top_vector_display #(
         .OUT_WIDTH(DAC_WIDTH),
-        .CLK_DIV_VALUE(100),
         .ADDRESSWIDTH(ADDRESSWIDTH),
         .DATAWIDTH(DATAWIDTH)
     ) u_vector_display (
-        .enable(1'b1),
         .clk(clk),
         .rst(rst),
         .data_in(uwu_data),

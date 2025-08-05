@@ -39,8 +39,9 @@ set sv_files {
 
     ../rtl/vector_display/draw_vector_master.sv
     ../rtl/vector_display/memory_manage.sv
+    ../rtl/vector_display/valid_buf.sv
+    ../rtl/vector_display/bresenham.sv
     ../rtl/uwu_rom.sv
-
 
     ../rtl/template_ram.sv
     ../rtl/top_rtl.sv
@@ -53,6 +54,7 @@ set sv_files {
 # Specify Verilog design files location         -- EDIT
 set verilog_files {
     ../rtl/vector_display/linedraw.v
+    
 }
 
 # Specify VHDL design files location            -- EDIT
