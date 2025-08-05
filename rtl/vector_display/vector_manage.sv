@@ -1,15 +1,28 @@
+//////////////////////////////////////////////////////////////////////////////
+/*
+ Module name:   vector_manage
+ Author:        kszdom
+ Description:  module used for extracting data from memory (acording to specifications) and
+               converting it into format used by line-drawing "bresenham" module
+
+  Change log: 
+    05.08.2025 - kszdom - changed unsigned output values to signed values in 
+                          order to fix bresenham module overflow issue
+ */
+//////////////////////////////////////////////////////////////////////////////
+
 module vector_manage #(
     parameter int OUT_WIDTH = 8,
     parameter int FRAME_MIN = 0,
     parameter int FRAME_MAX = 255,
-    parameter int ADR_WIDTH = 8
+    parameter int ADR_WIDTH = 8,
+    parameter int BRES_WIDTH = OUT_WIDTH+1 // 8+1 unsigned to signed conversion
     )(
 
     // control signals
     input logic clk,
     input logic rst,
     output logic [5:0] state_debug,
-
 
     // data inputs
     input logic [OUT_WIDTH-1:0] x,
@@ -18,14 +31,15 @@ module vector_manage #(
     input logic pos,
 
     // line inputs
-    input logic busy,
+    input logic busy,   //replaced by done
+    input logic done,
 
     //  outputs
     output logic go,
-    output logic [OUT_WIDTH-1:0] stax,
-    output logic [OUT_WIDTH-1:0] endx,
-    output logic [OUT_WIDTH-1:0] stay,
-    output logic [OUT_WIDTH-1:0] endy,
+    output logic signed [BRES_WIDTH-1:0] stax,
+    output logic signed [BRES_WIDTH-1:0] endx,
+    output logic signed [BRES_WIDTH-1:0] stay,
+    output logic signed [BRES_WIDTH-1:0] endy,
 
     output logic [ADR_WIDTH-1:0] adr,
     output logic vector_reset
@@ -34,16 +48,17 @@ module vector_manage #(
 
     //nxt logics
     logic go_nxt;
-    logic [OUT_WIDTH-1:0] stax_nxt;
-    logic [OUT_WIDTH-1:0] endx_nxt;
-    logic [OUT_WIDTH-1:0] stay_nxt;
-    logic [OUT_WIDTH-1:0] endy_nxt;
+    logic signed [BRES_WIDTH-1:0] stax_nxt;
+    logic signed [BRES_WIDTH-1:0] endx_nxt;
+    logic signed [BRES_WIDTH-1:0] stay_nxt;
+    logic signed [BRES_WIDTH-1:0] endy_nxt;
+
     logic [ADR_WIDTH-1:0] adr_nxt;
 
-    logic [OUT_WIDTH-1:0] x_prev;
-    logic [OUT_WIDTH-1:0] y_prev;
-    logic [OUT_WIDTH-1:0] x_prev_nxt;
-    logic [OUT_WIDTH-1:0] y_prev_nxt;
+    logic signed [BRES_WIDTH-1:0] x_prev;
+    logic signed [BRES_WIDTH-1:0] y_prev;
+    logic signed [BRES_WIDTH-1:0] x_prev_nxt;
+    logic signed [BRES_WIDTH-1:0] y_prev_nxt;
 
 
     typedef enum logic [5:0] {
@@ -90,7 +105,7 @@ module vector_manage #(
             CHECKDATA: state_nxt = (pos && line) ? RESET : SENDDATA;
             SENDDATA: state_nxt = GODOWN;
             GODOWN: state_nxt = WAITBUSY;
-            WAITBUSY: state_nxt = busy ? WAITBUSY : ADR;
+            WAITBUSY: state_nxt = done ? ADR : WAITBUSY;
             ADR: state_nxt = GETDATA;
         endcase
     end
@@ -117,23 +132,23 @@ module vector_manage #(
             GETDATA: begin
                 vector_reset = 1'b0;
                 if(pos) begin
-                    stax_nxt = x;
-                    endx_nxt = x;
+                    stax_nxt = {1'b0, x};
+                    endx_nxt = {1'b0, x};
 
-                    stay_nxt = y;
-                    endy_nxt = y;
+                    stay_nxt = {1'b0, y};
+                    endy_nxt = {1'b0, y};
 
-                    x_prev_nxt = x;
-                    y_prev_nxt = y; // x was here before and it took me 2 days to notice it - now fixed
+                    x_prev_nxt = {1'b0, y};
+                    y_prev_nxt = {1'b0, y}; // x was here before and it took me 2 days to notice it - now fixed
                 end else if(line) begin
                     stax_nxt = x_prev;
-                    endx_nxt = x;
+                    endx_nxt = {1'b0, x};
 
                     stay_nxt = y_prev;
-                    endy_nxt = y;
+                    endy_nxt = {1'b0, y};
 
-                    x_prev_nxt = x;
-                    y_prev_nxt = y; //same thing as before
+                    x_prev_nxt = {1'b0, x};
+                    y_prev_nxt = {1'b0, y}; //same thing as before
                 end
             end
             

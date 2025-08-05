@@ -29,14 +29,6 @@ module top_vector_display #(
     wire clk_div;
     logic inc;
 
-    clk_div #(
-        .DIVIDER(CLK_DIV_VALUE)
-    ) x_clk_div (
-        .clk_in(clk),
-        .rst(rst),
-        .clk_out(clk_div)
-    );
-
     logic go;
     logic [DAC_WIDTH-1:0] stax;
     logic [DAC_WIDTH-1:0] stay;
@@ -59,6 +51,7 @@ module top_vector_display #(
         .pos(data_in [0]),
 
         .busy(draw_busy),
+        .done(done),
 
         .go(go),
         .stax(stax),
@@ -70,11 +63,10 @@ module top_vector_display #(
         .vector_reset(frame_drawn)
     );
 
-    linedraw u_linedraw (
-
-        .clk(clk_div),
-        .go(go),
-        .busy(draw_busy),
+    bresenham u_bresenham (
+        .clk(clk),
+        .go(go), 
+        .done(done),
 
         .stax(stax),
         .stay(stay),
@@ -82,9 +74,8 @@ module top_vector_display #(
         .endx(endx),
         .endy(endy),
 
-        .xout(x_ch),
-        .yout(y_ch)
-
+        .x(x_ch),
+        .y(y_ch)
     );
 
 endmodule
