@@ -1,6 +1,6 @@
 Warnings, critical warnings and errors from synthesis and implementation
 
-Created: 2025-08-12 18:59:28
+Created: 2025-08-12 20:58:13
 
 ----SYNTHESIS----
 WARNING: [Synth 8-11067] parameter 'ADDRESSWIDTH' declared inside package 'vector_pkg' shall be treated as localparam [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_pkg.sv:33]

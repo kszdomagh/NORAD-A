@@ -125,7 +125,7 @@ module vector_manage #(
         x_prev_nxt = x_prev;
         y_prev_nxt = y_prev;
 
-        vector_reset = 1'b0;
+        vector_reset = 1'b1;
 
         case(state)
             RESET: begin
@@ -140,7 +140,7 @@ module vector_manage #(
                 x_prev_nxt = 0;
                 y_prev_nxt = 0;
 
-                vector_reset = 1'b1;
+                vector_reset = 1'b0;
 
             end
 
@@ -155,7 +155,7 @@ module vector_manage #(
                     stay_nxt = {1'b0, y};
                     endy_nxt = {1'b0, y};
 
-                    x_prev_nxt = {1'b0, y};
+                    x_prev_nxt = {1'b0, x};
                     y_prev_nxt = {1'b0, y}; // x was here before and it took me 2 days to notice it - now fixed
                 end else if(line) begin
                     stax_nxt = x_prev;

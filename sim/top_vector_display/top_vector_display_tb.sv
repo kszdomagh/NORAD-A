@@ -64,9 +64,11 @@ module top_vector_display_tb;
     logic frame_reset;
 
     always @(posedge clk) begin
-        $display("Time: %0t | addr=%0d | data_in=%b | xch=%0d | ych=%0d | frame_drawn=%b",
-                 $time, uwu_addr, uwu_data, xch, ych, frame_drawn);
+        // $display("Time: %0t | addr=%0d | data_in=%b | xch=%0d | ych=%0d | frame_drawn=%b",
+        //          $time, uwu_addr, uwu_data, xch, ych, frame_drawn);
 
+        $display("(%0d, %0d),",
+                xch, ych, );
 
         if (frame_drawn && !frame_reset && ++reset_count == 4) begin
             $display("Drawn frame two times in time: %t", $time);
