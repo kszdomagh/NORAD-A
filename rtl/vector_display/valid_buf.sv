@@ -21,12 +21,16 @@ module valid_buf #(
 
 
     always_comb begin
+
+        outx_nxt = 0;
+        outy_nxt = 0;
+
         if(valid) begin
             outx_nxt = inx[OUTWIDTH-1:0];    //no negatives values will occur so i can cut MSB (signed to unsigned conversion)
             outy_nxt = iny[OUTWIDTH-1:0];
         end else begin  // if non valid hold last value
-            outx_nxt = outx_nxt;
-            outy_nxt = outy_nxt;
+            outx_nxt = outx;
+            outy_nxt = outy;
         end
     end
 

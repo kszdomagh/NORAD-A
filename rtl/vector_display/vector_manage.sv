@@ -76,8 +76,6 @@ module vector_manage #(
     always_ff@(posedge clk) begin
         if(rst) begin
             state <= RESET;
-            go <= 1'b0;
-            adr <= '0;
 
         end else begin
             state <= state_nxt;
@@ -99,6 +97,7 @@ module vector_manage #(
 
     // next state always comb
     always_comb begin
+        state_nxt = RESET; //default
         case(state)
             RESET: state_nxt = GETDATA;
             GETDATA: state_nxt = busy ? GETDATA : CHECKDATA;
@@ -107,11 +106,26 @@ module vector_manage #(
             GODOWN: state_nxt = WAITBUSY;
             WAITBUSY: state_nxt = done ? ADR : WAITBUSY;
             ADR: state_nxt = GETDATA;
+            default: state_nxt = RESET;
         endcase
     end
 
     // outputs always comb
     always_comb begin
+
+        // default
+        go_nxt = go;
+        adr_nxt = adr;
+
+        stax_nxt = stax;
+        endx_nxt = endx;
+        stay_nxt = stay;
+        endy_nxt = endy;
+
+        x_prev_nxt = x_prev;
+        y_prev_nxt = y_prev;
+
+        vector_reset = 1'b0;
 
         case(state)
             RESET: begin
@@ -125,12 +139,15 @@ module vector_manage #(
 
                 x_prev_nxt = 0;
                 y_prev_nxt = 0;
+
                 vector_reset = 1'b1;
 
             end
 
             GETDATA: begin
                 vector_reset = 1'b0;
+                go_nxt = 0;
+                adr_nxt = adr;
                 if(pos) begin
                     stax_nxt = {1'b0, x};
                     endx_nxt = {1'b0, x};
@@ -153,23 +170,78 @@ module vector_manage #(
             end
             
             CHECKDATA: begin
+                go_nxt = 0;
+                adr_nxt = adr;
 
+                stax_nxt = stax;
+                endx_nxt = endx;
+                stay_nxt = stay;
+                endy_nxt = endy;
+
+                x_prev_nxt = x_prev;
+                y_prev_nxt = y_prev;
+
+                vector_reset = 1'b0;
             end
 
             SENDDATA: begin
                 go_nxt = 1'b1;
+                adr_nxt = adr;
+
+                stax_nxt = stax;
+                endx_nxt = endx;
+                stay_nxt = stay;
+                endy_nxt = endy;
+
+                x_prev_nxt = x_prev;
+                y_prev_nxt = y_prev;
+
+                vector_reset = 1'b0;
             end
 
             GODOWN: begin
                 go_nxt = 1'b0;
+                adr_nxt = adr;
+
+                stax_nxt = stax;
+                endx_nxt = endx;
+                stay_nxt = stay;
+                endy_nxt = endy;
+
+                x_prev_nxt = x_prev;
+                y_prev_nxt = y_prev;
+
+                vector_reset = 1'b0;
             end
 
             WAITBUSY: begin
                 go_nxt = 1'b0;
+                adr_nxt = adr;
+
+                stax_nxt = stax;
+                endx_nxt = endx;
+                stay_nxt = stay;
+                endy_nxt = endy;
+
+                x_prev_nxt = x_prev;
+                y_prev_nxt = y_prev;
+
+                vector_reset = 1'b0;
             end
 
             ADR: begin
+                go_nxt = 1'b0;
                 adr_nxt = adr + 1;
+
+                stax_nxt = stax;
+                endx_nxt = endx;
+                stay_nxt = stay;
+                endy_nxt = endy;
+
+                x_prev_nxt = x_prev;
+                y_prev_nxt = y_prev;
+
+                vector_reset = 1'b0;
             end
 
         endcase

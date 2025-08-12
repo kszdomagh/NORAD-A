@@ -20,9 +20,6 @@ sv work ../../rtl/vector_display/vector_pkg.sv \
         ../../rtl/vector_display/vector_manage.sv \
         ../../rtl/vector_display/bresenham.sv \
         ../../rtl/vector_display/valid_buf.sv \
-        ../../rtl/top_rtl.sv \
         ../../rtl/uwu_rom.sv \
-        ../../rtl/counter.sv \
-        ../../rtl/clk_div.sv \
         top_vector_display_tb.sv
 

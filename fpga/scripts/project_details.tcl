@@ -27,6 +27,10 @@ set target xc7a35tcpg236-1
 # Specify .xdc files location                   -- EDIT
 set xdc_files {
     constraints/top_basys3.xdc
+    constraints/clk_wiz_0.xdc
+    constraints/clk_wiz_0_ooc.xdc
+    constraints/clk_wiz_0_late.xdc
+    constraints/clk_wiz_0_board.xdc
 }
 
 # Specify SystemVerilog design files location   -- EDIT
@@ -41,20 +45,21 @@ set sv_files {
     ../rtl/vector_display/memory_manage.sv
     ../rtl/vector_display/valid_buf.sv
     ../rtl/vector_display/bresenham.sv
+
+
+
     ../rtl/uwu_rom.sv
 
-    ../rtl/template_ram.sv
+
     ../rtl/top_rtl.sv
-    ../rtl/counter.sv
-    ../rtl/clk_div.sv
-    ../rtl/template_ram.sv
     rtl/top_basys3.sv
 }
 
 # Specify Verilog design files location         -- EDIT
 set verilog_files {
     ../rtl/vector_display/linedraw.v
-    
+    ../rtl/mmcm/clk_wiz_0.v
+    ../rtl/mmcm/clk_wiz_0_clk_wiz.v
 }
 
 # Specify VHDL design files location            -- EDIT

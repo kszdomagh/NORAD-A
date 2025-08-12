@@ -37,10 +37,10 @@ module top_fpga_tb;
      */
 
     logic clk, rst;
-    wire pclk;
-    wire vs, hs;
-    wire [3:0] r, g, b;
+    logic [7:0] portB, portA, JB, JC;
 
+    assign portB = {JB[7], JB[6], JB[5], JB[4], JB[3], JB[2], JB[1], JB[0]};
+    assign portA = {JC[7], JC[6], JC[5], JC[4], JC[3], JC[2], JC[1], JC[0]};
 
     /**
      * Clock generation
@@ -56,24 +56,14 @@ module top_fpga_tb;
      * Submodules instances
      */
 
-    top_vga_basys3 dut (
-        .clk(clk),
+    top_basys3 dut (
+        .clk_in(clk),
         .btnC(rst),
 
-        .JA1(pclk)
+        .JB(JB),
+        .JC(JC)
     );
 
-    tiff_writer #(
-        .XDIM(16'd1056),
-        .YDIM(16'd628),
-        .FILE_DIR("../../results")
-    ) u_tiff_writer (
-        .clk(pclk),
-        .r({r,r}), // fabricate an 8-bit value
-        .g({g,g}), // fabricate an 8-bit value
-        .b({b,b}), // fabricate an 8-bit value
-        .go(vs)
-    );
 
 
     /**
@@ -89,13 +79,9 @@ module top_fpga_tb;
         $display("completes, use the menu option to run all.");
         $display("Prepare to wait a long time...");
 
-        wait (vs == 1'b0);
-        @(negedge vs) $display("Info: negedge VS at %t",$time);
-        @(negedge vs) $display("Info: negedge VS at %t",$time);
-
         // End the simulation.
-        $display("Simulation is over, check the waveforms.");
-        $finish;
+
+        // $finish;
     end
 
 endmodule

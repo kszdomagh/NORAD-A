@@ -9,18 +9,27 @@
 # https://docs.xilinx.com/r/en-US/ug900-vivado-logic-simulation/Project-File-.prj-Syntax
 
 
-sv work ../../rtl/vga_pkg.sv \
+sv work ../../rtl/uwu_rom.sv \
         ../../rtl/vga_timing.sv \
-        ../../rtl/draw_bg.sv \
-        ../../rtl/top_vga.sv \
-        ../../rtl/top_vector_display.sv \
-        ../../rtl/dac.sv \
-        ../../rtl/counter.sv \
-        ../../rtl/clk_div.sv \
+        ../../mmcm/draw_bg.sv \
+        ../../rtl/top_rtl.sv \
+
+        ../rtl/vector_display/rtl/vector_display/vector_pkg.sv.sv \
+        ../rtl/vector_display/rtl/vector_display/
+        ../rtl/vector_display/rtl/vector_display/
+        ../rtl/vector_display/rtl/vector_display/
+        ../rtl/vector_display/rtl/vector_display/
+        ../rtl/vector_display/rtl/vector_display/
+        ../rtl/vector_display/rtl/vector_display/
+        ../rtl/vector_display/rtl/vector_display/
+        
+
+
+
         ../../fpga/rtl/top_vga_basys3.sv \
-        ../common/tiff_writer.sv \
         top_fpga_tb.sv
 
 
 # compile glbl module - required for IP simulation
-verilog work ../common/glbl.v
+verilog work ../../rtl/mmcm/clk_wiz0.v \
+             ../../rtl/mmcm/clk_wiz0_clk_wiz.v 

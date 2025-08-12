@@ -1,13 +1,21 @@
 Warnings, critical warnings and errors from synthesis and implementation
 
-Created: 2025-08-05 16:59:41
+Created: 2025-08-12 18:59:28
 
 ----SYNTHESIS----
 WARNING: [Synth 8-11067] parameter 'ADDRESSWIDTH' declared inside package 'vector_pkg' shall be treated as localparam [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_pkg.sv:33]
 WARNING: [Synth 8-11067] parameter 'DATAWIDTH' declared inside package 'vector_pkg' shall be treated as localparam [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_pkg.sv:34]
-ERROR: [Synth 8-439] module 'clk_wiz_0' not found [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:43]
-ERROR: [Synth 8-6156] failed synthesizing module 'top_basys3' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:15]
-ERROR: [Common 17-69] Command failed: Synthesis failed - please see the console or run log file for details
+WARNING: [Synth 8-11121] redeclaration of ANSI port 'frame_drawn' is not allowed [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/top_rtl.sv:32]
+WARNING: [Synth 8-7071] port 'locked' of module 'clk_wiz_0' is unconnected for instance 'u_clk_manager' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:47]
+WARNING: [Synth 8-7023] instance 'u_clk_manager' of module 'clk_wiz_0' has 6 connections declared, but only 5 given [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:47]
+WARNING: [Synth 8-7071] port 'state_debug' of module 'vector_manage' is unconnected for instance 'u_vector_manage' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/top_vector_display.sv:46]
+WARNING: [Synth 8-7023] instance 'u_vector_manage' of module 'vector_manage' has 16 connections declared, but only 15 given [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/top_vector_display.sv:46]
+WARNING: [Synth 8-7129] Port inx[8] in module valid_buf is either unconnected or has no load
+WARNING: [Synth 8-7129] Port iny[8] in module valid_buf is either unconnected or has no load
+WARNING: [Synth 8-7129] Port clk100MHz in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port clk40MHz in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_bresenham/FSM_onehot_state_reg[0]) is unused and will be removed from module top_basys3.
 
 ----IMPLEMENTATION----
-No implementation log file found!
+CLEAR :)
