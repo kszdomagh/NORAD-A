@@ -6,7 +6,7 @@
  */
 //////////////////////////////////////////////////////////////////////////////
 module top_rtl#(
-    parameter int ADDRESSWIDTH = 8,
+    parameter int ADDRESSWIDTH = 16, 
     parameter int DATAWIDTH = 18,
     parameter int OUT_WIDTH = 8
     )(
@@ -16,14 +16,11 @@ module top_rtl#(
         input logic clk4MHz,
 
         input logic rst,
-        input logic enable_vector,
 
         input logic [OUT_WIDTH-1:0] Xmouse,
         input logic [OUT_WIDTH-1:0] Ymouse,
         input logic Rmouse,
         input logic Lmouse,
-        
-        output wire frame_drawn,
         
         output wire [OUT_WIDTH-1:0] xch,
         output wire [OUT_WIDTH-1:0] ych
@@ -34,13 +31,18 @@ module top_rtl#(
 
     import vector_pkg::*;
 
-    
 
     // INTERNAL WIRES
-    logic [ADDRESSWIDTH-1:0] uwu_addr;
-    logic [DATAWIDTH-1:0] uwu_data;
+    logic [ADDRESSWIDTH-1:0] ROM_addr;
+    logic [ADDRESSWIDTH-1:0] RAM_addr;
+    logic [ADDRESSWIDTH-1:0] RAM_write_adr;
+    logic [DATAWIDTH-1:0] ROM_data;
+    logic [DATAWIDTH-1:0] RAM_data;
+    logic [DATAWIDTH-1:0] RAM_write_data;
 
-    logic frame_drawn;
+    logic frame_done;
+    logic enable_vector;
+
 
     //MODULE DECLARATIONS
 
@@ -53,12 +55,55 @@ module top_rtl#(
         .rst(rst),
         .enable(enable_vector),
 
-        .data_in(uwu_data),
-        .addr(uwu_addr),
-        .frame_drawn(frame_drawn),
+        .data_in(RAM_data),
+        .addr(RAM_addr),
+        .frame_drawn(frame_done),
 
         .x_ch(xch),
         .y_ch(ych)
+    );
+
+    memory_manage #(
+        .ADR_WIDTH(ADDRESSWIDTH),
+        .DATAWIDTH(DATAWIDTH),
+        .OUT_WIDTH(DAC_WIDTH)
+    ) u_memory_manage (
+        //  control signals
+        .clk(clk100MHz),
+        .rst(rst),
+        //  image ROM
+        .adrROM(ROM_addr),
+        .dataROM(ROM_data),
+
+        //  RAM 
+        .adrWRITE(RAM_write_adr),
+        .dataWRITE(RAM_write_data),
+
+        
+        .draw_frame(enable_vector),  // to jest rozkaz ze mozna zaczac rysowac klatkę - RAM jest zapełniony danymi
+        .frame_done(frame_done),  // to sygnał że narysoano klatke na oscyloskopie - prosze zrobic kolejna i dac nowe dane do RAMU
+
+        //  from mouse input signals
+        .x_cursor(Xmouse),
+        .y_cursor(Ymouse)
+    );
+
+    template_ram #(
+        .ADDRESSWIDTH(ADDRESSWIDTH),
+        .BITWIDTH(DATAWIDTH),
+        .DEPTH(1000) //1000 punktow moge zapisac
+    ) u_RAM_module (
+        .clk(clk100MHz),
+
+        //  READ ONLY
+        .adr_r(RAM_addr),
+        .data_out_r(RAM_data),
+
+        //  READ N WRITE 
+        .data_out_rw(), // not connected
+        .adr_rw(RAM_write_adr),
+        .din(RAM_write_data),
+        .we(1)
     );
 
 
@@ -66,8 +111,8 @@ module top_rtl#(
         .ADDRESSWIDTH(ADDRESSWIDTH),
         .DATAWIDTH(DATAWIDTH)
     ) u_uwu_rom (
-        .addr(uwu_addr),
-        .data_out(uwu_data)
+        .addr(ROM_addr),
+        .data_out(ROM_data)
     );
 
 endmodule

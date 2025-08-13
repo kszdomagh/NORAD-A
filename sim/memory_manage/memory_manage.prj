@@ -9,9 +9,9 @@
 # https://docs.xilinx.com/r/en-US/ug900-vivado-logic-simulation/Project-File-.prj-Syntax
 
 
-sv work ../../rtl/memory_manage.sv \
-        ../../rtl/uwu_rom.sv \
-        ../../rtl/ROM_pkg.sv \
+sv work ../../rtl/ROM_pkg.sv \
         ../../rtl/vector_display/vector_pkg.sv \
+        ../../rtl/uwu_rom.sv \
+        ../../rtl/memory_manage.sv \
         memory_manage_tb.sv
 

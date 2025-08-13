@@ -18,8 +18,8 @@ module top_basys3 (
 
         output wire JA1,
 
-        inout logic ps2data,
-        input logic ps2clk,
+        inout wire PS2data,
+        inout wire PS2clk,
 
         // x channel 8bit
         output wire [7:0] JB,
@@ -27,7 +27,7 @@ module top_basys3 (
         output wire [7:0] JC,
 
         output wire LD0,
-        input logic SW15,
+        input wire SW15,
         output wire LD15
 
     );
@@ -59,8 +59,8 @@ module top_basys3 (
         .clk(clk100MHz),
         .rst(btnC),
         
-        .ps2_clk(ps2clk),
-        .ps2_data(ps2data),
+        .ps2_clk(PS2clk),
+        .ps2_data(PS2data),
 
         .xpos(Xmouse),
         .ypos(Ymouse),
@@ -98,14 +98,12 @@ module top_basys3 (
         .Lmouse(Lmouse),
         .Rmouse(Rmouse),
 
-        .enable_vector(LD15),
 
         .xch( {JB[4], JB[5], JB[6], JB[7], JB[0], JB[1], JB[2], JB[3]} ),
 
         //      y_ch is flipped lsb x_ch = msb dac_x
-        .ych( {JC[0], JC[1], JC[2], JC[3], JC[4], JC[5], JC[6], JC[7]} ),
-        
-        .frame_drawn(LD0) //    debug
+        .ych( {JC[0], JC[1], JC[2], JC[3], JC[4], JC[5], JC[6], JC[7]} )
+
     );
 
 

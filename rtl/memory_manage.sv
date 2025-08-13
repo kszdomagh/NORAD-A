@@ -20,6 +20,7 @@ module memory_manage #(
     input logic rst,
     input logic frame_done,
     output logic draw_frame,
+    output logic [4:0] state_debug,
 
     //  ROM signals
     input logic [DATAWIDTH-1:0] dataROM,
@@ -54,11 +55,12 @@ module memory_manage #(
     logic [DATAWIDTH-1:0] dataWRITE_nxt;
 
 
-    typedef enum logic [4:0] {
+    typedef enum logic [4:0] { //5 bit state so 65 states possible
         //CONTROL SIGNALS
         DONE            = 5'd0,
         RESET           = 5'd1,
         WAIT_FRAME_DONE = 5'd2,
+        DRAW_RESET      = 5'd3,
 
         //DRAW BACKGROUND
         DRAW_FRAME = 5'd10,
@@ -71,10 +73,14 @@ module memory_manage #(
     state_t state, state_nxt;
 
     always_ff@(posedge clk) begin
+        state_debug <= state_nxt;
+
         if(rst) begin
             state <= RESET;
 
         end else begin
+            state <= state_nxt;
+
             draw_frame <= draw_frame_nxt;
             adrROM    <= adrROM_nxt;
             adrWRITE  <= adrWRITE_nxt;
@@ -84,12 +90,16 @@ module memory_manage #(
 
     // next state always comb
     always_comb begin
-        state_nxt = RESET; //default
         case(state)
             RESET: state_nxt = DRAW_FRAME;
+
+            //CUR_STATE: state_nxt = (posROM & lineROM) ? NEXT_STATE : CUR_STATE;
             DRAW_FRAME: state_nxt = (posROM & lineROM) ? DRAW_MAP : DRAW_FRAME;
-            DRAW_MAP: state_nxt = (posROM & lineROM) ? DRAW_CURSOR : DRAW_FRAME;
-            DRAW_CURSOR: state_nxt = (posROM & lineROM) ? DONE : DRAW_CURSOR;
+            DRAW_MAP: state_nxt = (posROM & lineROM) ? DRAW_CURSOR : DRAW_MAP;
+            DRAW_CURSOR: state_nxt = (posROM & lineROM) ? DRAW_RESET : DRAW_CURSOR;
+
+
+            DRAW_RESET: state_nxt = DONE;
 
             DONE: state_nxt = WAIT_FRAME_DONE;
             WAIT_FRAME_DONE: state_nxt = frame_done ? DRAW_FRAME : WAIT_FRAME_DONE;
@@ -101,6 +111,7 @@ module memory_manage #(
     // outputs always comb
     always_comb begin
 
+        //signals usefull in DRAW_ states
         xROM = dataROM[9:2];
         yROM = dataROM[17:10];
         lineROM = dataROM[1];
@@ -116,7 +127,7 @@ module memory_manage #(
         case(state)
             RESET: begin
                 adrWRITE_nxt = 0;
-                dataWRITE_nxt = {FRAME_MIN, FRAME_MIN, 0, 1}; //make a point at bottom left corner
+                dataWRITE_nxt = {8'd0, 8'd0, 1'b0, 1'b1}; //make a point at bottom left corner
                 adrROM_nxt = 0;
             end
 
@@ -136,7 +147,6 @@ module memory_manage #(
                 if(state_nxt == DRAW_FRAME) begin
                     adrROM_nxt = adrROM + 1;
                 end
-
             end
 
             DRAW_MAP: begin
@@ -153,7 +163,6 @@ module memory_manage #(
                 if(state_nxt == DRAW_MAP) begin
                     adrROM_nxt = adrROM + 1;
                 end
-
             end
 
             DRAW_CURSOR: begin
@@ -163,14 +172,19 @@ module memory_manage #(
                 if(lineROM & posROM) begin
                     // no nothing
                 end else begin
-                    dataWRITE_nxt = dataROM;
+                    dataWRITE_nxt = {xROM + x_cursor - CURSOR_MID_X, yROM + y_cursor - CURSOR_MID_Y, lineROM, posROM};
                     adrWRITE_nxt = adrWRITE + 1;
                 end
 
                 if(state_nxt == DRAW_CURSOR) begin
                     adrROM_nxt = adrROM + 1;
                 end
+            end
 
+
+            DRAW_RESET: begin
+                    dataWRITE_nxt = {8'd0, 8'd0, 1'b1, 1'b1};
+                    adrWRITE_nxt = adrWRITE + 1;
             end
 
             DONE: begin

@@ -16,6 +16,8 @@
  ** distributed : Instructs the tool to infer LUT ROMs.
  **
  */
+
+//		kszdom - 13.08.2025 - changed names of ports and internal signals
 //////////////////////////////////////////////////////////////////////////////
 module template_ram
 	#(parameter
@@ -29,26 +31,26 @@ module template_ram
 		input wire [ADDRESSWIDTH-1:0] adr_rw,     // read/write address
 		input wire [ADDRESSWIDTH-1:0] adr_r,  // read address for second port
 		input wire [BITWIDTH-1:0] din, // data input
-		output logic [BITWIDTH-1:0] data_out1, // first output data
-		output logic [BITWIDTH-1:0] data_out2  // second output data
+		output logic [BITWIDTH-1:0] data_out_rw, // first output data
+		output logic [BITWIDTH-1:0] data_out_r  // second output data
 	);
 
 	(* ram_style = "block" *)
 	logic [BITWIDTH-1:0] ram [DEPTH-1:0];
 
-	logic [ADDRESSWIDTH-1:0] read_adr_r;
-	logic [ADDRESSWIDTH-1:0] read_a;
+	logic [ADDRESSWIDTH-1:0] read_rw;
+	logic [ADDRESSWIDTH-1:0] read_r;
 
 	always_ff @(posedge clk) begin : ram_operation_blk
 		if (we) begin
 			ram [adr_rw] <= din;
 		end
-		read_a <= adr_rw;        // latch read address on posedge clk
-		read_adr_r <= adr_r;  // latch second read address on posedge clk
+		read_rw <= adr_rw;        // latch read address on posedge clk
+		read_r <= adr_r;  // latch second read address on posedge clk
 	end
 
-	assign data_out1 = ram [read_a];
-	assign data_out2 = ram [read_adr_r];
+	assign data_out_rw = ram [read_rw];
+	assign data_out_r = ram [read_r];
 
 endmodule
 

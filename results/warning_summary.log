@@ -1,33 +1,9 @@
 Warnings, critical warnings and errors from synthesis and implementation
 
-Created: 2025-08-13 18:44:14
+Created: 2025-08-14 00:22:43
 
 ----SYNTHESIS----
-WARNING: [Synth 8-11067] parameter 'ADDRESSWIDTH' declared inside package 'vector_pkg' shall be treated as localparam [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_pkg.sv:39]
-WARNING: [Synth 8-11067] parameter 'DATAWIDTH' declared inside package 'vector_pkg' shall be treated as localparam [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_pkg.sv:40]
-WARNING: [Synth 8-11121] redeclaration of ANSI port 'frame_drawn' is not allowed [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/top_rtl.sv:37]
-WARNING: [Synth 8-689] width (1) of port connection 'xpos' does not match port width (12) of module 'MouseCtl' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:57]
-WARNING: [Synth 8-689] width (1) of port connection 'ypos' does not match port width (12) of module 'MouseCtl' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:58]
-WARNING: [Synth 8-7071] port 'zpos' of module 'MouseCtl' is unconnected for instance 'u_mouse_controller' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:50]
-WARNING: [Synth 8-7071] port 'new_event' of module 'MouseCtl' is unconnected for instance 'u_mouse_controller' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:50]
-WARNING: [Synth 8-7071] port 'value' of module 'MouseCtl' is unconnected for instance 'u_mouse_controller' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:50]
-WARNING: [Synth 8-7071] port 'setx' of module 'MouseCtl' is unconnected for instance 'u_mouse_controller' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:50]
-WARNING: [Synth 8-7071] port 'sety' of module 'MouseCtl' is unconnected for instance 'u_mouse_controller' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:50]
-WARNING: [Synth 8-7023] instance 'u_mouse_controller' of module 'MouseCtl' has 16 connections declared, but only 11 given [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:50]
-WARNING: [Synth 8-7071] port 'locked' of module 'clk_wiz_0' is unconnected for instance 'u_clk_manager' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:69]
-WARNING: [Synth 8-7023] instance 'u_clk_manager' of module 'clk_wiz_0' has 6 connections declared, but only 5 given [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:69]
-WARNING: [Synth 8-7071] port 'state_debug' of module 'vector_manage' is unconnected for instance 'u_vector_manage' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/top_vector_display.sv:47]
-WARNING: [Synth 8-7023] instance 'u_vector_manage' of module 'vector_manage' has 17 connections declared, but only 16 given [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/top_vector_display.sv:47]
-WARNING: [Synth 8-7129] Port inx[8] in module valid_buf is either unconnected or has no load
-WARNING: [Synth 8-7129] Port iny[8] in module valid_buf is either unconnected or has no load
-WARNING: [Synth 8-7129] Port clk100MHz in module top_rtl is either unconnected or has no load
-WARNING: [Synth 8-7129] Port clk40MHz in module top_rtl is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ps2clk in module top_basys3 is either unconnected or has no load
-WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
-WARNING: [Synth 8-7129] Port clk100MHz in module top_rtl is either unconnected or has no load
-WARNING: [Synth 8-7129] Port clk40MHz in module top_rtl is either unconnected or has no load
-WARNING: [Synth 8-7129] Port ps2clk in module top_basys3 is either unconnected or has no load
-WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_bresenham/FSM_onehot_state_reg[0]) is unused and will be removed from module top_basys3.
+No synthesis log file found!
 
 ----IMPLEMENTATION----
 CLEAR :)

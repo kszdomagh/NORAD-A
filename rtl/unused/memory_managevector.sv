@@ -1,4 +1,4 @@
-module memory_manage #(
+module memory_managevector #(
     parameter int ADDRESSWIDTH = 10
 )(
     input  logic inc,

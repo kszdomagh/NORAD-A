@@ -64,6 +64,14 @@ module uwu_rom #(
             46:  data_out = {8'd0, 8'd255, 1'b1, 1'b0};
             47:  data_out = {8'd0, 8'd255, 1'b1, 1'b1};       //RESET
 
+            //      CURSOR 
+            48:  data_out = {8'd22, 8'd50, 1'b0, 1'b1};
+            49:  data_out = {8'd46, 8'd46, 1'b1, 1'b0};
+            50:  data_out = {8'd36, 8'd40, 1'b1, 1'b0};
+            51:  data_out = {8'd35, 8'd29, 1'b1, 1'b0};
+            52:  data_out = {8'd22, 8'd50, 1'b1, 1'b0};
+            53:  data_out = {8'd22, 8'd50, 1'b1, 1'b1};         // RESET
+
 
 
             default: data_out = '0;

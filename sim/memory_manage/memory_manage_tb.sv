@@ -1,4 +1,4 @@
-module top_vector_display_tb;
+module memory_manage_tb;
 
     // Testbench signals
     logic clk;
@@ -14,6 +14,9 @@ module top_vector_display_tb;
     logic [ADDRESSWIDTH-1:0] adrWRITE;
     logic draw_frame;
 
+    logic [4:0] state_debug_bits;
+    logic frame_reset;
+
 
     // DUT
 	memory_manage #(
@@ -26,7 +29,8 @@ module top_vector_display_tb;
         .clk(clk),
         .rst(rst),
         .frame_done(1),
-        .draw_frame(draw_frame),
+        .draw_frame(frame_reset),
+        .state_debug(state_debug_bits),
 
         //  ROM signals
         .adrROM(adrROM),
@@ -51,6 +55,25 @@ module top_vector_display_tb;
     );
 
 
+    typedef enum logic [4:0] { //5 bit state so 65 states possible
+        //CONTROL SIGNALS
+        DONE            = 5'd0,
+        RESET           = 5'd1,
+        WAIT_FRAME_DONE = 5'd2,
+        DRAW_RESET      = 5'd3,
+
+        //DRAW BACKGROUND
+        DRAW_FRAME = 5'd10,
+        DRAW_MAP   = 5'd11,
+
+        //DRAW INTERACTABLES
+        DRAW_CURSOR = 5'd12
+    } state_t;
+
+    state_t state_debug;
+    assign state_debug = state_t'(state_debug_bits);
+
+
     // Clock generation
     initial clk = 0;
     always #5 clk = ~clk; // 100MHz clock
@@ -68,7 +91,6 @@ module top_vector_display_tb;
 
 
     int reset_count;
-    logic frame_reset;
 
     always @(posedge clk) begin
 

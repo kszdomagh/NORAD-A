@@ -36,26 +36,27 @@ set xdc_files {
 # Specify SystemVerilog design files location   -- EDIT
 set sv_files {
 
-    #   CONTROL UNITS FOLDER
 
-
-    #   VECTOR DISPLAY FOLDER
-    ../rtl/vector_display/bresenham.sv
-    ../rtl/vector_display/top_vector_display.sv
-    ../rtl/vector_display/valid_buf.sv
-    ../rtl/vector_display/vector_manage.sv
+    ../rtl/ROM_pkg.sv
     ../rtl/vector_display/vector_pkg.sv
 
 
 
 
-    # RTL FOLDER
+
+    ../rtl/vector_display/bresenham.sv
+    ../rtl/vector_display/top_vector_display.sv
+    ../rtl/vector_display/valid_buf.sv
+    ../rtl/vector_display/vector_manage.sv
+
+
+
+
     ../rtl/memory_manage.sv
-    ../rtl/ROM_pkg.sv
     ../rtl/template_ram.sv
     ../rtl/uwu_rom.sv
 
-    # TOP MODULES
+
     ../rtl/top_rtl.sv
     rtl/top_basys3.sv
 }
@@ -63,7 +64,7 @@ set sv_files {
 # Specify Verilog design files location         -- EDIT
 set verilog_files {
 
-    #   MMCM FOLDER
+
     ../rtl/mmcm/clk_wiz_0.v
     ../rtl/mmcm/clk_wiz_0_clk_wiz.v
 }
@@ -71,7 +72,7 @@ set verilog_files {
 # Specify VHDL design files location            -- EDIT
 set vhdl_files {
 
-    #   MOUSE FOLDER
+
     ../rtl/mouse/MouseCtl.vhd
     ../rtl/mouse/Ps2Interface.vhd
 }
