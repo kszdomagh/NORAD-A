@@ -26,7 +26,9 @@ module top_basys3 (
         // y channel 8bit
         output wire [7:0] JC,
 
-        output wire LD0
+        output wire LD0,
+        input logic SW15,
+        output wire LD15
 
     );
 
@@ -40,17 +42,33 @@ module top_basys3 (
     logic clk100MHz;
     logic clk40MHz;
 
+    //  mouse signals
+    logic [7:0] Xmouse;
+    logic [7:0] Ymouse;
+    logic Lmouse;
+    logic Rmouse;
+
+
+
+    //  debug signals
     assign JA1=clk4MHz; // debug clk
+    assign LD15=SW15;
 
     // mouse control input
     MouseCtl u_mouse_controller (
-        .clk(),
-        .rst(0),
-        .xpos(xmouse),
-        .ypos(ymouse),
-        .right(r_button),
-        .left(l_button),
-        .middle(m_button)
+        .clk(clk100MHz),
+        .rst(btnC),
+        
+        .ps2_clk(ps2clk),
+        .ps2_data(ps2data),
+
+        .xpos(Xmouse),
+        .ypos(Ymouse),
+        .right(Rmouse),
+        .left(Lmouse),
+
+        .setmax_x(VECTOR_MAX),
+        .setmax_y(VECTOR_MAX)
     );
 
 
@@ -73,12 +91,21 @@ module top_basys3 (
         .clk40MHz(clk40MHz),
         .clk4MHz(clk4MHz),
         .rst(btnC),
+        
+        //MOUSE INPUTS
+        .Xmouse(Xmouse),
+        .Ymouse(Ymouse),
+        .Lmouse(Lmouse),
+        .Rmouse(Rmouse),
+
+        .enable_vector(LD15),
 
         .xch( {JB[4], JB[5], JB[6], JB[7], JB[0], JB[1], JB[2], JB[3]} ),
 
         //      y_ch is flipped lsb x_ch = msb dac_x
         .ych( {JC[0], JC[1], JC[2], JC[3], JC[4], JC[5], JC[6], JC[7]} ),
-        .frame_drawn(LD0)
+        
+        .frame_drawn(LD0) //    debug
     );
 
 

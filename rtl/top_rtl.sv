@@ -7,7 +7,8 @@
 //////////////////////////////////////////////////////////////////////////////
 module top_rtl#(
     parameter int ADDRESSWIDTH = 8,
-    parameter int DATAWIDTH = 18
+    parameter int DATAWIDTH = 18,
+    parameter int OUT_WIDTH = 8
     )(
 
         input logic clk100MHz,
@@ -15,10 +16,17 @@ module top_rtl#(
         input logic clk4MHz,
 
         input logic rst,
+        input logic enable_vector,
+
+        input logic [OUT_WIDTH-1:0] Xmouse,
+        input logic [OUT_WIDTH-1:0] Ymouse,
+        input logic Rmouse,
+        input logic Lmouse,
+        
         output wire frame_drawn,
         
-        output wire [7:0] xch,
-        output wire [7:0] ych
+        output wire [OUT_WIDTH-1:0] xch,
+        output wire [OUT_WIDTH-1:0] ych
         
     );
     timeunit 1ns;
@@ -43,6 +51,7 @@ module top_rtl#(
     ) u_vector_display (
         .clk(clk4MHz),
         .rst(rst),
+        .enable(enable_vector),
 
         .data_in(uwu_data),
         .addr(uwu_addr),

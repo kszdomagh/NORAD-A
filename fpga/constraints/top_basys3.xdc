@@ -40,8 +40,8 @@ set_property PACKAGE_PIN W5 [get_ports clk_in]
 	#set_property IOSTANDARD LVCMOS33 [get_ports {sw[13]}]
 #set_property PACKAGE_PIN T1 [get_ports {sw[14]}]
 	#set_property IOSTANDARD LVCMOS33 [get_ports {sw[14]}]
-#set_property PACKAGE_PIN R2 [get_ports {sw[15]}]
-	#set_property IOSTANDARD LVCMOS33 [get_ports {sw[15]}]
+set_property PACKAGE_PIN R2 [get_ports SW15]
+	set_property IOSTANDARD LVCMOS33 [get_ports SW15]
 
 
 ## LEDs
@@ -75,8 +75,8 @@ set_property PACKAGE_PIN U16 [get_ports {LD0}]
 	#set_property IOSTANDARD LVCMOS33 [get_ports {led[13]}]
 #set_property PACKAGE_PIN P1 [get_ports {led[14]}]
 	#set_property IOSTANDARD LVCMOS33 [get_ports {led[14]}]
-#set_property PACKAGE_PIN L1 [get_ports {led[15]}]
-	#set_property IOSTANDARD LVCMOS33 [get_ports {led[15]}]
+set_property PACKAGE_PIN L1 [get_ports LD15]
+	set_property IOSTANDARD LVCMOS33 [get_ports LD15]
 
 
 ##7 segment display

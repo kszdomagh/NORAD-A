@@ -6,6 +6,7 @@
 
   Change log: 
     05.08.2025 - kszdom - changed signed values to unsigned values
+    13.08.2025 - kszdom - added enable input port
  */
 //////////////////////////////////////////////////////////////////////////////
 module bresenham #(
@@ -13,6 +14,7 @@ module bresenham #(
     )(  // signed coordinate width
     input  wire logic clk,             // clock
     input  wire logic rst,             // reset
+    input  wire logic enable,
     input  wire logic go,           // start line drawing
     input  wire logic signed [BRES_WIDTH-1:0] stax, stay,  // point 0
     input  wire logic signed [BRES_WIDTH-1:0] endx, endy,  // point 1
@@ -95,7 +97,7 @@ module bresenham #(
             end
         endcase
 
-        if (rst) begin
+        if (rst || !(enable)) begin //kszdom: added enable
             state <= IDLE;
             busy <= 0;
             done <= 0;

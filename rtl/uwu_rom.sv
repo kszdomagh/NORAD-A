@@ -53,7 +53,7 @@ module uwu_rom #(
             38:  data_out = {8'd198, 8'd30, 1'b1, 1'b0};
             39:  data_out = {8'd177, 8'd9, 1'b1, 1'b0};
             40:  data_out = {8'd156, 8'd8, 1'b1, 1'b0};
-            //41:  data_out = {8'd156, 8'd8, 1'b1, 1'b1};       //RESET
+            41:  data_out = {8'd156, 8'd8, 1'b1, 1'b1};       //RESET
 
 
             //      FRAME

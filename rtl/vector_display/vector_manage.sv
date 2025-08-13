@@ -22,6 +22,7 @@ module vector_manage #(
     // control signals
     input logic clk,
     input logic rst,
+    input logic enable,
     output logic [5:0] state_debug,
 
     // data inputs
@@ -74,7 +75,7 @@ module vector_manage #(
     state_t state, state_nxt;
 
     always_ff@(posedge clk) begin
-        if(rst) begin
+        if(rst || !(enable)) begin
             state <= RESET;
 
         end else begin

@@ -12,6 +12,7 @@ module valid_buf #(
     input logic clk,             // clock
     input logic rst,             // reset
     input logic valid,           // if valid is high output goes thriuh
+    input logic enable,           // enable signal
     input logic signed [BRES_WIDTH-1:0] inx, iny,  // bren signed 
     output logic  [OUTWIDTH-1:0] outx, outy         // DAC output logic
     );
@@ -36,7 +37,7 @@ module valid_buf #(
 
     always_ff@(posedge clk) begin
 
-        if(rst) begin
+        if(rst || !(enable)) begin
             outx <= '0;
             outy <= '0;
         end else begin

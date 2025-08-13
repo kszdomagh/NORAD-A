@@ -14,6 +14,7 @@ module top_vector_display #(
     //data signals
     output logic [ADDRESSWIDTH-1:0] addr,
     input logic [DATAWIDTH-1:0] data_in,
+    input logic enable,
 
     output logic [OUT_WIDTH-1:0] x_ch,
     output logic [OUT_WIDTH-1:0] y_ch
@@ -46,6 +47,7 @@ module top_vector_display #(
     ) u_vector_manage (
         .clk(clk),
         .rst(rst),
+        .enable(enable),
 
         .x(data_in [9:2]),
         .y(data_in [17:10]),
@@ -71,6 +73,7 @@ module top_vector_display #(
         .clk(clk),
         .rst(rst),
         .go(go), 
+        .enable(enable),
 
         .done(done),
         .busy(draw_busy),
@@ -92,6 +95,7 @@ module top_vector_display #(
     ) u_valid_buf (
         .clk(clk),
         .rst(rst),
+        .enable(enable),
 
         .valid(valid_drawing),
 
