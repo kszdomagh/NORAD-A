@@ -18,6 +18,9 @@ module top_basys3 (
 
         output wire JA1,
 
+        inout logic ps2data,
+        input logic ps2clk,
+
         // x channel 8bit
         output wire [7:0] JB,
         // y channel 8bit
@@ -31,11 +34,6 @@ module top_basys3 (
     timeprecision 1ps;
 
 
-
-    /**
-     *  Project functional top module
-     */
-
     import vector_pkg::*;
 
     logic clk4MHz;
@@ -44,6 +42,19 @@ module top_basys3 (
 
     assign JA1=clk4MHz; // debug clk
 
+    // mouse control input
+    MouseCtl u_mouse_controller (
+        .clk(),
+        .rst(0),
+        .xpos(xmouse),
+        .ypos(ymouse),
+        .right(r_button),
+        .left(l_button),
+        .middle(m_button)
+    );
+
+
+    //  clk manager
     clk_wiz_0 u_clk_manager (
         .clk_in(clk_in),
 
@@ -55,12 +66,13 @@ module top_basys3 (
 
     );
 
+
+    //  top rtl
     top_rtl u_top_rtl(
         .clk100MHz(clk100MHz),
         .clk40MHz(clk40MHz),
         .clk4MHz(clk4MHz),
         .rst(btnC),
-
 
         .xch( {JB[4], JB[5], JB[6], JB[7], JB[0], JB[1], JB[2], JB[3]} ),
 

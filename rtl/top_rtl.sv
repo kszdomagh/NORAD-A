@@ -1,7 +1,10 @@
-
-
-
-
+//////////////////////////////////////////////////////////////////////////////
+/*
+ Module name:   top_rtl
+ Author:        kszdom
+ Description:  module with all non-hardware submodules used by the design
+ */
+//////////////////////////////////////////////////////////////////////////////
 module top_rtl#(
     parameter int ADDRESSWIDTH = 8,
     parameter int DATAWIDTH = 18

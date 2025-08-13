@@ -1,20 +1,92 @@
 Warnings, critical warnings and errors from synthesis and implementation
 
-Created: 2025-08-12 20:58:13
+Created: 2025-08-13 13:42:14
 
 ----SYNTHESIS----
-WARNING: [Synth 8-11067] parameter 'ADDRESSWIDTH' declared inside package 'vector_pkg' shall be treated as localparam [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_pkg.sv:33]
-WARNING: [Synth 8-11067] parameter 'DATAWIDTH' declared inside package 'vector_pkg' shall be treated as localparam [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_pkg.sv:34]
-WARNING: [Synth 8-11121] redeclaration of ANSI port 'frame_drawn' is not allowed [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/top_rtl.sv:32]
-WARNING: [Synth 8-7071] port 'locked' of module 'clk_wiz_0' is unconnected for instance 'u_clk_manager' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:47]
-WARNING: [Synth 8-7023] instance 'u_clk_manager' of module 'clk_wiz_0' has 6 connections declared, but only 5 given [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:47]
+WARNING: [Synth 8-11067] parameter 'ADDRESSWIDTH' declared inside package 'vector_pkg' shall be treated as localparam [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_pkg.sv:39]
+WARNING: [Synth 8-11067] parameter 'DATAWIDTH' declared inside package 'vector_pkg' shall be treated as localparam [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_pkg.sv:40]
+WARNING: [Synth 8-11121] redeclaration of ANSI port 'frame_drawn' is not allowed [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/top_rtl.sv:35]
+WARNING: [Synth 8-689] width (1) of port connection 'xpos' does not match port width (12) of module 'MouseCtl' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:49]
+WARNING: [Synth 8-689] width (1) of port connection 'ypos' does not match port width (12) of module 'MouseCtl' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:50]
+WARNING: [Synth 8-7071] port 'zpos' of module 'MouseCtl' is unconnected for instance 'u_mouse_controller' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:46]
+WARNING: [Synth 8-7071] port 'new_event' of module 'MouseCtl' is unconnected for instance 'u_mouse_controller' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:46]
+WARNING: [Synth 8-7071] port 'value' of module 'MouseCtl' is unconnected for instance 'u_mouse_controller' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:46]
+WARNING: [Synth 8-7071] port 'setx' of module 'MouseCtl' is unconnected for instance 'u_mouse_controller' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:46]
+WARNING: [Synth 8-7071] port 'sety' of module 'MouseCtl' is unconnected for instance 'u_mouse_controller' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:46]
+WARNING: [Synth 8-7071] port 'setmax_x' of module 'MouseCtl' is unconnected for instance 'u_mouse_controller' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:46]
+WARNING: [Synth 8-7071] port 'setmax_y' of module 'MouseCtl' is unconnected for instance 'u_mouse_controller' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:46]
+WARNING: [Synth 8-7071] port 'ps2_clk' of module 'MouseCtl' is unconnected for instance 'u_mouse_controller' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:46]
+WARNING: [Synth 8-7071] port 'ps2_data' of module 'MouseCtl' is unconnected for instance 'u_mouse_controller' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:46]
+WARNING: [Synth 8-7023] instance 'u_mouse_controller' of module 'MouseCtl' has 16 connections declared, but only 7 given [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:46]
+WARNING: [Synth 8-7071] port 'locked' of module 'clk_wiz_0' is unconnected for instance 'u_clk_manager' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:58]
+WARNING: [Synth 8-7023] instance 'u_clk_manager' of module 'clk_wiz_0' has 6 connections declared, but only 5 given [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:58]
 WARNING: [Synth 8-7071] port 'state_debug' of module 'vector_manage' is unconnected for instance 'u_vector_manage' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/top_vector_display.sv:46]
 WARNING: [Synth 8-7023] instance 'u_vector_manage' of module 'vector_manage' has 16 connections declared, but only 15 given [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/top_vector_display.sv:46]
 WARNING: [Synth 8-7129] Port inx[8] in module valid_buf is either unconnected or has no load
 WARNING: [Synth 8-7129] Port iny[8] in module valid_buf is either unconnected or has no load
 WARNING: [Synth 8-7129] Port clk100MHz in module top_rtl is either unconnected or has no load
 WARNING: [Synth 8-7129] Port clk40MHz in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ps2data in module top_basys3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ps2clk in module top_basys3 is either unconnected or has no load
 WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+WARNING: [Synth 8-7129] Port clk100MHz in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port clk40MHz in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ps2data in module top_basys3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port ps2clk in module top_basys3 is either unconnected or has no load
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/Inst_Ps2Interface/FSM_onehot_state_reg[16]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/Inst_Ps2Interface/FSM_onehot_state_reg[15]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/Inst_Ps2Interface/FSM_onehot_state_reg[14]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/Inst_Ps2Interface/FSM_onehot_state_reg[13]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/Inst_Ps2Interface/FSM_onehot_state_reg[12]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/Inst_Ps2Interface/FSM_onehot_state_reg[11]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/Inst_Ps2Interface/FSM_onehot_state_reg[10]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/Inst_Ps2Interface/FSM_onehot_state_reg[9]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/Inst_Ps2Interface/FSM_onehot_state_reg[8]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/Inst_Ps2Interface/FSM_onehot_state_reg[7]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/Inst_Ps2Interface/FSM_onehot_state_reg[6]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/Inst_Ps2Interface/FSM_onehot_state_reg[5]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/Inst_Ps2Interface/FSM_onehot_state_reg[4]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/Inst_Ps2Interface/FSM_onehot_state_reg[3]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/Inst_Ps2Interface/FSM_onehot_state_reg[2]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/Inst_Ps2Interface/FSM_onehot_state_reg[1]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/Inst_Ps2Interface/FSM_onehot_state_reg[0]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[36]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[35]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[34]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[33]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[32]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[31]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[30]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[29]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[28]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[27]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[26]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[25]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[24]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[23]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[22]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[21]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[20]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[19]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[18]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[17]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[16]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[15]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[14]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[13]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[12]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[11]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[10]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[9]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[8]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[7]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[6]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[5]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[4]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[3]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[2]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[1]) is unused and will be removed from module top_basys3.
+WARNING: [Synth 8-3332] Sequential element (u_mouse_controller/FSM_onehot_state_reg[0]) is unused and will be removed from module top_basys3.
 WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_bresenham/FSM_onehot_state_reg[0]) is unused and will be removed from module top_basys3.
 
 ----IMPLEMENTATION----
