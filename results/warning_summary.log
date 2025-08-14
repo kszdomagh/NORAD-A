@@ -1,9 +1,99 @@
 Warnings, critical warnings and errors from synthesis and implementation
 
-Created: 2025-08-14 00:22:43
+Created: 2025-08-14 01:54:15
 
 ----SYNTHESIS----
-No synthesis log file found!
+WARNING: [Synth 8-11067] parameter 'ADDRESSWIDTH' declared inside package 'vector_pkg' shall be treated as localparam [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_pkg.sv:42]
+WARNING: [Synth 8-11067] parameter 'DATAWIDTH' declared inside package 'vector_pkg' shall be treated as localparam [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/vector_pkg.sv:43]
+WARNING: [Synth 8-689] width (8) of port connection 'xpos' does not match port width (12) of module 'MouseCtl' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:63]
+WARNING: [Synth 8-689] width (8) of port connection 'ypos' does not match port width (12) of module 'MouseCtl' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:64]
+WARNING: [Synth 8-7071] port 'zpos' of module 'MouseCtl' is unconnected for instance 'u_mouse_controller' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:56]
+WARNING: [Synth 8-7071] port 'middle' of module 'MouseCtl' is unconnected for instance 'u_mouse_controller' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:56]
+WARNING: [Synth 8-7071] port 'new_event' of module 'MouseCtl' is unconnected for instance 'u_mouse_controller' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:56]
+WARNING: [Synth 8-7071] port 'value' of module 'MouseCtl' is unconnected for instance 'u_mouse_controller' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:56]
+WARNING: [Synth 8-7071] port 'setx' of module 'MouseCtl' is unconnected for instance 'u_mouse_controller' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:56]
+WARNING: [Synth 8-7071] port 'sety' of module 'MouseCtl' is unconnected for instance 'u_mouse_controller' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:56]
+WARNING: [Synth 8-7023] instance 'u_mouse_controller' of module 'MouseCtl' has 16 connections declared, but only 10 given [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:56]
+WARNING: [Synth 8-7071] port 'locked' of module 'clk_wiz_0' is unconnected for instance 'u_clk_manager' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:74]
+WARNING: [Synth 8-7023] instance 'u_clk_manager' of module 'clk_wiz_0' has 6 connections declared, but only 5 given [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:74]
+WARNING: [Synth 8-7071] port 'state_debug' of module 'vector_manage' is unconnected for instance 'u_vector_manage' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/top_vector_display.sv:47]
+WARNING: [Synth 8-7023] instance 'u_vector_manage' of module 'vector_manage' has 17 connections declared, but only 16 given [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/vector_display/top_vector_display.sv:47]
+WARNING: [Synth 8-7071] port 'state_debug' of module 'memory_manage' is unconnected for instance 'u_memory_manage' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/top_rtl.sv:70]
+WARNING: [Synth 8-7023] instance 'u_memory_manage' of module 'memory_manage' has 11 connections declared, but only 10 given [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/top_rtl.sv:70]
+WARNING: [Synth 8-3848] Net JA1 in module/entity top_basys3 does not have driver. [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:19]
+WARNING: [Synth 8-3848] Net LD0 in module/entity top_basys3 does not have driver. [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:29]
+WARNING: [Synth 8-3848] Net LD15 in module/entity top_basys3 does not have driver. [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:31]
+WARNING: [Synth 8-7129] Port x_cursor[7] in module memory_manage is either unconnected or has no load
+WARNING: [Synth 8-7129] Port x_cursor[6] in module memory_manage is either unconnected or has no load
+WARNING: [Synth 8-7129] Port x_cursor[5] in module memory_manage is either unconnected or has no load
+WARNING: [Synth 8-7129] Port x_cursor[4] in module memory_manage is either unconnected or has no load
+WARNING: [Synth 8-7129] Port x_cursor[3] in module memory_manage is either unconnected or has no load
+WARNING: [Synth 8-7129] Port x_cursor[2] in module memory_manage is either unconnected or has no load
+WARNING: [Synth 8-7129] Port x_cursor[1] in module memory_manage is either unconnected or has no load
+WARNING: [Synth 8-7129] Port x_cursor[0] in module memory_manage is either unconnected or has no load
+WARNING: [Synth 8-7129] Port y_cursor[7] in module memory_manage is either unconnected or has no load
+WARNING: [Synth 8-7129] Port y_cursor[6] in module memory_manage is either unconnected or has no load
+WARNING: [Synth 8-7129] Port y_cursor[5] in module memory_manage is either unconnected or has no load
+WARNING: [Synth 8-7129] Port y_cursor[4] in module memory_manage is either unconnected or has no load
+WARNING: [Synth 8-7129] Port y_cursor[3] in module memory_manage is either unconnected or has no load
+WARNING: [Synth 8-7129] Port y_cursor[2] in module memory_manage is either unconnected or has no load
+WARNING: [Synth 8-7129] Port y_cursor[1] in module memory_manage is either unconnected or has no load
+WARNING: [Synth 8-7129] Port y_cursor[0] in module memory_manage is either unconnected or has no load
+WARNING: [Synth 8-7129] Port inx[8] in module valid_buf is either unconnected or has no load
+WARNING: [Synth 8-7129] Port iny[8] in module valid_buf is either unconnected or has no load
+WARNING: [Synth 8-7129] Port clk40MHz in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Xmouse[7] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Xmouse[6] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Xmouse[5] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Xmouse[4] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Xmouse[3] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Xmouse[2] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Xmouse[1] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Xmouse[0] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Ymouse[7] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Ymouse[6] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Ymouse[5] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Ymouse[4] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Ymouse[3] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Ymouse[2] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Ymouse[1] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Ymouse[0] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Rmouse in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Lmouse in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port JA1 in module top_basys3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port LD0 in module top_basys3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port LD15 in module top_basys3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port SW15 in module top_basys3 is either unconnected or has no load
+WARNING: [Synth 8-3936] Found unconnected internal register 'read_rw_reg' and it is trimmed from '16' to '10' bits. [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/template_ram.sv:48]
+WARNING: [Synth 8-3936] Found unconnected internal register 'read_r_reg' and it is trimmed from '16' to '10' bits. [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/template_ram.sv:49]
+WARNING: [Synth 8-6430] The Block RAM "template_ram:/ram_reg" may get memory collision error if read and write address collide. Use attribute (* rw_addr_collision= "yes" *) to avoid collision 
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+WARNING: [Synth 8-7129] Port clk40MHz in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Xmouse[7] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Xmouse[6] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Xmouse[5] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Xmouse[4] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Xmouse[3] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Xmouse[2] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Xmouse[1] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Xmouse[0] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Ymouse[7] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Ymouse[6] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Ymouse[5] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Ymouse[4] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Ymouse[3] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Ymouse[2] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Ymouse[1] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Ymouse[0] in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Rmouse in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port Lmouse in module top_rtl is either unconnected or has no load
+WARNING: [Synth 8-7129] Port JA1 in module top_basys3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port LD0 in module top_basys3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port LD15 in module top_basys3 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port SW15 in module top_basys3 is either unconnected or has no load
+WARNING: [Synth 8-6430] The Block RAM "top_basys3/u_top_rtl/u_RAM_module/ram_reg" may get memory collision error if read and write address collide. Use attribute (* rw_addr_collision= "yes" *) to avoid collision 
+WARNING: [Synth 8-3332] Sequential element (u_top_rtl/u_vector_display/u_bresenham/FSM_onehot_state_reg[0]) is unused and will be removed from module top_basys3.
 
 ----IMPLEMENTATION----
-CLEAR :)
+WARNING: [Route 35-328] Router estimated timing not met.
+CRITICAL WARNING: [Timing 38-282] The design failed to meet the timing requirements. Please see the timing summary report for details on the timing violations.

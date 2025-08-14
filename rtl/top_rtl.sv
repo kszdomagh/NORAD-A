@@ -84,8 +84,8 @@ module top_rtl#(
         .frame_done(frame_done),  // to sygnał że narysoano klatke na oscyloskopie - prosze zrobic kolejna i dac nowe dane do RAMU
 
         //  from mouse input signals
-        .x_cursor(Xmouse),
-        .y_cursor(Ymouse)
+        .x_cursor(8'd175),
+        .y_cursor(8'd70)
     );
 
     template_ram #(

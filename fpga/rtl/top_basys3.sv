@@ -51,8 +51,6 @@ module top_basys3 (
 
 
     //  debug signals
-    assign JA1=clk4MHz; // debug clk
-    assign LD15=SW15;
 
     // mouse control input
     MouseCtl u_mouse_controller (
@@ -67,8 +65,8 @@ module top_basys3 (
         .right(Rmouse),
         .left(Lmouse),
 
-        .setmax_x(VECTOR_MAX),
-        .setmax_y(VECTOR_MAX)
+        .setmax_x(8'd255),
+        .setmax_y(8'd255)
     );
 
 

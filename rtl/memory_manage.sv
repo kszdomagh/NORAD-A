@@ -112,8 +112,8 @@ module memory_manage #(
     always_comb begin
 
         //signals usefull in DRAW_ states
-        xROM = dataROM[9:2];
-        yROM = dataROM[17:10];
+        xROM = dataROM[17:10];
+        yROM = dataROM[9:2];
         lineROM = dataROM[1];
         posROM = dataROM[0];
 
@@ -128,19 +128,19 @@ module memory_manage #(
             RESET: begin
                 adrWRITE_nxt = 0;
                 dataWRITE_nxt = {8'd0, 8'd0, 1'b0, 1'b1}; //make a point at bottom left corner
-                adrROM_nxt = 0;
+                adrROM_nxt = ADR_FRAME_START;
             end
 
 
 
             DRAW_FRAME: begin
 
-                if (state != state_nxt) adrROM_nxt = ADR_FRAME_START;
+                if (state != state_nxt) adrROM_nxt = ADR_MAP_START; //next state adr start
 
                 if(lineROM & posROM) begin
                     // no nothing
                 end else begin
-                    dataWRITE_nxt = dataROM;
+                    dataWRITE_nxt = {xROM, yROM, lineROM, posROM};
                     adrWRITE_nxt = adrWRITE + 1;
                 end
 
@@ -151,12 +151,12 @@ module memory_manage #(
 
             DRAW_MAP: begin
 
-                if (state != state_nxt) adrROM_nxt = ADR_MAP_START;
+                if (state != state_nxt) adrROM_nxt = ADR_CURSOR_START; //next state adr start
                 
                 if(lineROM & posROM) begin
                     // no nothing
                 end else begin
-                    dataWRITE_nxt = dataROM;
+                    dataWRITE_nxt = {xROM, yROM, lineROM, posROM};
                     adrWRITE_nxt = adrWRITE + 1;
                 end
 
@@ -167,12 +167,12 @@ module memory_manage #(
 
             DRAW_CURSOR: begin
 
-                if (state != state_nxt) adrROM_nxt = ADR_CURSOR_START;
+                if (state != state_nxt) adrROM_nxt = ADR_CURSOR_START; //next state adr start
                 
                 if(lineROM & posROM) begin
                     // no nothing
                 end else begin
-                    dataWRITE_nxt = {xROM + x_cursor - CURSOR_MID_X, yROM + y_cursor - CURSOR_MID_Y, lineROM, posROM};
+                    dataWRITE_nxt = {xROM, yROM, lineROM, posROM};
                     adrWRITE_nxt = adrWRITE + 1;
                 end
 
@@ -194,6 +194,7 @@ module memory_manage #(
 
             WAIT_FRAME_DONE: begin
                 draw_frame_nxt = 1;
+                adrROM_nxt = 0; //reset next so zero the ROM read adr
             end
 
         endcase
