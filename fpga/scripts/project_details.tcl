@@ -57,12 +57,20 @@ set sv_files {
     ../rtl/uwu_rom.sv
 
 
+    ../rtl/hex/disp_hex_mux.sv
+    ../rtl/hex/num_to_hex.sv
+
+
     ../rtl/top_rtl.sv
     rtl/top_basys3.sv
 }
 
 # Specify Verilog design files location         -- EDIT
 set verilog_files {
+    ../rtl/mouse/ps2_mouse.v
+    ../rtl/mouse/ps2_signal_map.v
+    ../rtl/mouse/ps2_signal.v
+    ../rtl/mouse/ps2_validator.v
 
 
     ../rtl/mmcm/clk_wiz_0.v
@@ -70,12 +78,9 @@ set verilog_files {
 }
 
 # Specify VHDL design files location            -- EDIT
-set vhdl_files {
-
-
-    ../rtl/mouse/MouseCtl.vhd
-    ../rtl/mouse/Ps2Interface.vhd
-}
+# set vhdl_files {
+# 
+# }
 
 # Specify files for a memory initialization     -- EDIT
 # set mem_files {

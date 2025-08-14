@@ -172,7 +172,7 @@ module memory_manage #(
                 if(lineROM & posROM) begin
                     // no nothing
                 end else begin
-                    dataWRITE_nxt = {xROM, yROM, lineROM, posROM};
+                    dataWRITE_nxt = {xROM - CURSOR_MID_X + x_cursor, yROM - CURSOR_MID_Y + y_cursor, lineROM, posROM};
                     adrWRITE_nxt = adrWRITE + 1;
                 end
 

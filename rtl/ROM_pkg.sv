@@ -20,7 +20,7 @@ package ROM_pkg;
 
     localparam ADR_CURSOR_START = 48;
     localparam CURSOR_MID_X = 22;   //draw cursor at there coordinates
-    localparam CURSOR_MID_Y = 50;
+    localparam CURSOR_MID_Y = 50;   //draw cursor at there coordinates
 
 
 
