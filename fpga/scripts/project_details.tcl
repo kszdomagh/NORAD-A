@@ -50,6 +50,10 @@ set sv_files {
     ../rtl/vector_display/vector_manage.sv
 
 
+    ../rtl/control_units/enemy_control.sv
+    ../rtl/control_units/timer_cluster.sv
+    ../rtl/control_units/timer.sv
+    ../rtl/control_units/game_logic_top.sv
 
 
     ../rtl/memory_manage.sv

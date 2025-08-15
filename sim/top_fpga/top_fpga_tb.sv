@@ -60,6 +60,7 @@ module top_fpga_tb;
         .clk_in(clk),
         .btnC(rst),
 
+
         .JB(JB),
         .JC(JC)
     );
@@ -80,8 +81,9 @@ module top_fpga_tb;
         $display("Prepare to wait a long time...");
 
         // End the simulation.
-
-        // $finish;
+        #1000000;
+        $display("Simulation timeout reached.");
+        $finish;
     end
 
 endmodule

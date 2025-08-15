@@ -14,11 +14,11 @@ module enemy_control #(
 
     input logic speed_pulse,
     input logic spawn_pulse,
+    input logic en,
     //input logic enemy_randomize,     // randomize what enemy
 
     output logic [OUT_WIDTH-1:0] xenemy,
     output logic [OUT_WIDTH-1:0] yenemy,
-    output logic base_hit,
     output logic spawn
 );
 
@@ -27,38 +27,28 @@ module enemy_control #(
 
     logic [OUT_WIDTH-1:0] yenemy_nxt;
     logic [OUT_WIDTH-1:0] xenemy_nxt;
-    logic base_hit_nxt;
     logic spawn_nxt;
 
 
     always_comb begin
 
-        base_hit_nxt  = base_hit;
         spawn_nxt     = spawn;
         xenemy_nxt    = xenemy;
         yenemy_nxt    = yenemy;
 
         // y is constant
-        case(TARGET_BASE)
-            1: begin
-                yenemy_nxt = Y_ENEMY1_BASE1;
-                if(xenemy == X_BASE1) base_hit_nxt = 1;
-            end
-            2: begin
-                yenemy_nxt = Y_ENEMY2_BASE2;
-                if(xenemy == X_BASE2) base_hit_nxt = 1;
-            end
-            3: begin
-                yenemy_nxt = Y_ENEMY3_BASE3;
-                if(xenemy == X_BASE3) base_hit_nxt = 1;
-            end
-        endcase
+        if(TARGET_BASE == 1) begin
+            yenemy_nxt = Y_ENEMY1_BASE1;
+        end else if(TARGET_BASE == 2) begin
+
+            yenemy_nxt = Y_ENEMY2_BASE2;
+        end else if(TARGET_BASE == 3) begin
+            yenemy_nxt = Y_ENEMY3_BASE3;
+        end
 
 
-
-        if(rst) begin
+        if(rst | !en) begin
             xenemy_nxt      = '0;
-            base_hit_nxt    = 1'b0;
             spawn_nxt       = 1'b0;
         end else begin
 
@@ -76,7 +66,6 @@ module enemy_control #(
     always_ff@(posedge clk) begin
         xenemy      <= xenemy_nxt;
         yenemy      <= yenemy_nxt;
-        base_hit    <= base_hit_nxt;
         spawn       <= spawn_nxt;
     end
 

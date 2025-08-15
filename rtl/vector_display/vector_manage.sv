@@ -63,19 +63,20 @@ module vector_manage #(
 
 
     typedef enum logic [5:0] {
-        RESET      = 6'b000001,
-        GETDATA    = 6'b000010,
-        CHECKDATA  = 6'b000011,     //fix this later
-        SENDDATA   = 6'b000100,
-        GODOWN     = 6'b001000,
-        WAITBUSY   = 6'b010000,
-        ADR        = 6'b100000
+        RESET        = 6'b000001,
+        GETDATA      = 6'b000010,
+        CHECKDATA    = 6'b000011,     //fix this later
+        SENDDATA     = 6'b000100,
+        GODOWN       = 6'b001000,
+        WAITBUSY     = 6'b010000,
+        ADR          = 6'b100000,
+        VECTOR_RESET = 6'b000111
     } state_t;
 
     state_t state, state_nxt;
 
     always_ff@(posedge clk) begin
-        if(rst || !(enable)) begin
+        if(rst) begin
             state <= RESET;
 
         end else begin
@@ -102,11 +103,13 @@ module vector_manage #(
         case(state)
             RESET: state_nxt = GETDATA;
             GETDATA: state_nxt = busy ? GETDATA : CHECKDATA;
-            CHECKDATA: state_nxt = (pos && line) ? RESET : SENDDATA;
+            CHECKDATA: state_nxt = (pos && line) ? VECTOR_RESET : SENDDATA;
             SENDDATA: state_nxt = GODOWN;
             GODOWN: state_nxt = WAITBUSY;
             WAITBUSY: state_nxt = done ? ADR : WAITBUSY;
             ADR: state_nxt = GETDATA;
+
+            VECTOR_RESET: state_nxt = enable ? GETDATA : VECTOR_RESET;
             default: state_nxt = RESET;
         endcase
     end
@@ -243,6 +246,21 @@ module vector_manage #(
                 y_prev_nxt = y_prev;
 
                 vector_reset = 1'b0;
+            end
+
+            VECTOR_RESET: begin
+                go_nxt = 1'b0;
+                adr_nxt = 0;    // zero the adress
+
+                stax_nxt = stax;
+                endx_nxt = endx;
+                stay_nxt = stay;
+                endy_nxt = endy;
+
+                x_prev_nxt = x_prev;
+                y_prev_nxt = y_prev;
+
+                vector_reset = 1'b1; //  if reset is found at the end of memory - send the signal
             end
 
         endcase

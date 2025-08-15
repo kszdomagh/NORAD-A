@@ -9,12 +9,13 @@ module top_vector_display #(
     //control signals
     input logic clk,
     input logic rst,
-    output logic frame_drawn,
+
+    output logic halt,
+    input logic go_master,
 
     //data signals
     output logic [ADDRESSWIDTH-1:0] addr,
     input logic [DATAWIDTH-1:0] data_in,
-    input logic enable,
 
     output logic [OUT_WIDTH-1:0] x_ch,
     output logic [OUT_WIDTH-1:0] y_ch
@@ -25,7 +26,6 @@ module top_vector_display #(
 
     import vector_pkg::*;
 
-    logic go;
     logic [OUT_WIDTH:0] stax;
     logic [OUT_WIDTH:0] stay;
     logic [OUT_WIDTH:0] endx;
@@ -36,6 +36,7 @@ module top_vector_display #(
     logic valid_drawing;
 
     logic done;
+    logic go;
 
     vector_manage #(
         .ADR_WIDTH(ADDRESSWIDTH),
@@ -47,7 +48,7 @@ module top_vector_display #(
     ) u_vector_manage (
         .clk(clk),
         .rst(rst),
-        .enable(enable),
+        .enable(go_master),
 
         .x(data_in [9:2]),
         .y(data_in [17:10]),
@@ -64,7 +65,7 @@ module top_vector_display #(
         .endy(endy),
 
         .adr(addr),
-        .vector_reset(frame_drawn)
+        .vector_reset(halt)
     );
 
     bresenham #(
@@ -73,7 +74,7 @@ module top_vector_display #(
         .clk(clk),
         .rst(rst),
         .go(go), 
-        .enable(enable),
+        .enable(go_master),
 
         .done(done),
         .busy(draw_busy),
@@ -95,7 +96,7 @@ module top_vector_display #(
     ) u_valid_buf (
         .clk(clk),
         .rst(rst),
-        .enable(enable),
+        .enable(go_master),
 
         .valid(valid_drawing),
 

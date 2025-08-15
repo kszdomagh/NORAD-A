@@ -12,10 +12,10 @@ module memory_manage_tb;
     logic [ADDRESSWIDTH-1:0] adrROM;
     logic [DATAWIDTH-1:0] dataWRITE;
     logic [ADDRESSWIDTH-1:0] adrWRITE;
-    logic draw_frame;
+    logic go;
+    logic halt;
 
     logic [4:0] state_debug_bits;
-    logic frame_reset;
 
 
     // DUT
@@ -28,8 +28,8 @@ module memory_manage_tb;
     ) u_DUT (
         .clk(clk),
         .rst(rst),
-        .frame_done(1),
-        .draw_frame(frame_reset),
+        .halt(halt),
+        .go(go),
         .state_debug(state_debug_bits),
 
         //  ROM signals
@@ -42,7 +42,12 @@ module memory_manage_tb;
 
         //  MOUSE POS SIGNALS
         .x_cursor(100),
-        .y_cursor(120)
+        .y_cursor(120),
+
+        .spawn_enemy1(1),
+        .xenemy1(200),
+        .yenemy1(53)
+
 	);
 
 
@@ -66,6 +71,11 @@ module memory_manage_tb;
         DRAW_FRAME = 5'd10,
         DRAW_MAP   = 5'd11,
 
+        //DRAW ENEMIES
+        DRAW_ENEMY1 = 5'd13,
+        DRAW_ENEMY2 = 5'd14,
+        DRAW_ENEMY3 = 5'd15,
+
         //DRAW INTERACTABLES
         DRAW_CURSOR = 5'd12
     } state_t;
@@ -81,22 +91,30 @@ module memory_manage_tb;
     // Stimulus block
     initial begin
         rst = 1;
+        halt = 0;
         #20 rst = 0;
 
-        // Optional: add timeout
+        // timeout
         #1000000;
         $display("Simulation timeout reached.");
         $finish;
     end
 
 
-    int reset_count;
+    int reset_count = 0;
 
     always @(posedge clk) begin
 
+        halt = 0;
 
-        if (draw_frame) begin
-            $display("Draw frame signal recieved at time: %t", $time);
+        if (go) begin
+            reset_count = reset_count + 1;
+            halt = 1;
+        end
+
+
+        if(reset_count == 4) begin
+            $display("Four resets/ four frames drawn at time: %t", $time);
             $display("PASSED :3");
             $finish;
         end

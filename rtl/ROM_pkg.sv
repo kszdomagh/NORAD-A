@@ -16,10 +16,16 @@ package ROM_pkg;
     localparam FRAME_MID_X = 128;
     localparam FRAME_MID_Y = FRAME_MID_X;
 
-
+    //      CURSOR
     localparam ADR_CURSOR_START = 48;
     localparam CURSOR_MID_X = 22;   //draw cursor at there coordinates
     localparam CURSOR_MID_Y = 50;   //draw cursor at there coordinates
+
+
+    //      TESTPLANE
+    localparam ADR_TESTPLANE_START = 48;
+    localparam TESTPLANE_MID_X = 208;   //draw cursor at there coordinates
+    localparam TESTPLANE_MID_Y = 172;   //draw cursor at there coordinates
 
 
 

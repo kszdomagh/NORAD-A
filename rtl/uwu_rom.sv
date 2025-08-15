@@ -103,6 +103,29 @@ module uwu_rom #(
 
 
 
+            //      PLANE
+            54:  data_out = {8'd186, 8'd164, 1'b0, 1'b1};
+            55:  data_out = {8'd170, 8'd164, 1'b1, 1'b0};
+            56:  data_out = {8'd155, 8'd167, 1'b1, 1'b0};
+            57:  data_out = {8'd169, 8'd171, 1'b1, 1'b0};
+            58:  data_out = {8'd170, 8'd164, 1'b1, 1'b0};
+            59:  data_out = {8'd169, 8'd171, 1'b0, 1'b1};
+            60:  data_out = {8'd174, 8'd172, 1'b1, 1'b0};
+            61:  data_out = {8'd177, 8'd175, 1'b1, 1'b0};
+            62:  data_out = {8'd187, 8'd175, 1'b1, 1'b0};
+            63:  data_out = {8'd190, 8'd172, 1'b1, 1'b0};
+            64:  data_out = {8'd208, 8'd172, 1'b1, 1'b0};
+            65:  data_out = {8'd220, 8'd177, 1'b1, 1'b0};
+            66:  data_out = {8'd216, 8'd164, 1'b1, 1'b0};
+            67:  data_out = {8'd208, 8'd164, 1'b1, 1'b0};
+            68:  data_out = {8'd206, 8'd168, 1'b0, 1'b1};
+            69:  data_out = {8'd214, 8'd153, 1'b1, 1'b0};
+            70:  data_out = {8'd193, 8'd157, 1'b1, 1'b0};
+            71:  data_out = {8'd184, 8'd168, 1'b1, 1'b0};
+            71:  data_out = {8'd184, 8'd168, 1'b1, 1'b1};       // RESET
+
+
+
             default: data_out = '0;
         endcase
     end

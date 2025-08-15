@@ -21,8 +21,8 @@ module memory_manage #(
     // control signals
     input logic clk,
     input logic rst,
-    input logic frame_done,
-    output logic draw_frame,
+    input logic halt,
+    output logic go,
     output logic [4:0] state_debug,
 
     //  ROM signals
@@ -43,7 +43,7 @@ module memory_manage #(
     // enemy signals
     input logic [OUT_WIDTH-1:0] xenemy1,
     input logic [OUT_WIDTH-1:0] yenemy1,
-    input logic sprawn_enemy1
+    input logic spawn_enemy1
 
 );
 
@@ -57,7 +57,7 @@ module memory_manage #(
     logic posROM;
 
     //  NXT SIGNALS
-    logic draw_frame_nxt;
+    logic go_nxt;
     logic [ADR_WIDTH-1:0] adrROM_nxt;
     logic [ADR_WIDTH-1:0] adrWRITE_nxt;
     logic [DATAWIDTH-1:0] dataWRITE_nxt;
@@ -75,9 +75,9 @@ module memory_manage #(
         DRAW_MAP   = 5'd11,
 
         //DRAW ENEMIES
-        DRAW_ENEMY1 = 5'd12,
-        DRAW_ENEMY2 = 5'd13,
-        DRAW_ENEMY3 = 5'd14,
+        DRAW_ENEMY1 = 5'd13,
+        DRAW_ENEMY2 = 5'd14,
+        DRAW_ENEMY3 = 5'd15,
 
         //DRAW INTERACTABLES
         DRAW_CURSOR = 5'd12
@@ -94,7 +94,7 @@ module memory_manage #(
         end else begin
             state <= state_nxt;
 
-            draw_frame <= draw_frame_nxt;
+            go <= go_nxt;
             adrROM    <= adrROM_nxt;
             adrWRITE  <= adrWRITE_nxt;
             dataWRITE <= dataWRITE_nxt;
@@ -111,13 +111,13 @@ module memory_manage #(
             DRAW_MAP: state_nxt = (posROM & lineROM) ? DRAW_CURSOR : DRAW_MAP;
             DRAW_CURSOR: state_nxt = (posROM & lineROM) ? DRAW_ENEMY1 : DRAW_CURSOR;
 
-            DRAW_ENEMY1:state_nxt = ( (posROM & lineROM) | (!sprawn_enemy1) ) ? DRAW_RESET : DRAW_ENEMY1;
+            DRAW_ENEMY1:state_nxt = ((posROM & lineROM) || !spawn_enemy1) ? DRAW_RESET : DRAW_ENEMY1;
 
 
             DRAW_RESET: state_nxt = DONE;
 
             DONE: state_nxt = WAIT_FRAME_DONE;
-            WAIT_FRAME_DONE: state_nxt = frame_done ? DRAW_FRAME : WAIT_FRAME_DONE;
+            WAIT_FRAME_DONE: state_nxt = halt ? DRAW_FRAME : WAIT_FRAME_DONE;
 
             default: state_nxt = RESET;
         endcase
@@ -136,7 +136,7 @@ module memory_manage #(
         adrROM_nxt      = adrROM;
         adrWRITE_nxt    = adrWRITE;
         dataWRITE_nxt   = dataWRITE;
-        draw_frame_nxt  = 0;
+        go_nxt  = 0;
 
 
         case(state)
@@ -200,7 +200,7 @@ module memory_manage #(
             BELOW YOU ARE NOW DRAWING THE PLAYER CURSOR
 ///////////////////////////////////////////////////////////////////////////////////////////////*/
             DRAW_CURSOR: begin
-                if (state != state_nxt) adrROM_nxt = ADR_CURSOR_START; //next state adr start
+                if (state != state_nxt) adrROM_nxt = ADR_TESTPLANE_START; //next state adr start
                 
                 if(lineROM & posROM) begin
                     // no nothing
@@ -221,16 +221,16 @@ module memory_manage #(
             BELOW YOU ARE NOW DRAWING THE FIRST ENEMY - please change parameters from uwu memory to the good memory specific
 ///////////////////////////////////////////////////////////////////////////////////////////////*/
             DRAW_ENEMY1: begin
-                if (state != state_nxt) adrROM_nxt = ADR_CURSOR_START; //next state adr start
+                if (state != state_nxt) adrROM_nxt = ADR_TESTPLANE_START; //next state adr start
                 
                 if(lineROM & posROM) begin
                     // no nothing
                 end else begin
-                    dataWRITE_nxt = {xROM - CURSOR_MID_X + xenemy1, yROM - CURSOR_MID_Y - yenemy1, lineROM, posROM}; // x changes, y stays constant
+                    dataWRITE_nxt = {xROM - TESTPLANE_MID_X + xenemy1, yROM - TESTPLANE_MID_Y - yenemy1, lineROM, posROM}; // x changes, y stays constant
                     adrWRITE_nxt = adrWRITE + 1;
                 end
 
-                if(state_nxt == DRAW_CURSOR) begin
+                if(state_nxt == DRAW_ENEMY1) begin
                     adrROM_nxt = adrROM + 1;
                 end
             end
@@ -243,7 +243,7 @@ module memory_manage #(
             BELOW YOU ARE NOW DRAWING THE RESET SIGNAL FOR THE WHOLE MEMORY MODULE
 ///////////////////////////////////////////////////////////////////////////////////////////////*/
             DRAW_RESET: begin
-                    dataWRITE_nxt = {8'd0, 8'd0, 1'b1, 1'b1};
+                    dataWRITE_nxt = {8'd0, 8'd0, 1'b1, 1'b1}; //make a point at bottom left corner
                     adrWRITE_nxt = adrWRITE + 1;
             end
 
@@ -255,11 +255,11 @@ module memory_manage #(
             BELOW YOU ARE NOW WAITING FOR THE FRAME TO BE DISPLAYED
 ///////////////////////////////////////////////////////////////////////////////////////////////*/
             DONE: begin
-                draw_frame_nxt = 1;
+                go_nxt = 1;
             end
 
             WAIT_FRAME_DONE: begin
-                draw_frame_nxt = 1;
+                go_nxt = 1;
                 adrROM_nxt = 0; //reset next so zero the ROM read adr
             end
 

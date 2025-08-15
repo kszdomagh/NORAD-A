@@ -42,43 +42,43 @@ module timer_cluster #(
 );
 
     timer #(.TIMER_TIME(TIME1)) u_timer1 (
-        .clk100MHz(clk100MHz),
+        .clk(clk100MHz),
         .rst(rst),
         .pulse(speed1_pulse)
     );
 
     timer #(.TIMER_TIME(TIME2)) u_timer2 (
-        .clk100MHz(clk100MHz),
+        .clk(clk100MHz),
         .rst(rst),
         .pulse(speed2_pulse)
     );
 
     timer #(.TIMER_TIME(TIME3)) u_timer3 (
-        .clk100MHz(clk100MHz),
+        .clk(clk100MHz),
         .rst(rst),
         .pulse(speed3_pulse)
     );
 
     timer #(.TIMER_TIME(TIME4)) u_timer4 (
-        .clk100MHz(clk100MHz),
+        .clk(clk100MHz),
         .rst(rst),
         .pulse(speed4_pulse)
     );
 
     timer #(.TIMER_TIME(TIME5)) u_timer5 (
-        .clk100MHz(clk100MHz),
+        .clk(clk100MHz),
         .rst(rst),
         .pulse(speed5_pulse)
     );
 
     timer #(.TIMER_TIME(TIME6)) u_timer6 (
-        .clk100MHz(clk100MHz),
+        .clk(clk100MHz),
         .rst(rst),
         .pulse(speed6_pulse)
     );
 
     timer #(.TIMER_TIME(TIME_SLOW)) u_timerSLOW (
-        .clk100MHz(clk4MHz),
+        .clk(clk4MHz),
         .rst(rst),
         .pulse(slow1_pulse)
     );

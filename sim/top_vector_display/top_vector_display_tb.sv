@@ -14,6 +14,7 @@ module top_vector_display_tb;
     logic [DAC_WIDTH-1:0] y_data;
 
     logic frame_drawn;
+    logic enable;
 
     logic [DAC_WIDTH-1:0] xch;
     logic [DAC_WIDTH-1:0] ych;
@@ -25,12 +26,15 @@ module top_vector_display_tb;
         .DATAWIDTH(DATAWIDTH)
     ) u_vector_display (
         .clk(clk),
+
         .rst(rst),
         .data_in(uwu_data),
         .addr(uwu_addr),
         .x_ch(xch),
         .y_ch(ych),
-        .frame_drawn(frame_drawn)
+
+        .go_master(enable),
+        .halt(frame_drawn)
     );
 
     uwu_rom #(
@@ -48,10 +52,11 @@ module top_vector_display_tb;
     initial clk = 0;
     always #5 clk = ~clk; // 100MHz clock
 
-    // Stimulus block
     initial begin
         rst = 1;
+        enable = 0;
         #20 rst = 0;
+        #100  enable = 1;
 
         // Optional: add timeout
         #1000000;
@@ -60,24 +65,23 @@ module top_vector_display_tb;
     end
 
 
-    int reset_count;
-    logic frame_reset;
+    int reset_count = 0;
 
     always @(posedge clk) begin
-        // $display("Time: %0t | addr=%0d | data_in=%b | xch=%0d | ych=%0d | frame_drawn=%b",
-        //          $time, uwu_addr, uwu_data, xch, ych, frame_drawn);
 
-        $display("(%0d, %0d),",
-                xch, ych, );
+        enable = 1;
 
-        if (frame_drawn && !frame_reset && ++reset_count == 4) begin
-            $display("Drawn frame two times in time: %t", $time);
+        if (frame_drawn) begin
+            reset_count = reset_count + 1;
+            enable = 0;
+        end
+
+
+        if(reset_count == 6) begin
+            $display("Four frames drawn drawn at time: %t", $time);
             $display("PASSED :3");
             $finish;
         end
-        frame_reset <= frame_drawn;
-
-    
     end
 
 

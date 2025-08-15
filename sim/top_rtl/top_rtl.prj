@@ -10,10 +10,17 @@
 
 
 sv work ../../rtl/vector_display/vector_pkg.sv \
-        ../../rtl/vector_display/vector_manage.sv \
-        ../../rtl/vector_display/top_vector_display.sv \
+        ../../rtl/ROM_pkg.sv \
         ../../rtl/vector_display/bresenham.sv \
+        ../../rtl/vector_display/top_vector_display.sv \
         ../../rtl/vector_display/valid_buf.sv \
+        ../../rtl/vector_display/vector_manage.sv \
+        ../../rtl/control_units/enemy_control.sv \
+        ../../rtl/control_units/timer_cluster.sv \
+        ../../rtl/control_units/timer.sv \
+        ../../rtl/control_units/game_logic_top.sv \
+        ../../rtl/memory_manage.sv \
+        ../../rtl/template_ram.sv \
         ../../rtl/uwu_rom.sv \
-        top_vector_display_tb.sv
+        top_rtl_tb.sv
 
