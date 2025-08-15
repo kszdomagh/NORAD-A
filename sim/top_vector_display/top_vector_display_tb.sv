@@ -6,59 +6,60 @@ module top_vector_display_tb;
 
     import vector_pkg::*;
 
-    // INTERNAL WIRES
-    logic [ADDRESSWIDTH-1:0] uwu_addr;
-    logic [DATAWIDTH-1:0] uwu_data;
+    //  INTERNAL SIGNALS
+    logic [OUT_WIDTH-1:0] xsignal;
+    logic [OUT_WIDTH-1:0] ysignal;
 
-    logic [DAC_WIDTH-1:0] x_data;
-    logic [DAC_WIDTH-1:0] y_data;
 
-    logic frame_drawn;
-    logic enable;
+    logic [ADDRESSWIDTH-1:0] addr;
+    logic [DATAWIDTH-1:0] rom_data;
 
-    logic [DAC_WIDTH-1:0] xch;
-    logic [DAC_WIDTH-1:0] ych;
+    logic go, halt;
 
-    // DUT
-    top_vector_display #(
-        .OUT_WIDTH(DAC_WIDTH),
-        .ADDRESSWIDTH(ADDRESSWIDTH),
-        .DATAWIDTH(DATAWIDTH)
-    ) u_vector_display (
-        .clk(clk),
-
-        .rst(rst),
-        .data_in(uwu_data),
-        .addr(uwu_addr),
-        .x_ch(xch),
-        .y_ch(ych),
-
-        .go_master(enable),
-        .halt(frame_drawn)
-    );
 
     uwu_rom #(
         .ADDRESSWIDTH(ADDRESSWIDTH),
         .DATAWIDTH(DATAWIDTH)
-    ) u_uwu_rom (
-        .addr(uwu_addr),
-        .data_out(uwu_data)
+    ) ROM_data (
+        .addr(addr),
+        .data_out(rom_data)
     );
 
-    assign x_data = uwu_data[9:2];
-    assign y_data = uwu_data[17:10];
+
+    //  DUT
+
+    top_vector_display #(
+        .ADDRESSWIDTH(ADDRESSWIDTH),
+        .DATAWIDTH(DATAWIDTH),
+        .OUT_WIDTH(OUT_WIDTH)
+    ) u_DUT (
+        .clk(clk),
+        .rst(rst),
+        
+        .data_in(rom_data),
+        .addr(addr),
+
+        .go_master(go),
+        .halt(halt),
+
+        .x_ch(xsignal),
+        .y_ch(ysignal)
+
+
+    );
 
     // Clock generation
     initial clk = 0;
-    always #5 clk = ~clk; // 100MHz clock
+    always #50 clk = ~clk; // 10MHz clock
 
     initial begin
         rst = 1;
-        enable = 0;
+        go = 0;
         #20 rst = 0;
-        #100  enable = 1;
+        #100  go = 1;
 
-        // Optional: add timeout
+
+        // timeout
         #1000000;
         $display("Simulation timeout reached.");
         $finish;
@@ -66,19 +67,25 @@ module top_vector_display_tb;
 
 
     int reset_count = 0;
+    logic go_reenable;
 
     always @(posedge clk) begin
 
-        enable = 1;
 
-        if (frame_drawn) begin
-            reset_count = reset_count + 1;
-            enable = 0;
+        if (halt) begin
+            go <= 0;
+            go_reenable <= 1;       // flag to restart next cycle
+            reset_count <= reset_count + 1;
+        end
+        
+        if (go_reenable) begin
+            go <= 1;
+            go_reenable <= 0;
         end
 
 
-        if(reset_count == 6) begin
-            $display("Four frames drawn drawn at time: %t", $time);
+        if(reset_count == 16) begin
+            $display("Simulation ended at time: %t", $time);
             $display("PASSED :3");
             $finish;
         end

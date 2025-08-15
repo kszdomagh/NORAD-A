@@ -116,7 +116,7 @@ module memory_manage #(
 
             DRAW_RESET: state_nxt = DONE;
 
-            DONE: state_nxt = WAIT_FRAME_DONE;
+            DONE: state_nxt = halt ? DONE : WAIT_FRAME_DONE;
             WAIT_FRAME_DONE: state_nxt = halt ? DRAW_FRAME : WAIT_FRAME_DONE;
 
             default: state_nxt = RESET;

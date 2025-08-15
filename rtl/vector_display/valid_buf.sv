@@ -37,12 +37,15 @@ module valid_buf #(
 
     always_ff@(posedge clk) begin
 
-        if(rst || !(enable)) begin
+        if(rst) begin
             outx <= '0;
             outy <= '0;
-        end else begin
+        end else if(enable) begin
             outx <= outx_nxt;
             outy <= outy_nxt;
+        end else begin
+            outx <= outx;
+            outy <= outy;
         end
 
     end

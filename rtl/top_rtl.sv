@@ -15,6 +15,10 @@ module top_rtl#(
         input logic clk40MHz,
         input logic clk4MHz,
 
+
+        output logic go_flag,
+        output logic halt_flag,
+
         input logic rst,
         
         output wire [OUT_WIDTH-1:0] xch,
@@ -44,9 +48,12 @@ module top_rtl#(
     //wire Rmouse;
     //wire Lmouse;
 
-    wire go;
-    wire halt;
 
+    logic go;
+    logic halt;
+
+    assign go_flag      = go;
+    assign halt_flag    = halt;
 
 
     //MODULE DECLARATIONS
@@ -68,9 +75,9 @@ module top_rtl#(
         .y_ch(ych)
     );
 
-    wire [OUT_WIDTH-1:0] xenemy1;
-    wire [OUT_WIDTH-1:0] yenemy1;
-    wire spawn_enemy1;
+    logic [OUT_WIDTH-1:0] xenemy1;
+    logic [OUT_WIDTH-1:0] yenemy1;
+    logic spawn_enemy1;
 
     game_logic_top #(
         .ADDRESSWIDTH(ADDRESSWIDTH),
@@ -131,7 +138,7 @@ module top_rtl#(
         .data_out_rw(), // not connected
         .adr_rw(RAM_write_adr),
         .din(RAM_write_data),
-        .we(1)
+        .we(!go)
     );
 
 

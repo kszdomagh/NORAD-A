@@ -78,7 +78,6 @@ module vector_manage_tb;
         .endy(o_end_y),
 
         .adr(addr),
-        .state_debug(state_debug_bits),
         .vector_reset(vector_reset)
     );
 

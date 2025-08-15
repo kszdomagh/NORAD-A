@@ -16,8 +16,6 @@ module top_basys3 (
         input  wire clk_in,
         input  wire btnC,
 
-        output wire JA1,
-
         inout wire PS2Clk,
         inout wire PS2Data,
 
@@ -72,7 +70,7 @@ module top_basys3 (
     //      MOUSE CONTROL MODULE
     MouseCtl u_MouseCtl (
         .clk(clk100MHz),
-        .rst(rst),
+        .rst(btnC),
         
         .ps2_clk(PS2Clk),
         .ps2_data(PS2Data),
@@ -99,8 +97,13 @@ module top_basys3 (
         .clk4MHz(clk4MHz),
         .rst(btnC),
 
-        .xch( {JB[4], JB[5], JB[6], JB[7], JB[0], JB[1], JB[2], JB[3]} ),
 
+
+        .go_flag(led[0]),
+        .halt_flag(led[1]),
+
+
+        .xch( {JB[4], JB[5], JB[6], JB[7], JB[0], JB[1], JB[2], JB[3]} ),
         //      y_ch is flipped lsb x_ch = msb dac_x
         .ych( {JC[0], JC[1], JC[2], JC[3], JC[4], JC[5], JC[6], JC[7]} )
 

@@ -16,6 +16,7 @@ module vector_manage #(
     parameter int FRAME_MIN = 0,
     parameter int FRAME_MAX = 255,
     parameter int ADR_WIDTH = 8,
+    parameter int DATAWIDTH = 18,
     parameter int BRES_WIDTH = OUT_WIDTH+1 // 8+1 unsigned to signed conversion
     )(
 
@@ -23,13 +24,9 @@ module vector_manage #(
     input logic clk,
     input logic rst,
     input logic enable,
-    output logic [5:0] state_debug,
 
     // data inputs
-    input logic [OUT_WIDTH-1:0] x,
-    input logic [OUT_WIDTH-1:0] y,
-    input logic line,
-    input logic pos,
+    input logic [DATAWIDTH-1:0] data_in,
 
     // line inputs
     input logic busy,   //replaced by done
@@ -47,6 +44,15 @@ module vector_manage #(
 
 );
 
+    wire [OUT_WIDTH-1:0] x;
+    wire [OUT_WIDTH-1:0] y;
+    wire line, pos;
+
+    assign x = data_in [17:10]; //fix
+    assign y = data_in [9:2];
+    assign line = data_in [1];
+    assign pos = data_in [0];
+
     //nxt logics
     logic go_nxt;
     logic signed [BRES_WIDTH-1:0] stax_nxt;
@@ -63,14 +69,15 @@ module vector_manage #(
 
 
     typedef enum logic [5:0] {
-        RESET        = 6'b000001,
-        GETDATA      = 6'b000010,
-        CHECKDATA    = 6'b000011,     //fix this later
-        SENDDATA     = 6'b000100,
-        GODOWN       = 6'b001000,
-        WAITBUSY     = 6'b010000,
-        ADR          = 6'b100000,
-        VECTOR_RESET = 6'b000111
+        RESET        = 6'd0,
+        GETDATA      = 6'd1,
+        CHECKDATA    = 6'd2,
+        SENDDATA     = 6'd3,
+        GODOWN       = 6'd4,
+        WAITBUSY     = 6'd5,
+        ADR          = 6'd6,
+        VECTOR_RESET1 = 6'd7,
+        VECTOR_RESET2 = 6'd8
     } state_t;
 
     state_t state, state_nxt;
@@ -78,10 +85,10 @@ module vector_manage #(
     always_ff@(posedge clk) begin
         if(rst) begin
             state <= RESET;
+            adr = 0;
 
         end else begin
             state <= state_nxt;
-            state_debug <= state_nxt;
             
             go <= go_nxt;
             adr <= adr_nxt;
@@ -101,15 +108,16 @@ module vector_manage #(
     always_comb begin
         state_nxt = RESET; //default
         case(state)
-            RESET: state_nxt = GETDATA;
+            RESET: state_nxt = enable ? GETDATA : RESET;
             GETDATA: state_nxt = busy ? GETDATA : CHECKDATA;
-            CHECKDATA: state_nxt = (pos && line) ? VECTOR_RESET : SENDDATA;
+            CHECKDATA: state_nxt = (pos && line) ? VECTOR_RESET1 : SENDDATA;
             SENDDATA: state_nxt = GODOWN;
             GODOWN: state_nxt = WAITBUSY;
             WAITBUSY: state_nxt = done ? ADR : WAITBUSY;
             ADR: state_nxt = GETDATA;
 
-            VECTOR_RESET: state_nxt = enable ? GETDATA : VECTOR_RESET;
+            VECTOR_RESET1: state_nxt = RESET;
+
             default: state_nxt = RESET;
         endcase
     end
@@ -129,9 +137,10 @@ module vector_manage #(
         x_prev_nxt = x_prev;
         y_prev_nxt = y_prev;
 
-        vector_reset = 1'b1;
+        vector_reset = 1'b0;
 
         case(state)
+
             RESET: begin
                 go_nxt = 0;
                 adr_nxt = 0;
@@ -144,8 +153,7 @@ module vector_manage #(
                 x_prev_nxt = 0;
                 y_prev_nxt = 0;
 
-                vector_reset = 1'b0;
-
+                vector_reset = 1'b1;
             end
 
             GETDATA: begin
@@ -247,20 +255,20 @@ module vector_manage #(
 
                 vector_reset = 1'b0;
             end
+            
+            VECTOR_RESET1: begin
+                go_nxt = 0;
+                adr_nxt = 0;
 
-            VECTOR_RESET: begin
-                go_nxt = 1'b0;
-                adr_nxt = 0;    // zero the adress
+                stax_nxt = 0;
+                endx_nxt = 0;
+                stay_nxt = 0;
+                endy_nxt = 0;
 
-                stax_nxt = stax;
-                endx_nxt = endx;
-                stay_nxt = stay;
-                endy_nxt = endy;
+                x_prev_nxt = 0;
+                y_prev_nxt = 0;
 
-                x_prev_nxt = x_prev;
-                y_prev_nxt = y_prev;
-
-                vector_reset = 1'b1; //  if reset is found at the end of memory - send the signal
+                vector_reset = 1'b1;
             end
 
         endcase

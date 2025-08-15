@@ -12,6 +12,7 @@ package vector_pkg;
 
     // Parameters for 8 bit DAC vector output;
     localparam DAC_WIDTH = 8;
+    localparam OUT_WIDTH = DAC_WIDTH;
 
     localparam Y_D0 = 7;
     localparam Y_D1 = 6;

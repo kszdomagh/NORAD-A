@@ -43,17 +43,15 @@ module top_vector_display #(
         .FRAME_MAX(VECTOR_MAX),
         .FRAME_MIN(VECTOR_MIN),
         .OUT_WIDTH(OUT_WIDTH),
-        .BRES_WIDTH(OUT_WIDTH+1)
+        .BRES_WIDTH(OUT_WIDTH+1),
+        .DATAWIDTH(DATAWIDTH)
 
     ) u_vector_manage (
         .clk(clk),
         .rst(rst),
         .enable(go_master),
 
-        .x(data_in [9:2]),
-        .y(data_in [17:10]),
-        .line(data_in [1]),
-        .pos(data_in [0]),
+        .data_in(data_in),
 
         .busy(draw_busy),
         .done(done),
