@@ -31,10 +31,8 @@ module top_basys3 (
         output wire [6:0] seg,
         output wire [3:0] an,
 
+        output wire [11:0] led
 
-        input wire SW15,
-        output wire LD15,
-        output wire LD14
 
     );
 
@@ -53,46 +51,11 @@ module top_basys3 (
     wire [7:0] Ymouse;
     wire Lmouse;
     wire Rmouse;
-
-    assign LD15 = PS2Data;
-    assign LD14 = PS2Clk;
-
+    logic [11:0] Xmouse_debug;
 
 
     //  debug signals
-
-
-    // mouse control input
-    ps2_mouse u_mouse (
-        .i_clk(clk100MHz),
-        .i_reset(btnC),
-        .i_PS2Clk(PS2Clk),
-        .i_PS2Data(PS2Data),
-
-        .o_x(Xmouse),
-        .o_y(Ymouse),
-
-        .o_l_click(Lmouse),
-        .o_r_click(Rmouse)
-    );
-
-
-/*
-    MouseCtl u_mouse_controller (
-        .clk(clk100MHz),
-        .rst(btnC),
-        
-        .ps2_clk(PS2Clk),
-        .ps2_data(PS2Data),
-
-        .xpos(Xmouse),
-        .ypos(Ymouse),
-        .right(Rmouse),
-        .left(Lmouse),
-
-        .setmax_x(8'd255),
-        .setmax_y(8'd255)
-    );*/
+    assign led = Xmouse_debug;
 
 
     //  clk manager
@@ -107,7 +70,6 @@ module top_basys3 (
 
     );
 
-
     //  top rtl
     top_rtl u_top_rtl(
         .clk100MHz(clk100MHz),
@@ -115,12 +77,10 @@ module top_basys3 (
         .clk4MHz(clk4MHz),
         .rst(btnC),
         
-        //MOUSE INPUTS
-        .Xmouse(Xmouse),
-        .Ymouse(Ymouse),
-        .Lmouse(Lmouse),
-        .Rmouse(Rmouse),
+        .ps2_clk(PS2Clk),
+        .ps2_data(PS2Data),
 
+        .Xmouse_debug(Xmouse_debug),
 
         .xch( {JB[4], JB[5], JB[6], JB[7], JB[0], JB[1], JB[2], JB[3]} ),
 
@@ -129,15 +89,15 @@ module top_basys3 (
 
     );
 
-    logic [4:0] hex0;
-    logic [4:0] hex1;
-    logic [4:0] hex2;
-    logic [4:0] hex3;
+    logic [3:0] hex0;
+    logic [3:0] hex1;
+    logic [3:0] hex2;
+    logic [3:0] hex3;
 
     num_to_hex #(
-        .NUMBER_BIT(8)
+        .NUMBER_BIT(12)
     ) u_num_to_bcd(
-        .number(Xmouse),
+        .number(Xmouse_debug),
 
         .bcd_thousands(hex3),
         .bcd_hundreds(hex2),

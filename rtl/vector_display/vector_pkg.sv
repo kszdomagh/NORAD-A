@@ -39,7 +39,7 @@ package vector_pkg;
 
 
     //PARAMETERS FOR DATA
-    parameter int ADDRESSWIDTH = 16;
-    parameter int DATAWIDTH = 18;
+    localparam ADDRESSWIDTH = 16;
+    localparam DATAWIDTH = 18;
 
 endpackage

@@ -4,6 +4,9 @@
  Author:        kszdom
  Description:  module used for extracting data from memory (acording to specifications) and
                converting it into format used by line-drawing "bresenham" module
+
+
+this is the heart of the whole program - please be gentle and think twice before you change something here
  */
 //////////////////////////////////////////////////////////////////////////////
 
@@ -35,7 +38,12 @@ module memory_manage #(
 
     //  mouse signals
     input logic [OUT_WIDTH-1:0] x_cursor,
-    input logic [OUT_WIDTH-1:0] y_cursor
+    input logic [OUT_WIDTH-1:0] y_cursor,
+
+    // enemy signals
+    input logic [OUT_WIDTH-1:0] xenemy1,
+    input logic [OUT_WIDTH-1:0] yenemy1,
+    input logic sprawn_enemy1
 
 );
 
@@ -65,6 +73,11 @@ module memory_manage #(
         //DRAW BACKGROUND
         DRAW_FRAME = 5'd10,
         DRAW_MAP   = 5'd11,
+
+        //DRAW ENEMIES
+        DRAW_ENEMY1 = 5'd12,
+        DRAW_ENEMY2 = 5'd13,
+        DRAW_ENEMY3 = 5'd14,
 
         //DRAW INTERACTABLES
         DRAW_CURSOR = 5'd12
@@ -96,7 +109,9 @@ module memory_manage #(
             //CUR_STATE: state_nxt = (posROM & lineROM) ? NEXT_STATE : CUR_STATE;
             DRAW_FRAME: state_nxt = (posROM & lineROM) ? DRAW_MAP : DRAW_FRAME;
             DRAW_MAP: state_nxt = (posROM & lineROM) ? DRAW_CURSOR : DRAW_MAP;
-            DRAW_CURSOR: state_nxt = (posROM & lineROM) ? DRAW_RESET : DRAW_CURSOR;
+            DRAW_CURSOR: state_nxt = (posROM & lineROM) ? DRAW_ENEMY1 : DRAW_CURSOR;
+
+            DRAW_ENEMY1:state_nxt = ( (posROM & lineROM) | (!sprawn_enemy1) ) ? DRAW_RESET : DRAW_ENEMY1;
 
 
             DRAW_RESET: state_nxt = DONE;
@@ -125,6 +140,9 @@ module memory_manage #(
 
 
         case(state)
+/*///////////////////////////////////////////////////////////////////////////////////////////////
+            RESET SIGNAL
+///////////////////////////////////////////////////////////////////////////////////////////////*/
             RESET: begin
                 adrWRITE_nxt = 0;
                 dataWRITE_nxt = {8'd0, 8'd0, 1'b0, 1'b1}; //make a point at bottom left corner
@@ -133,6 +151,10 @@ module memory_manage #(
 
 
 
+
+/*///////////////////////////////////////////////////////////////////////////////////////////////
+            BELOW YOU ARE NOW DRAWING THE FRAME IMAGE
+///////////////////////////////////////////////////////////////////////////////////////////////*/
             DRAW_FRAME: begin
 
                 if (state != state_nxt) adrROM_nxt = ADR_MAP_START; //next state adr start
@@ -149,8 +171,13 @@ module memory_manage #(
                 end
             end
 
-            DRAW_MAP: begin
 
+
+
+/*///////////////////////////////////////////////////////////////////////////////////////////////
+            BELOW YOU ARE NOW DRAWING THE BACKGROUND MAP
+///////////////////////////////////////////////////////////////////////////////////////////////*/
+            DRAW_MAP: begin
                 if (state != state_nxt) adrROM_nxt = ADR_CURSOR_START; //next state adr start
                 
                 if(lineROM & posROM) begin
@@ -165,8 +192,14 @@ module memory_manage #(
                 end
             end
 
-            DRAW_CURSOR: begin
 
+
+
+
+/*///////////////////////////////////////////////////////////////////////////////////////////////
+            BELOW YOU ARE NOW DRAWING THE PLAYER CURSOR
+///////////////////////////////////////////////////////////////////////////////////////////////*/
+            DRAW_CURSOR: begin
                 if (state != state_nxt) adrROM_nxt = ADR_CURSOR_START; //next state adr start
                 
                 if(lineROM & posROM) begin
@@ -182,15 +215,48 @@ module memory_manage #(
             end
 
 
+
+
+/*///////////////////////////////////////////////////////////////////////////////////////////////
+            BELOW YOU ARE NOW DRAWING THE FIRST ENEMY - please change parameters from uwu memory to the good memory specific
+///////////////////////////////////////////////////////////////////////////////////////////////*/
+            DRAW_ENEMY1: begin
+                if (state != state_nxt) adrROM_nxt = ADR_CURSOR_START; //next state adr start
+                
+                if(lineROM & posROM) begin
+                    // no nothing
+                end else begin
+                    dataWRITE_nxt = {xROM - CURSOR_MID_X + xenemy1, yROM - CURSOR_MID_Y - yenemy1, lineROM, posROM}; // x changes, y stays constant
+                    adrWRITE_nxt = adrWRITE + 1;
+                end
+
+                if(state_nxt == DRAW_CURSOR) begin
+                    adrROM_nxt = adrROM + 1;
+                end
+            end
+
+
+
+
+
+/*///////////////////////////////////////////////////////////////////////////////////////////////
+            BELOW YOU ARE NOW DRAWING THE RESET SIGNAL FOR THE WHOLE MEMORY MODULE
+///////////////////////////////////////////////////////////////////////////////////////////////*/
             DRAW_RESET: begin
                     dataWRITE_nxt = {8'd0, 8'd0, 1'b1, 1'b1};
                     adrWRITE_nxt = adrWRITE + 1;
             end
 
+
+
+
+
+/*///////////////////////////////////////////////////////////////////////////////////////////////
+            BELOW YOU ARE NOW WAITING FOR THE FRAME TO BE DISPLAYED
+///////////////////////////////////////////////////////////////////////////////////////////////*/
             DONE: begin
                 draw_frame_nxt = 1;
             end
-
 
             WAIT_FRAME_DONE: begin
                 draw_frame_nxt = 1;
@@ -199,7 +265,6 @@ module memory_manage #(
 
         endcase
     end
-
 
 endmodule
 

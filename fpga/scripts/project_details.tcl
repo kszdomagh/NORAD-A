@@ -67,20 +67,16 @@ set sv_files {
 
 # Specify Verilog design files location         -- EDIT
 set verilog_files {
-    ../rtl/mouse/ps2_mouse.v
-    ../rtl/mouse/ps2_signal_map.v
-    ../rtl/mouse/ps2_signal.v
-    ../rtl/mouse/ps2_validator.v
-
 
     ../rtl/mmcm/clk_wiz_0.v
     ../rtl/mmcm/clk_wiz_0_clk_wiz.v
 }
 
 # Specify VHDL design files location            -- EDIT
-# set vhdl_files {
-# 
-# }
+set vhdl_files {
+    ../rtl/mouse_uec/MouseCtl.vhd
+    ../rtl/mouse_uec/Ps2Interface.vhd
+}
 
 # Specify files for a memory initialization     -- EDIT
 # set mem_files {
