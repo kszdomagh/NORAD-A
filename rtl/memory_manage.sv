@@ -44,7 +44,6 @@ module memory_manage #(
     input logic [OUT_WIDTH-1:0] xenemy1,
     input logic [OUT_WIDTH-1:0] yenemy1,
     input logic spawn_enemy1
-
 );
 
     import vector_pkg::*;
@@ -226,7 +225,7 @@ module memory_manage #(
                 if(lineROM & posROM) begin
                     // no nothing
                 end else begin
-                    dataWRITE_nxt = {xROM - TESTPLANE_MID_X + xenemy1, yROM - TESTPLANE_MID_Y - yenemy1, lineROM, posROM}; // x changes, y stays constant
+                    dataWRITE_nxt = {xROM - TESTPLANE_MID_X + xenemy1, yROM - TESTPLANE_MID_Y + yenemy1, lineROM, posROM}; // x changes, y stays constant
                     adrWRITE_nxt = adrWRITE + 1;
                 end
 

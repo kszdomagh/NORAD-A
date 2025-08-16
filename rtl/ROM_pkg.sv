@@ -23,9 +23,9 @@ package ROM_pkg;
 
 
     //      TESTPLANE
-    localparam ADR_TESTPLANE_START = 48;
-    localparam TESTPLANE_MID_X = 208;   //draw cursor at there coordinates
-    localparam TESTPLANE_MID_Y = 172;   //draw cursor at there coordinates
+    localparam ADR_TESTPLANE_START = 54;
+    localparam TESTPLANE_MID_X = 47;   //draw cursor at there coordinates
+    localparam TESTPLANE_MID_Y = 16;   //draw cursor at there coordinates
 
 
 

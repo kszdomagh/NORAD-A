@@ -60,16 +60,24 @@ module top_rtl_tb;
         $finish;
     end
 
+
+    integer fd;
+    initial begin
+        fd = $fopen("../.output_files/top_rtl_results.txt", "w");
+        if (fd == 0) $fatal("Cannot open file!");
+        forever begin
+            @(posedge clk4MHz);
+            $fwrite(fd, "x=%d, y=%d\n",xsignal,ysignal);
+        end
+    end
+
     int halt_count = 0;
 
     always @(posedge clk100MHz) begin
-
-        if(go_flag) $display("GO FLAG SET");
-        if(halt_flag) $display("HALT FLAG SET");
         
-        if (halt_count == 3) begin
-            $display("Recieved three HALT signals at time: %t", $time);
-            $display("Ending simulation.");
+        if (halt_count == 2) begin
+            $display("Recieved HALT signal at time: %t", $time);
+            $display("Ending simulation. Check output files.");
             $display("PASSED :3");
             $finish;
         end

@@ -114,13 +114,13 @@ module top_rtl#(
         .halt(halt),  // to sygnał że narysoano klatke na oscyloskopie - prosze zrobic kolejna i dac nowe dane do RAMU
 
         //  from mouse input signals
-        .x_cursor(40),
-        .y_cursor(40),
+        .x_cursor(8'd190),
+        .y_cursor(8'd190),
 
 
-        .spawn_enemy1(spawn_enemy1),
-        .xenemy1(xenemy1),
-        .yenemy1(yenemy1)
+        .spawn_enemy1(1'b1),
+        .xenemy1(8'd140),
+        .yenemy1(8'd140)
     );
 
     template_ram #(
@@ -138,7 +138,7 @@ module top_rtl#(
         .data_out_rw(), // not connected
         .adr_rw(RAM_write_adr),
         .din(RAM_write_data),
-        .we(!go)
+        .we(1)
     );
 
 
