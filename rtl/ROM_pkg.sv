@@ -18,25 +18,25 @@ package ROM_pkg;
 
     //      CURSOR
     localparam ADR_CURSOR_START = 48;
-    localparam CURSOR_MID_X = 22;   //draw cursor at there coordinates
-    localparam CURSOR_MID_Y = 50;   //draw cursor at there coordinates
+    localparam CURSOR_MID_X = 8'd22;   //draw cursor at there coordinates
+    localparam CURSOR_MID_Y = 8'd50;   //draw cursor at there coordinates
 
 
     //      TESTPLANE
     localparam ADR_TESTPLANE_START = 54;
-    localparam TESTPLANE_MID_X = 47;   //draw cursor at there coordinates
-    localparam TESTPLANE_MID_Y = 16;   //draw cursor at there coordinates
+    localparam TESTPLANE_MID_X = 8'd247;   //draw cursor at there coordinates
+    localparam TESTPLANE_MID_Y = 8'd16;   //draw cursor at there coordinates
 
 
 
     // HEIGHT FOR ENEMIES OR BASE POSITIONS - for enemies those are constatnts
-    localparam Y_ENEMY1_BASE1 = 100;
-    localparam Y_ENEMY2_BASE2 = 150;
-    localparam Y_ENEMY3_BASE3 = 200;
+    localparam Y_ENEMY1_BASE1 = 8'd100;
+    localparam Y_ENEMY2_BASE2 = 8'd150;
+    localparam Y_ENEMY3_BASE3 = 8'd200;
 
-    localparam X_BASE1 = 50;
-    localparam X_BASE2 = 40;
-    localparam X_BASE3 = 60;
+    localparam X_BASE1 = 8'd50;
+    localparam X_BASE2 = 8'd40;
+    localparam X_BASE3 = 8'd60;
 
     // starting place for enemies - somewhere in the ocean to the right
     localparam X_ENEMY1_START = 240; //255 is max 

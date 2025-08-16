@@ -86,12 +86,12 @@ module uwu_rom #(
 
 
             //      FRAME
-            42:  data_out = {8'd0, 8'd255, 1'b0, 1'b1};
+            42:  data_out = {8'd0, 8'd254, 1'b0, 1'b1};
             43:  data_out = {8'd0, 8'd0, 1'b1, 1'b0};
-            44:  data_out = {8'd255, 8'd0, 1'b1, 1'b0};
-            45:  data_out = {8'd255, 8'd255, 1'b1, 1'b0};
-            46:  data_out = {8'd0, 8'd255, 1'b1, 1'b0};
-            47:  data_out = {8'd0, 8'd255, 1'b1, 1'b1};       //RESET
+            44:  data_out = {8'd254, 8'd0, 1'b1, 1'b0};
+            45:  data_out = {8'd254, 8'd254, 1'b1, 1'b0};
+            46:  data_out = {8'd0, 8'd254, 1'b1, 1'b0};
+            47:  data_out = {8'd0, 8'd254, 1'b1, 1'b1};       //RESET
 
             //      CURSOR 
             48:  data_out = {8'd22, 8'd50, 1'b0, 1'b1};
@@ -118,7 +118,7 @@ module uwu_rom #(
             65:  data_out = {8'd253, 8'd31, 1'b1, 1'b0};
             66:  data_out = {8'd238, 8'd16, 1'b1, 1'b0};
             67:  data_out = {8'd253, 8'd0, 1'b1, 1'b0};
-            68:  data_out = {8'd184, 8'd168, 1'b1, 1'b1};       // RESET
+            69:  data_out = {8'd253, 8'd0, 1'b1, 1'b1};       // RESET
 
 
 

@@ -114,13 +114,13 @@ module top_rtl#(
         .halt(halt),  // to sygnał że narysoano klatke na oscyloskopie - prosze zrobic kolejna i dac nowe dane do RAMU
 
         //  from mouse input signals
-        .x_cursor(8'd190),
-        .y_cursor(8'd190),
+        .xcursor(8'd120),
+        .ycursor(8'd110),
 
 
-        .spawn_enemy1(1'b1),
-        .xenemy1(8'd140),
-        .yenemy1(8'd140)
+        .spawn_enemy1(0),
+        .xenemy1(8'd190),
+        .yenemy1(8'd190)
     );
 
     template_ram #(

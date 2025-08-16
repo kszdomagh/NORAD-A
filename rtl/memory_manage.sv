@@ -37,8 +37,8 @@ module memory_manage #(
     //SIGNALS FROM CONTROL UNITS
 
     //  mouse signals
-    input logic [OUT_WIDTH-1:0] x_cursor,
-    input logic [OUT_WIDTH-1:0] y_cursor,
+    input logic [OUT_WIDTH-1:0] xcursor,
+    input logic [OUT_WIDTH-1:0] ycursor,
 
     // enemy signals
     input logic [OUT_WIDTH-1:0] xenemy1,
@@ -116,7 +116,7 @@ module memory_manage #(
             DRAW_RESET: state_nxt = DONE;
 
             DONE: state_nxt = halt ? DONE : WAIT_FRAME_DONE;
-            WAIT_FRAME_DONE: state_nxt = halt ? DRAW_FRAME : WAIT_FRAME_DONE;
+            WAIT_FRAME_DONE: state_nxt = halt ? RESET : WAIT_FRAME_DONE;
 
             default: state_nxt = RESET;
         endcase
@@ -204,7 +204,7 @@ module memory_manage #(
                 if(lineROM & posROM) begin
                     // no nothing
                 end else begin
-                    dataWRITE_nxt = {xROM - CURSOR_MID_X + x_cursor, yROM - CURSOR_MID_Y + y_cursor, lineROM, posROM};
+                    dataWRITE_nxt = {xROM -  CURSOR_MID_X + xcursor, yROM - CURSOR_MID_Y + ycursor, lineROM, posROM};
                     adrWRITE_nxt = adrWRITE + 1;
                 end
 
@@ -220,9 +220,9 @@ module memory_manage #(
             BELOW YOU ARE NOW DRAWING THE FIRST ENEMY - please change parameters from uwu memory to the good memory specific
 ///////////////////////////////////////////////////////////////////////////////////////////////*/
             DRAW_ENEMY1: begin
-                if (state != state_nxt) adrROM_nxt = ADR_TESTPLANE_START; //next state adr start
+                if (state != state_nxt) adrROM_nxt = 0; //next state adr start
                 
-                if(lineROM & posROM) begin
+                if((posROM & lineROM) || !spawn_enemy1) begin
                     // no nothing
                 end else begin
                     dataWRITE_nxt = {xROM - TESTPLANE_MID_X + xenemy1, yROM - TESTPLANE_MID_Y + yenemy1, lineROM, posROM}; // x changes, y stays constant

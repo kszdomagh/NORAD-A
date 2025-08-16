@@ -108,7 +108,7 @@ module vector_manage #(
     always_comb begin
         state_nxt = RESET; //default
         case(state)
-            RESET: state_nxt = enable ? GETDATA : RESET;
+            RESET: state_nxt = enable ? GETDATA : VECTOR_RESET2;
             GETDATA: state_nxt = busy ? GETDATA : CHECKDATA;
             CHECKDATA: state_nxt = (pos && line) ? VECTOR_RESET1 : SENDDATA;
             SENDDATA: state_nxt = GODOWN;
@@ -116,7 +116,8 @@ module vector_manage #(
             WAITBUSY: state_nxt = done ? ADR : WAITBUSY;
             ADR: state_nxt = GETDATA;
 
-            VECTOR_RESET1: state_nxt = RESET;
+            VECTOR_RESET1: state_nxt = VECTOR_RESET2;
+            VECTOR_RESET2: state_nxt = enable ? GETDATA : VECTOR_RESET2;
 
             default: state_nxt = RESET;
         endcase
@@ -257,6 +258,14 @@ module vector_manage #(
             end
             
             VECTOR_RESET1: begin
+                go_nxt = 0;
+                adr_nxt = 0;
+
+                vector_reset = 1'b1;
+            end
+
+
+            VECTOR_RESET2: begin
                 go_nxt = 0;
                 adr_nxt = 0;
 

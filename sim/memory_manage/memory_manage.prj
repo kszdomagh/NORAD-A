@@ -12,6 +12,7 @@
 sv work ../../rtl/ROM_pkg.sv \
         ../../rtl/vector_display/vector_pkg.sv \
         ../../rtl/uwu_rom.sv \
+        ../../rtl/template_ram.sv \
         ../../rtl/memory_manage.sv \
         memory_manage_tb.sv
 

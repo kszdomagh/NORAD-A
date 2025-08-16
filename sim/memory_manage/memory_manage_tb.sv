@@ -41,8 +41,8 @@ module memory_manage_tb;
         .dataWRITE(dataWRITE),
 
         //  MOUSE POS SIGNALS
-        .x_cursor(100),
-        .y_cursor(120),
+        .xcursor(100),
+        .ycursor(120),
 
         .spawn_enemy1(1),
         .xenemy1(200),
@@ -57,6 +57,18 @@ module memory_manage_tb;
     ) u_uwu_rom (
         .addr(adrROM),
         .data_out(dataROM)
+    );
+
+    template_ram #(
+        .ADDRESSWIDTH(ADDRESSWIDTH),
+        .BITWIDTH(DATAWIDTH),
+        .DEPTH(100)
+    ) u_RAM (
+
+        .clk(clk),
+        .we(1),
+        .adr_rw(adrWRITE),
+        .din(dataWRITE)
     );
 
 

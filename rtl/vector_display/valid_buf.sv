@@ -7,7 +7,7 @@
 //////////////////////////////////////////////////////////////////////////////
 module valid_buf #(
 	parameter   OUTWIDTH = 8,
-    parameter   BRES_WIDTH = 9
+    parameter   BRES_WIDTH = OUTWIDTH+1
     )(  
     input logic clk,             // clock
     input logic rst,             // reset
