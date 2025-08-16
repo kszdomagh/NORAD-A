@@ -13,7 +13,7 @@
 #                   Project details                   #
 #-----------------------------------------------------#
 # Project name                                  -- EDIT
-set project_name vga_project
+set project_name norad_a_oscilo_game
 
 # Top module name                               -- EDIT
 set top_module top_basys3
@@ -40,8 +40,8 @@ set sv_files {
     ../rtl/ROM_pkg.sv
     ../rtl/vector_display/vector_pkg.sv
 
-
-
+    ../rtl/ROM/img_pkg.sv
+    ../rtl/ROM/img_rom.sv
 
 
     ../rtl/vector_display/bresenham.sv
@@ -74,6 +74,7 @@ set verilog_files {
 
     ../rtl/mmcm/clk_wiz_0.v
     ../rtl/mmcm/clk_wiz_0_clk_wiz.v
+    ../rtl/debounce.v
 }
 
 # Specify VHDL design files location            -- EDIT

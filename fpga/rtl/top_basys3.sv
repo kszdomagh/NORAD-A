@@ -55,6 +55,16 @@ module top_basys3 (
     //  debug signals
 
 
+
+    //  debounce for reset
+    debounce u_debounce (
+        .clk(clk100MHz),
+        .sw(btnC),
+        .db_level(),
+        .db_tick(rst)
+    );
+
+
     //  clk manager
     clk_wiz_0 u_clk_manager (
         .clk_in(clk_in),
@@ -63,14 +73,14 @@ module top_basys3 (
         .clk40MHz(clk40MHz),
         .clk4MHz(clk4MHz),
 
-        .reset(btnC)
+        .reset(rst)
 
     );
 
     //      MOUSE CONTROL MODULE
     MouseCtl u_MouseCtl (
         .clk(clk100MHz),
-        .rst(btnC),
+        .rst(rst),
         
         .ps2_clk(PS2Clk),
         .ps2_data(PS2Data),
@@ -95,7 +105,7 @@ module top_basys3 (
         .clk100MHz(clk100MHz),
         .clk40MHz(clk40MHz),
         .clk4MHz(clk4MHz),
-        .rst(btnC),
+        .rst(rst),
 
 
 
@@ -132,7 +142,7 @@ module top_basys3 (
 
     disp_hex_mux u_bcd_display (
         .clk(clk100MHz),
-        .reset(btnC),
+        .reset(rst),
         .sseg(seg),
         .an(an),
 

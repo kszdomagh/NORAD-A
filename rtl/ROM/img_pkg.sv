@@ -113,7 +113,7 @@ package img_pkg;
 
     // starting place for enemies - somewhere in the ocean to the right
     localparam X_ENEMY_START = 8'd235; //255 is max 
-    localparam X_ENEMY1_END = X_BASE1; //enemy ends where the base is 
+    localparam X_ENEMY_END = 8'd20; 
     
 
 

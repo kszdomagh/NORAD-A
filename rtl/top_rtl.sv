@@ -51,8 +51,8 @@ module top_rtl#(
     logic go;
     logic halt;
 
-    assign go_flag      = go;
-    assign halt_flag    = halt;
+    assign go_flag      = go;   //debug
+    assign halt_flag    = halt;   //debug
 
 
     //MODULE DECLARATIONS
@@ -133,19 +133,19 @@ module top_rtl#(
         .ycursor(8'd110),
 
 
-        .spawn_enemy1(1),
-        .xenemy1(X_ENEMY_START),
-        .yenemy1(Y_ENEMY1_BASE1),
+        .spawn_enemy1(spawn_enemy1),
+        .xenemy1(xenemy1),
+        .yenemy1(yenemy1),
         .adr_enemy1(ADR_ICBM_START),
 
-        .spawn_enemy2(1),
-        .xenemy2(X_ENEMY_START),
-        .yenemy2(Y_ENEMY2_BASE2),
+        .spawn_enemy2(spawn_enemy2),
+        .xenemy2(xenemy2),
+        .yenemy2(yenemy2),
         .adr_enemy2(ADR_FIGHTER_START),
 
-        .spawn_enemy3(1),
-        .xenemy3(X_ENEMY_START),
-        .yenemy3(Y_ENEMY3_BASE3),
+        .spawn_enemy3(spawn_enemy3),
+        .xenemy3(xenemy3),
+        .yenemy3(yenemy3),
         .adr_enemy3(ADR_SPYPLANE_START)
 
     );

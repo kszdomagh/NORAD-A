@@ -6,19 +6,20 @@ module enemy_control_tb;
     logic rst;
 
     import vector_pkg::*;
-	import ROM_pkg::*;
+	import img_pkg::*;
 
     // INTERNAL WIRES
     logic [DAC_WIDTH-1:0] xenemy;
     logic [DAC_WIDTH-1:0] yenemy;
     logic spawn;
-    logic alive;
+    logic rockethit;
+    logic [ADDRESSWIDTH-1:0] adr_enemy;
 
 
     timer_cluster #(
-        .TIME1(1_000),
-        .TIME2(2_240),
-        .TIME_SLOW1(2_000)
+        .TIME1(100),
+        .TIME2(224),
+        .TIME_SLOW1(60)
     ) u_timer_cluster (
         .clk100MHz(clk),
         .clk4MHz(clk_slow),
@@ -32,17 +33,31 @@ module enemy_control_tb;
     // DUT
     enemy_control #(
         .OUT_WIDTH(DAC_WIDTH),
-        .TARGET_BASE(1)
+        .ADDRESSWIDTH(ADDRESSWIDTH),
+
+        .ADR_ENEMY_START('0),
+        .DESTOY_ANIMATION_TIME(3),
+        
+        .X_BASE(X_BASE1),
+        .Y_ENEMY_BASE(Y_ENEMY1_BASE1),
+
+        .X_ENEMY_START(X_ENEMY_START),
+        .X_ENEMY_END(X_ENEMY_END)
+
+
     ) u_DUT (
         .clk(clk),
         .rst(rst),
-        .en(alive),
+
+        .rockethit(rockethit),
+        
         .spawn_pulse(slow1_pulse),
         .speed_pulse(speed1_pulse),
 
-        .spawn(spawn),
         .xenemy(xenemy),
-        .yenemy(yenemy)
+        .yenemy(yenemy),
+        .spawn(spawn),
+        .adr_enemy(adr_enemy)
     );
 
 
@@ -53,7 +68,8 @@ module enemy_control_tb;
     initial clk_slow = 0;
     always #100 clk_slow = ~clk_slow;  // 5MHz
 
-    initial alive = 1;
+    initial rockethit = 0;
+
 
     // Stimulus block
     initial begin
@@ -61,25 +77,33 @@ module enemy_control_tb;
         #20 rst = 0;
 
         //simulate the enemy being hit
-        #1_000_000 
+        #40000
         $display("Plane at: %d at time %t", xenemy, $time);
         #100
-        alive = '0;
-        $display("Plane at: %d at time %t DESTOYED", xenemy, $time);
-        #100 alive = 1;
+        rockethit = 1;
+        $display("Plane at: %d at time %t HIT WITH ROCKET", xenemy, $time);
+        #100 rockethit = 0;
 
-        // Optional: add timeout
+        //  send a reset
+        #60000 rst = 1;
+        #20 rst = 0;
+        
+        
+
         #100000000;
         $display("Simulation timeout reached.");
         $finish;
     end
 
 
-    int reset_count;
+    int reset_count = 0;
 
     always @(posedge clk) begin
 
-        if (xenemy == X_BASE1) begin
+        if(xenemy == X_ENEMY_END) reset_count <= reset_count + 1;
+
+
+        if (reset_count >= 10) begin
             $display("Plane reached the base and bombed it at: %t", $time);
             $display("PASSED :3");
             $finish;

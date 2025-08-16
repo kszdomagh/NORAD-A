@@ -8,7 +8,16 @@
 module game_logic_top#(
     parameter int ADDRESSWIDTH = 16, 
     parameter int DATAWIDTH = 18,
-    parameter int OUT_WIDTH = 8
+    parameter int OUT_WIDTH = 8,
+
+
+    parameter int TIME_SPEED_ENEMY1 = 100_000_000,
+    parameter int TIME_SPEED_ENEMY2 = 80_000_000,
+    parameter int TIME_SPEED_ENEMY3 = 140_000_000,
+
+    parameter int TIME_SPAWN_ENEMY1 = 10_000_000,
+    parameter int TIME_SPAWN_ENEMY2 = 12_000_000,
+    parameter int TIME_SPAWN_ENEMY3 = 4_000_000
     )(
 
         input logic clk100MHz,
@@ -54,13 +63,13 @@ module game_logic_top#(
     //MODULE DECLARATIONS
 
     timer_cluster #(
-        .TIME1(100_000_000),
-        .TIME2(80_000_000),
-        .TIME3(140_000_000),
+        .TIME1(TIME_SPEED_ENEMY1),
+        .TIME2(TIME_SPEED_ENEMY2),
+        .TIME3(TIME_SPEED_ENEMY3),
 
-        .TIME_SLOW1(10_000_000),
-        .TIME_SLOW2(12_000_000),
-        .TIME_SLOW3(4_000_000)
+        .TIME_SLOW1(TIME_SPAWN_ENEMY1),
+        .TIME_SLOW2(TIME_SPAWN_ENEMY2),
+        .TIME_SLOW3(TIME_SPAWN_ENEMY3)
     ) u_timer_cluster (
         .clk100MHz(clk100MHz),
         .clk4MHz(clk4MHz),
@@ -99,7 +108,7 @@ module game_logic_top#(
     ) u_enemy2_control (
         .clk(clk100MHz),
         .rst(rst),
-        .en(1),
+        .en(rst),
         .spawn_pulse(spawn_pulse2),
         .speed_pulse(enemy2_speed_pulse),
 
