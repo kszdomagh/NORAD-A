@@ -43,11 +43,23 @@ module memory_manage #(
     // enemy signals
     input logic [OUT_WIDTH-1:0] xenemy1,
     input logic [OUT_WIDTH-1:0] yenemy1,
-    input logic spawn_enemy1
+    input logic spawn_enemy1,
+    input logic [ADR_WIDTH-1:0] adr_enemy1,
+
+    input logic [OUT_WIDTH-1:0] xenemy2,
+    input logic [OUT_WIDTH-1:0] yenemy2,
+    input logic spawn_enemy2,
+    input logic [ADR_WIDTH-1:0] adr_enemy2,
+
+    input logic [OUT_WIDTH-1:0] xenemy3,
+    input logic [OUT_WIDTH-1:0] yenemy3,
+    input logic spawn_enemy3,
+    input logic [ADR_WIDTH-1:0] adr_enemy3
 );
 
     import vector_pkg::*;
-    import ROM_pkg::*;
+    import img_pkg::*;
+    
 
     // OUTPUT DATA 
     logic [OUT_WIDTH-1:0] xROM;
@@ -110,7 +122,9 @@ module memory_manage #(
             DRAW_MAP: state_nxt = (posROM & lineROM) ? DRAW_CURSOR : DRAW_MAP;
             DRAW_CURSOR: state_nxt = (posROM & lineROM) ? DRAW_ENEMY1 : DRAW_CURSOR;
 
-            DRAW_ENEMY1:state_nxt = ((posROM & lineROM) || !spawn_enemy1) ? DRAW_RESET : DRAW_ENEMY1;
+            DRAW_ENEMY1:state_nxt = ((posROM & lineROM) || !spawn_enemy1) ? DRAW_ENEMY2 : DRAW_ENEMY1;
+            DRAW_ENEMY2:state_nxt = ((posROM & lineROM) || !spawn_enemy2) ? DRAW_ENEMY3 : DRAW_ENEMY2;
+            DRAW_ENEMY3:state_nxt = ((posROM & lineROM) || !spawn_enemy3) ? DRAW_RESET : DRAW_ENEMY3;
 
 
             DRAW_RESET: state_nxt = DONE;
@@ -199,7 +213,7 @@ module memory_manage #(
             BELOW YOU ARE NOW DRAWING THE PLAYER CURSOR
 ///////////////////////////////////////////////////////////////////////////////////////////////*/
             DRAW_CURSOR: begin
-                if (state != state_nxt) adrROM_nxt = ADR_TESTPLANE_START; //next state adr start
+                if (state != state_nxt) adrROM_nxt = adr_enemy1; //next state adr start
                 
                 if(lineROM & posROM) begin
                     // no nothing
@@ -220,16 +234,57 @@ module memory_manage #(
             BELOW YOU ARE NOW DRAWING THE FIRST ENEMY - please change parameters from uwu memory to the good memory specific
 ///////////////////////////////////////////////////////////////////////////////////////////////*/
             DRAW_ENEMY1: begin
-                if (state != state_nxt) adrROM_nxt = 0; //next state adr start
+                if (state != state_nxt) adrROM_nxt = adr_enemy2; //next state adr start
                 
                 if((posROM & lineROM) || !spawn_enemy1) begin
                     // no nothing
                 end else begin
-                    dataWRITE_nxt = {xROM - TESTPLANE_MID_X + xenemy1, yROM - TESTPLANE_MID_Y + yenemy1, lineROM, posROM}; // x changes, y stays constant
+                    dataWRITE_nxt = {xROM - ENEMY_MID_X + xenemy1, yROM - ENEMY_MID_Y + yenemy1, lineROM, posROM};
                     adrWRITE_nxt = adrWRITE + 1;
                 end
 
                 if(state_nxt == DRAW_ENEMY1) begin
+                    adrROM_nxt = adrROM + 1;
+                end
+            end
+
+
+
+
+
+/*///////////////////////////////////////////////////////////////////////////////////////////////
+            BELOW YOU ARE NOW DRAWING THE SECOND ENEMY
+///////////////////////////////////////////////////////////////////////////////////////////////*/
+            DRAW_ENEMY2: begin
+                if (state != state_nxt) adrROM_nxt = adr_enemy3; //next state adr start
+                
+                if((posROM & lineROM) || !spawn_enemy2) begin
+                    // no nothing
+                end else begin
+                    dataWRITE_nxt = {xROM - ENEMY_MID_X + xenemy2, yROM - ENEMY_MID_Y + yenemy2, lineROM, posROM};
+                    adrWRITE_nxt = adrWRITE + 1;
+                end
+
+                if(state_nxt == DRAW_ENEMY2) begin
+                    adrROM_nxt = adrROM + 1;
+                end
+            end
+
+
+/*///////////////////////////////////////////////////////////////////////////////////////////////
+            BELOW YOU ARE NOW DRAWING THE THIRD AND LAST ENEMY
+///////////////////////////////////////////////////////////////////////////////////////////////*/
+            DRAW_ENEMY3: begin
+                if (state != state_nxt) adrROM_nxt = 0; //next state adr start
+                
+                if((posROM & lineROM) || !spawn_enemy3) begin
+                    // no nothing
+                end else begin
+                    dataWRITE_nxt = {xROM - ENEMY_MID_X + xenemy3, yROM - ENEMY_MID_Y + yenemy3, lineROM, posROM};
+                    adrWRITE_nxt = adrWRITE + 1;
+                end
+
+                if(state_nxt == DRAW_ENEMY3) begin
                     adrROM_nxt = adrROM + 1;
                 end
             end

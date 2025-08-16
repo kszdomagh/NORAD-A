@@ -29,8 +29,7 @@ module top_rtl#(
     timeprecision 1ps;
 
     import vector_pkg::*;
-    import ROM_pkg::*;
-    //import uwu_pkg::*;
+    import img_pkg::*;
 
 
     // INTERNAL WIRES
@@ -79,6 +78,14 @@ module top_rtl#(
     logic [OUT_WIDTH-1:0] yenemy1;
     logic spawn_enemy1;
 
+    logic [OUT_WIDTH-1:0] xenemy2;
+    logic [OUT_WIDTH-1:0] yenemy2;
+    logic spawn_enemy2;
+
+    logic [OUT_WIDTH-1:0] xenemy3;
+    logic [OUT_WIDTH-1:0] yenemy3;
+    logic spawn_enemy3;
+
     game_logic_top #(
         .ADDRESSWIDTH(ADDRESSWIDTH),
         .DATAWIDTH(DATAWIDTH),
@@ -91,7 +98,15 @@ module top_rtl#(
 
         .spawn_enemy1(spawn_enemy1),
         .xenemy1(xenemy1),
-        .yenemy1(yenemy1)
+        .yenemy1(yenemy1),
+
+        .spawn_enemy2(spawn_enemy2),
+        .xenemy2(xenemy2),
+        .yenemy2(yenemy2),
+
+        .spawn_enemy3(spawn_enemy3),
+        .xenemy3(xenemy3),
+        .yenemy3(yenemy3)
     );
 
     memory_manage #(
@@ -118,9 +133,21 @@ module top_rtl#(
         .ycursor(8'd110),
 
 
-        .spawn_enemy1(0),
-        .xenemy1(8'd190),
-        .yenemy1(8'd190)
+        .spawn_enemy1(1),
+        .xenemy1(X_ENEMY_START),
+        .yenemy1(Y_ENEMY1_BASE1),
+        .adr_enemy1(ADR_ICBM_START),
+
+        .spawn_enemy2(1),
+        .xenemy2(X_ENEMY_START),
+        .yenemy2(Y_ENEMY2_BASE2),
+        .adr_enemy2(ADR_FIGHTER_START),
+
+        .spawn_enemy3(1),
+        .xenemy3(X_ENEMY_START),
+        .yenemy3(Y_ENEMY3_BASE3),
+        .adr_enemy3(ADR_SPYPLANE_START)
+
     );
 
     template_ram #(
@@ -142,10 +169,10 @@ module top_rtl#(
     );
 
 
-    uwu_rom #(
+    img_rom #(
         .ADDRESSWIDTH(ADDRESSWIDTH),
         .DATAWIDTH(DATAWIDTH)
-    ) u_uwu_rom (
+    ) u_img_rom (
         .addr(ROM_addr),
         .data_out(ROM_data)
     );

@@ -118,7 +118,7 @@ module uwu_rom #(
             65:  data_out = {8'd253, 8'd31, 1'b1, 1'b0};
             66:  data_out = {8'd238, 8'd16, 1'b1, 1'b0};
             67:  data_out = {8'd253, 8'd0, 1'b1, 1'b0};
-            69:  data_out = {8'd253, 8'd0, 1'b1, 1'b1};       // RESET
+            68:  data_out = {8'd253, 8'd0, 1'b1, 1'b1};       // RESET
 
 
 

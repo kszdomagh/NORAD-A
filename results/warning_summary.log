@@ -1,6 +1,6 @@
 Warnings, critical warnings and errors from synthesis and implementation
 
-Created: 2025-08-16 12:26:04
+Created: 2025-08-16 15:23:34
 
 ----SYNTHESIS----
 WARNING: [Synth 8-7071] port 'locked' of module 'clk_wiz_0' is unconnected for instance 'u_clk_manager' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:59]

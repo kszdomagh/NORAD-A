@@ -11,6 +11,7 @@
 
 sv work ../../rtl/vector_display/vector_pkg.sv \
         ../../rtl/ROM_pkg.sv \
+        ../../rtl/ROM/img_pkg.sv \
         ../../rtl/vector_display/bresenham.sv \
         ../../rtl/vector_display/top_vector_display.sv \
         ../../rtl/vector_display/valid_buf.sv \
@@ -23,5 +24,6 @@ sv work ../../rtl/vector_display/vector_pkg.sv \
         ../../rtl/top_rtl.sv \
         ../../rtl/template_ram.sv \
         ../../rtl/uwu_rom.sv \
+        ../../rtl/ROM/img_rom.sv \
         top_rtl_tb.sv
 

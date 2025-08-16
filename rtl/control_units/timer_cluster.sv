@@ -24,7 +24,9 @@ module timer_cluster #(
     parameter int TIME5 = 100_000_000,
     parameter int TIME6 = 100_000_000,
 
-    parameter int TIME_SLOW = 100_000_000
+    parameter int TIME_SLOW1 = 4_600_000,
+    parameter int TIME_SLOW2 = 4_600_000,
+    parameter int TIME_SLOW3 = 4_600_000
 )(
     input  logic clk100MHz,
     input  logic clk4MHz,
@@ -37,7 +39,9 @@ module timer_cluster #(
     output logic speed5_pulse,
     output logic speed6_pulse,
 
-    output logic slow1_pulse
+    output logic slow1_pulse,
+    output logic slow2_pulse,
+    output logic slow3_pulse
 
 );
 
@@ -77,10 +81,23 @@ module timer_cluster #(
         .pulse(speed6_pulse)
     );
 
-    timer #(.TIMER_TIME(TIME_SLOW)) u_timerSLOW (
+    timer #(.TIMER_TIME(TIME_SLOW1)) u_timerSLOW1 (
         .clk(clk4MHz),
         .rst(rst),
         .pulse(slow1_pulse)
+    );
+
+    timer #(.TIMER_TIME(TIME_SLOW2)) u_timerSLOW2 (
+        .clk(clk4MHz),
+        .rst(rst),
+        .pulse(slow2_pulse)
+    );
+
+
+    timer #(.TIMER_TIME(TIME_SLOW3)) u_timerSLOW3 (
+        .clk(clk4MHz),
+        .rst(rst),
+        .pulse(slow3_pulse)
     );
 
 endmodule

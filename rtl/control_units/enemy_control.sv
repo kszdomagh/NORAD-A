@@ -23,7 +23,7 @@ module enemy_control #(
 );
 
     import vector_pkg::*;
-    import ROM_pkg::*;
+    import img_pkg::*;
 
     logic [OUT_WIDTH-1:0] yenemy_nxt;
     logic [OUT_WIDTH-1:0] xenemy_nxt;
@@ -40,7 +40,6 @@ module enemy_control #(
         if(TARGET_BASE == 1) begin
             yenemy_nxt = Y_ENEMY1_BASE1;
         end else if(TARGET_BASE == 2) begin
-
             yenemy_nxt = Y_ENEMY2_BASE2;
         end else if(TARGET_BASE == 3) begin
             yenemy_nxt = Y_ENEMY3_BASE3;
@@ -55,7 +54,7 @@ module enemy_control #(
             // spawning enemy
             if(spawn_pulse & !spawn) begin
                 spawn_nxt = 1'b1;
-                xenemy_nxt = X_ENEMY1_START;
+                xenemy_nxt = X_ENEMY_START;
             end
 
             if(speed_pulse & spawn) xenemy_nxt = xenemy - 1;

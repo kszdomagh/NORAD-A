@@ -20,8 +20,17 @@ module game_logic_top#(
         //  ENTITIES 
         output wire [OUT_WIDTH-1:0] yenemy1,
         output wire [OUT_WIDTH-1:0] xenemy1,
-        output wire spawn_enemy1
+        output wire spawn_enemy1,
 
+
+        output wire [OUT_WIDTH-1:0] yenemy2,
+        output wire [OUT_WIDTH-1:0] xenemy2,
+        output wire spawn_enemy2,
+
+
+        output wire [OUT_WIDTH-1:0] yenemy3,
+        output wire [OUT_WIDTH-1:0] xenemy3,
+        output wire spawn_enemy3
         
     );
     timeunit 1ns;
@@ -34,20 +43,37 @@ module game_logic_top#(
 
     // INTERNAL WIRES
     wire enemy1_speed_pulse;
-    wire spawn_pulse;
+    wire spawn_pulse1;
+
+    wire enemy2_speed_pulse;
+    wire spawn_pulse2;
+
+    wire enemy3_speed_pulse;
+    wire spawn_pulse3;
 
     //MODULE DECLARATIONS
 
     timer_cluster #(
         .TIME1(100_000_000),
-        .TIME_SLOW(5_000_000)
+        .TIME2(80_000_000),
+        .TIME3(140_000_000),
+
+        .TIME_SLOW1(10_000_000),
+        .TIME_SLOW2(12_000_000),
+        .TIME_SLOW3(4_000_000)
     ) u_timer_cluster (
         .clk100MHz(clk100MHz),
         .clk4MHz(clk4MHz),
         .rst(rst),
 
         .speed1_pulse(enemy1_speed_pulse),
-        .slow1_pulse(spawn_pulse)
+        .speed2_pulse(enemy2_speed_pulse),
+        .speed3_pulse(enemy3_speed_pulse),
+
+
+        .slow1_pulse(spawn_pulse1),
+        .slow2_pulse(spawn_pulse2),
+        .slow3_pulse(spawn_pulse3)
     );
 
 
@@ -58,7 +84,7 @@ module game_logic_top#(
         .clk(clk100MHz),
         .rst(rst),
         .en(1),
-        .spawn_pulse(spawn_pulse),
+        .spawn_pulse(spawn_pulse1),
         .speed_pulse(enemy1_speed_pulse),
 
         .xenemy(xenemy1),
@@ -67,5 +93,35 @@ module game_logic_top#(
     );
 
 
+    enemy_control #(
+        .OUT_WIDTH(OUT_WIDTH),
+        .TARGET_BASE(2)
+    ) u_enemy2_control (
+        .clk(clk100MHz),
+        .rst(rst),
+        .en(1),
+        .spawn_pulse(spawn_pulse2),
+        .speed_pulse(enemy2_speed_pulse),
+
+        .xenemy(xenemy2),
+        .yenemy(yenemy2),
+        .spawn(spawn_enemy2)
+    );
+
+
+    enemy_control #(
+        .OUT_WIDTH(OUT_WIDTH),
+        .TARGET_BASE(3)
+    ) u_enemy3_control (
+        .clk(clk100MHz),
+        .rst(rst),
+        .en(1),
+        .spawn_pulse(spawn_pulse3),
+        .speed_pulse(enemy3_speed_pulse),
+
+        .xenemy(xenemy3),
+        .yenemy(yenemy3),
+        .spawn(spawn_enemy3)
+    );
 
 endmodule
