@@ -1,4 +1,4 @@
-module enemy_control_tb;
+module game_logic_top_tb;
 
     // Testbench signals
     logic clk_slow;
@@ -9,10 +9,16 @@ module enemy_control_tb;
 	import img_pkg::*;
 
     // INTERNAL WIRES
-    logic [DAC_WIDTH-1:0] xenemy;
-    logic [DAC_WIDTH-1:0] yenemy;
-    logic spawn;
-    logic alive;
+    logic [DAC_WIDTH-1:0] xenemy1;
+    logic [DAC_WIDTH-1:0] xenemy2;
+    logic [DAC_WIDTH-1:0] xenemy3;
+
+
+    logic [ADDRESSWIDTH-1:0] adr_enemy1;
+    logic [ADDRESSWIDTH-1:0] adr_enemy2;
+    logic [ADDRESSWIDTH-1:0] adr_enemy3;
+
+    logic spawn_enemy1, spawn_enemy2, spawn_enemy3;
 
 
     game_logic_top #(
@@ -35,19 +41,17 @@ module enemy_control_tb;
 
         .spawn_enemy1(spawn_enemy1),
         .xenemy1(xenemy1),
+        .adr_enemy1(adr_enemy1),
 
         .spawn_enemy2(spawn_enemy2),
         .xenemy2(xenemy2),
+        .adr_enemy2(adr_enemy2),
 
         .spawn_enemy3(spawn_enemy3),
-        .xenemy3(xenemy3)
+        .xenemy3(xenemy3),
+        .adr_enemy3(adr_enemy3)
     );
 
-    logic [DAC_WIDTH-1:0] xenemy1;
-    logic [DAC_WIDTH-1:0] xenemy2;
-    logic [DAC_WIDTH-1:0] xenemy3;
-
-    logic spawn_enemy1, spawn_enemy2, spawn_enemy3;
 
 
     // Clock generation
@@ -57,20 +61,11 @@ module enemy_control_tb;
     initial clk_slow = 0;
     always #100 clk_slow = ~clk_slow;  // 5MHz
 
-    initial alive = 1;
 
     // Stimulus block
     initial begin
         rst = 1;
         #20 rst = 0;
-
-        //simulate the enemy being hit
-        #1_000_000 
-        $display("Plane at: %d at time %t", xenemy, $time);
-        #100
-        alive = '0;
-        $display("Plane at: %d at time %t DESTOYED", xenemy, $time);
-        #100 alive = 1;
 
         //  send a reset
         #1_300_000 rst = 1;
@@ -83,12 +78,11 @@ module enemy_control_tb;
     end
 
 
-    int reset_count;
 
     always @(posedge clk) begin
 
-        if (xenemy == X_BASE1) begin
-            $display("Plane reached the base and bombed it at: %t", $time);
+        if ( (xenemy1 == X_ENEMY_END) & (xenemy2 == X_ENEMY_END) & (xenemy3 == X_ENEMY_END) ) begin
+            $display("all 3 planes reached the end of a map at: %t", $time);
             $display("PASSED :3");
             $finish;
         end

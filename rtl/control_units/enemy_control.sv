@@ -15,7 +15,6 @@ module enemy_control #(
 
     // COSMETICS
     parameter int DESTOY_ANIMATION_TIME = 3,
-    parameter int ADR_ENEMY_START = 30,
 
     // ENEMY RFLYING RANGE
     parameter int X_ENEMY_START = 8'd20,
@@ -27,6 +26,7 @@ module enemy_control #(
     input logic speed_pulse,
     input logic spawn_pulse,
     input logic rockethit,
+    input logic [ADDRESSWIDTH-1:0] adr_enemy_start,
     //input logic enemy_randomize,     // randomize what enemy
 
     output logic [OUT_WIDTH-1:0] xenemy,
@@ -95,7 +95,7 @@ module enemy_control #(
     // outputs always comb
     always_comb begin
 
-        adr_enemy_nxt = ADR_ENEMY_START;
+        adr_enemy_nxt = adr_enemy_start;
         yenemy_nxt = Y_ENEMY_BASE;
 
 

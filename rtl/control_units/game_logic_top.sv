@@ -30,23 +30,26 @@ module game_logic_top#(
         output wire [OUT_WIDTH-1:0] yenemy1,
         output wire [OUT_WIDTH-1:0] xenemy1,
         output wire spawn_enemy1,
+        output wire [ADDRESSWIDTH-1:0] adr_enemy1,
 
 
         output wire [OUT_WIDTH-1:0] yenemy2,
         output wire [OUT_WIDTH-1:0] xenemy2,
         output wire spawn_enemy2,
+        output wire [ADDRESSWIDTH-1:0] adr_enemy2,
 
 
         output wire [OUT_WIDTH-1:0] yenemy3,
         output wire [OUT_WIDTH-1:0] xenemy3,
-        output wire spawn_enemy3
+        output wire spawn_enemy3,
+        output wire [ADDRESSWIDTH-1:0] adr_enemy3
         
     );
     timeunit 1ns;
     timeprecision 1ps;
 
     import vector_pkg::*;
-    import ROM_pkg::*;
+    import img_pkg::*;
     //import uwu_pkg::*;
 
 
@@ -75,9 +78,9 @@ module game_logic_top#(
         .clk4MHz(clk4MHz),
         .rst(rst),
 
-        .speed1_pulse(enemy1_speed_pulse),
-        .speed2_pulse(enemy2_speed_pulse),
-        .speed3_pulse(enemy3_speed_pulse),
+        .speed1_pulse(speed_pulse1),
+        .speed2_pulse(speed_pulse2),
+        .speed3_pulse(speed_pulse3),
 
 
         .slow1_pulse(spawn_pulse1),
@@ -88,49 +91,104 @@ module game_logic_top#(
 
     enemy_control #(
         .OUT_WIDTH(OUT_WIDTH),
-        .TARGET_BASE(1)
+        .ADDRESSWIDTH(ADDRESSWIDTH),
+
+    //  cosmetics
+        .DESTOY_ANIMATION_TIME(5),
+
+    //  enemy range 
+        .X_ENEMY_START(X_ENEMY_START),
+        .X_ENEMY_END(X_ENEMY_END),
+
+    //  base data
+        .X_BASE(X_BASE1),
+        .Y_ENEMY_BASE(Y_ENEMY1_BASE1)
     ) u_enemy1_control (
         .clk(clk100MHz),
         .rst(rst),
-        .en(1),
+        
         .spawn_pulse(spawn_pulse1),
-        .speed_pulse(enemy1_speed_pulse),
+        .speed_pulse(speed_pulse1),
 
+        .rockethit(0),
+        .adr_enemy_start(ADR_BOMBER_START),
+
+        .spawn(spawn_enemy1),
         .xenemy(xenemy1),
         .yenemy(yenemy1),
-        .spawn(spawn_enemy1)
+        .adr_enemy(adr_enemy1)
     );
+
+
 
 
     enemy_control #(
         .OUT_WIDTH(OUT_WIDTH),
-        .TARGET_BASE(2)
+        .ADDRESSWIDTH(ADDRESSWIDTH),
+
+    //  cosmetics
+        .DESTOY_ANIMATION_TIME(5),
+
+    //  enemy range 
+        .X_ENEMY_START(X_ENEMY_START),
+        .X_ENEMY_END(X_ENEMY_END),
+
+    //  base data
+        .X_BASE(X_BASE2),
+        .Y_ENEMY_BASE(Y_ENEMY2_BASE2)
     ) u_enemy2_control (
         .clk(clk100MHz),
         .rst(rst),
-        .en(rst),
+        
         .spawn_pulse(spawn_pulse2),
-        .speed_pulse(enemy2_speed_pulse),
+        .speed_pulse(speed_pulse2),
 
+        .rockethit(0),
+        .adr_enemy_start(ADR_FIGHTER_START),
+
+        .spawn(spawn_enemy2),
         .xenemy(xenemy2),
         .yenemy(yenemy2),
-        .spawn(spawn_enemy2)
+        .adr_enemy(adr_enemy2)
     );
+
+
+
 
 
     enemy_control #(
         .OUT_WIDTH(OUT_WIDTH),
-        .TARGET_BASE(3)
+        .ADDRESSWIDTH(ADDRESSWIDTH),
+
+    //  cosmetics
+        .DESTOY_ANIMATION_TIME(5),
+
+    //  enemy range 
+        .X_ENEMY_START(X_ENEMY_START),
+        .X_ENEMY_END(X_ENEMY_END),
+
+    //  base data
+        .X_BASE(X_BASE3),
+        .Y_ENEMY_BASE(Y_ENEMY3_BASE3)
     ) u_enemy3_control (
         .clk(clk100MHz),
         .rst(rst),
-        .en(1),
+        
         .spawn_pulse(spawn_pulse3),
-        .speed_pulse(enemy3_speed_pulse),
+        .speed_pulse(speed_pulse3),
 
+        .rockethit(0),
+        .adr_enemy_start(ADR_SPYPLANE_START),
+
+        .spawn(spawn_enemy3),
         .xenemy(xenemy3),
         .yenemy(yenemy3),
-        .spawn(spawn_enemy3)
+        .adr_enemy(adr_enemy3)
     );
+
+
+
+
+
 
 endmodule
