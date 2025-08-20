@@ -7,7 +7,6 @@
 //////////////////////////////////////////////////////////////////////////////
 module game_logic_top#(
     parameter int ADDRESSWIDTH = 16, 
-    parameter int DATAWIDTH = 18,
     parameter int OUT_WIDTH = 8,
 
 
@@ -42,7 +41,13 @@ module game_logic_top#(
         output wire [OUT_WIDTH-1:0] yenemy3,
         output wire [OUT_WIDTH-1:0] xenemy3,
         output wire spawn_enemy3,
-        output wire [ADDRESSWIDTH-1:0] adr_enemy3
+        output wire [ADDRESSWIDTH-1:0] adr_enemy3,
+
+
+
+        output wire base1_nuked,
+        output wire base2_nuked,
+        output wire base3_nuked
         
     );
     timeunit 1ns;
@@ -54,14 +59,8 @@ module game_logic_top#(
 
 
     // INTERNAL WIRES
-    wire enemy1_speed_pulse;
-    wire spawn_pulse1;
-
-    wire enemy2_speed_pulse;
-    wire spawn_pulse2;
-
-    wire enemy3_speed_pulse;
-    wire spawn_pulse3;
+    wire spawn_pulse1, spawn_pulse2, spawn_pulse3;
+    wire speed_pulse1, speed_pulse2, speed_pulse3;
 
     //MODULE DECLARATIONS
 
@@ -187,6 +186,46 @@ module game_logic_top#(
     );
 
 
+
+
+    base_control #(
+        .ADDRESSWIDTH(ADDRESSWIDTH),
+        .DESTOY_ANIMATION_TIME(3),
+        .OUT_WIDTH(OUT_WIDTH),
+        .X_BASE(X_BASE1),
+        .Y_ENEMY_BASE(Y_ENEMY1_BASE1)
+    ) u_base1_NEWYORK (
+        .clk(clk100MHz),
+        .rst(rst),
+        .base_nuked(base1_nuked),
+        .xenemy(xenemy1)
+    );
+
+    base_control #(
+        .ADDRESSWIDTH(ADDRESSWIDTH),
+        .DESTOY_ANIMATION_TIME(3),
+        .OUT_WIDTH(OUT_WIDTH),
+        .X_BASE(X_BASE2),
+        .Y_ENEMY_BASE(Y_ENEMY2_BASE2)
+    ) u_base2_NEWYORK (
+        .clk(clk100MHz),
+        .rst(rst),
+        .base_nuked(base2_nuked),
+        .xenemy(xenemy2)
+    );
+
+    base_control #(
+        .ADDRESSWIDTH(ADDRESSWIDTH),
+        .DESTOY_ANIMATION_TIME(3),
+        .OUT_WIDTH(OUT_WIDTH),
+        .X_BASE(X_BASE3),
+        .Y_ENEMY_BASE(Y_ENEMY3_BASE3)
+    ) u_base3_NEWYORK (
+        .clk(clk100MHz),
+        .rst(rst),
+        .base_nuked(base3_nuked),
+        .xenemy(xenemy3)
+    );
 
 
 

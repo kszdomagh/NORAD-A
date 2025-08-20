@@ -15,6 +15,9 @@ module top_rtl#(
         input logic clk40MHz,
         input logic clk4MHz,
 
+        input logic [OUT_WIDTH-1:0] xcursor,
+        input logic [OUT_WIDTH-1:0] ycursor,
+
 
         output logic go_flag,
         output logic halt_flag,
@@ -86,9 +89,13 @@ module top_rtl#(
     logic [OUT_WIDTH-1:0] yenemy3;
     logic spawn_enemy3;
 
+
+    wire base1_nuked, base2_nuked, base3_nuked;
+
+
+
     game_logic_top #(
         .ADDRESSWIDTH(ADDRESSWIDTH),
-        .DATAWIDTH(DATAWIDTH),
         .OUT_WIDTH(OUT_WIDTH)
     ) u_game_logic_top (
         .clk100MHz(clk100MHz),
@@ -106,7 +113,13 @@ module top_rtl#(
 
         .spawn_enemy3(spawn_enemy3),
         .xenemy3(xenemy3),
-        .yenemy3(yenemy3)
+        .yenemy3(yenemy3),
+
+
+
+        .base1_nuked(base1_nuked),
+        .base2_nuked(base2_nuked),
+        .base3_nuked(base3_nuked)
     );
 
     memory_manage #(
@@ -129,8 +142,8 @@ module top_rtl#(
         .halt(halt),  // to sygnał że narysoano klatke na oscyloskopie - prosze zrobic kolejna i dac nowe dane do RAMU
 
         //  from mouse input signals
-        .xcursor(8'd120),
-        .ycursor(8'd110),
+        .xcursor(xcursor),
+        .ycursor(ycursor),
 
 
         .spawn_enemy1(spawn_enemy1),
@@ -146,7 +159,11 @@ module top_rtl#(
         .spawn_enemy3(spawn_enemy3),
         .xenemy3(xenemy3),
         .yenemy3(yenemy3),
-        .adr_enemy3(ADR_SPYPLANE_START)
+        .adr_enemy3(ADR_SPYPLANE_START),
+
+        .base1_nuked(base1_nuked),
+        .base2_nuked(base2_nuked),
+        .base3_nuked(base3_nuked)
 
     );
 

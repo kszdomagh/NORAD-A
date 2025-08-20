@@ -54,7 +54,14 @@ module memory_manage #(
     input logic [OUT_WIDTH-1:0] xenemy3,
     input logic [OUT_WIDTH-1:0] yenemy3,
     input logic spawn_enemy3,
-    input logic [ADR_WIDTH-1:0] adr_enemy3
+    input logic [ADR_WIDTH-1:0] adr_enemy3,
+
+
+
+
+    input logic base1_nuked,
+    input logic base2_nuked,
+    input logic base3_nuked
 );
 
     import vector_pkg::*;
@@ -89,6 +96,11 @@ module memory_manage #(
         DRAW_ENEMY1 = 5'd13,
         DRAW_ENEMY2 = 5'd14,
         DRAW_ENEMY3 = 5'd15,
+        
+        //DRAW BASES/CITIES
+        DRAW_BASE1 = 5'd16,
+        DRAW_BASE2 = 5'd17,
+        DRAW_BASE3 = 5'd18,
 
         //DRAW INTERACTABLES
         DRAW_CURSOR = 5'd12
@@ -124,8 +136,12 @@ module memory_manage #(
 
             DRAW_ENEMY1:state_nxt = ((posROM & lineROM) || !spawn_enemy1) ? DRAW_ENEMY2 : DRAW_ENEMY1;
             DRAW_ENEMY2:state_nxt = ((posROM & lineROM) || !spawn_enemy2) ? DRAW_ENEMY3 : DRAW_ENEMY2;
-            DRAW_ENEMY3:state_nxt = ((posROM & lineROM) || !spawn_enemy3) ? DRAW_RESET : DRAW_ENEMY3;
+            DRAW_ENEMY3:state_nxt = ((posROM & lineROM) || !spawn_enemy3) ? DRAW_BASE1 : DRAW_ENEMY3;
 
+
+            DRAW_BASE1:state_nxt = (posROM & lineROM) ? DRAW_BASE2 : DRAW_BASE1;
+            DRAW_BASE2:state_nxt = (posROM & lineROM) ? DRAW_BASE3 : DRAW_BASE2;
+            DRAW_BASE3:state_nxt = (posROM & lineROM) ? DRAW_RESET : DRAW_BASE3;
 
             DRAW_RESET: state_nxt = DONE;
 
@@ -275,7 +291,7 @@ module memory_manage #(
             BELOW YOU ARE NOW DRAWING THE THIRD AND LAST ENEMY
 ///////////////////////////////////////////////////////////////////////////////////////////////*/
             DRAW_ENEMY3: begin
-                if (state != state_nxt) adrROM_nxt = 0; //next state adr start
+                if (state != state_nxt) adrROM_nxt = (base1_nuked ? ADR_NUKE_START : ADR_BASE1_START); //next state adr start
                 
                 if((posROM & lineROM) || !spawn_enemy3) begin
                     // no nothing
@@ -288,6 +304,88 @@ module memory_manage #(
                     adrROM_nxt = adrROM + 1;
                 end
             end
+
+
+
+
+
+
+/*///////////////////////////////////////////////////////////////////////////////////////////////
+            BELOW YOU ARE NOW DRAWING THE FIRST BASE (TOP ONE)
+///////////////////////////////////////////////////////////////////////////////////////////////*/
+            DRAW_BASE1: begin
+                if (state != state_nxt) adrROM_nxt = (base2_nuked ? ADR_NUKE_START : ADR_BASE2_START); //next state adr start
+                
+                if(posROM & lineROM) begin
+                    // no nothing
+                end else if(base1_nuked) begin  //draw nuke
+                    dataWRITE_nxt = {xROM - NUKE_MID_X + X_BASE1, yROM - NUKE_MID_X + Y_ENEMY1_BASE1, lineROM, posROM};
+                    adrWRITE_nxt = adrWRITE + 1;
+                end else begin      //draw base
+                    dataWRITE_nxt = {xROM - BASE1_MID_X + X_BASE1, yROM - BASE1_MID_X + Y_ENEMY1_BASE1, lineROM, posROM};
+                    adrWRITE_nxt = adrWRITE + 1;
+                end
+
+                if(state_nxt == DRAW_BASE1) begin
+                    adrROM_nxt = adrROM + 1;
+                end
+            end
+
+
+
+
+/*///////////////////////////////////////////////////////////////////////////////////////////////
+            BELOW YOU ARE NOW DRAWING THE SECOND BASE (MID ONE)
+///////////////////////////////////////////////////////////////////////////////////////////////*/
+            DRAW_BASE2: begin
+                if (state != state_nxt) adrROM_nxt = (base3_nuked ? ADR_NUKE_START : ADR_BASE3_START); //next state adr start
+                
+                if(posROM & lineROM) begin
+                    // no nothing
+                end else if(base2_nuked) begin  //draw nuke
+                    dataWRITE_nxt = {xROM - NUKE_MID_X + X_BASE2, yROM - NUKE_MID_X + Y_ENEMY2_BASE2, lineROM, posROM};
+                    adrWRITE_nxt = adrWRITE + 1;
+                end else begin      //draw base
+                    dataWRITE_nxt = {xROM - BASE2_MID_X + X_BASE2, yROM - BASE2_MID_X + Y_ENEMY2_BASE2, lineROM, posROM};
+                    adrWRITE_nxt = adrWRITE + 1;
+                end
+
+                if(state_nxt == DRAW_BASE2) begin
+                    adrROM_nxt = adrROM + 1;
+                end
+            end
+
+
+
+/*///////////////////////////////////////////////////////////////////////////////////////////////
+            BELOW YOU ARE NOW DRAWING THE LAST BASE (BOTTOM ONE)
+///////////////////////////////////////////////////////////////////////////////////////////////*/
+            DRAW_BASE3: begin
+                if (state != state_nxt) adrROM_nxt = 0; //next state adr start
+                
+                if(posROM & lineROM) begin
+                    // no nothing
+                end else if(base3_nuked) begin  //draw nuke
+                    dataWRITE_nxt = {xROM - NUKE_MID_X + X_BASE3, yROM - NUKE_MID_X + Y_ENEMY3_BASE3, lineROM, posROM};
+                    adrWRITE_nxt = adrWRITE + 1;
+                end else begin      //draw base
+                    dataWRITE_nxt = {xROM - BASE3_MID_X + X_BASE3, yROM - BASE3_MID_X + Y_ENEMY3_BASE3, lineROM, posROM};
+                    adrWRITE_nxt = adrWRITE + 1;
+                end
+
+                if(state_nxt == DRAW_BASE3) begin
+                    adrROM_nxt = adrROM + 1;
+                end
+            end
+
+
+
+
+
+
+
+
+
 
 
 

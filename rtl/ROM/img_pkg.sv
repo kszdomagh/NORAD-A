@@ -17,9 +17,9 @@ package img_pkg;
     localparam FRAME_MID_Y = FRAME_MID_X;
 
     //      CURSOR
-    localparam ADR_CURSOR_START = 48;
-    localparam CURSOR_MID_X = 8'd22;   //draw cursor at there coordinates
-    localparam CURSOR_MID_Y = 8'd50;   //draw cursor at there coordinates
+    localparam ADR_CURSOR_START = 344;
+    localparam CURSOR_MID_X = 8'd32;   //draw cursor at there coordinates
+    localparam CURSOR_MID_Y = 8'd40;   //draw cursor at there coordinates
 
 
 
@@ -97,19 +97,46 @@ package img_pkg;
 
 
 
+/*///////////////////////////////////////////////////////////////////////////////////////////////
+            FRIENDLY CITIES / BASES
+///////////////////////////////////////////////////////////////////////////////////////////////*/
+
+        //      NEW YORK = BASE1
+        localparam ADR_BASE1_START        = 292;
+        localparam BASE1_MID_X            = 8'd16;
+        localparam BASE1_MID_Y            = 8'd20;
+
+
+        //      NEW YORK = BASE2
+        localparam ADR_BASE2_START        = 292;
+        localparam BASE2_MID_X            = 8'd16;
+        localparam BASE2_MID_Y            = 8'd20;
+
+
+        //      NEW YORK = BASE3
+        localparam ADR_BASE3_START        = 292;
+        localparam BASE3_MID_X            = 8'd16;
+        localparam BASE3_MID_Y            = 8'd20;
+
+
+
+
+
 
 
 
 
 
     // HEIGHT FOR ENEMIES OR BASE POSITIONS - for enemies those are constatnts
-    localparam Y_ENEMY1_BASE1 = 8'd100;
-    localparam Y_ENEMY2_BASE2 = 8'd150;
+    localparam X_BASE1 = 8'd100;
+    localparam Y_ENEMY1_BASE1 = 8'd50;
+
+    localparam X_BASE2 = 8'd60;
+    localparam Y_ENEMY2_BASE2 = 8'd125;
+
+    localparam X_BASE3 = 8'd110;
     localparam Y_ENEMY3_BASE3 = 8'd200;
 
-    localparam X_BASE1 = 8'd50;
-    localparam X_BASE2 = 8'd40;
-    localparam X_BASE3 = 8'd60;
 
     // starting place for enemies - somewhere in the ocean to the right
     localparam X_ENEMY_START = 8'd235; //255 is max 

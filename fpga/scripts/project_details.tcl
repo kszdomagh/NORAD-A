@@ -54,11 +54,13 @@ set sv_files {
     ../rtl/control_units/timer_cluster.sv
     ../rtl/control_units/timer.sv
     ../rtl/control_units/game_logic_top.sv
-
+    ../rtl/control_units/base_control.sv
 
     ../rtl/memory_manage.sv
     ../rtl/template_ram.sv
     ../rtl/uwu_rom.sv
+
+    ../rtl/cursor.sv
 
 
     ../rtl/hex/disp_hex_mux.sv

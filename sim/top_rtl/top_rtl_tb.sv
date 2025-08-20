@@ -29,6 +29,10 @@ module top_rtl_tb;
         .go_flag(go_flag),
         .halt_flag(halt_flag),
 
+
+        .xcursor(8'd150),
+        .ycursor(8'd150),
+
         .xch(xsignal),
         .ych(ysignal)
     );

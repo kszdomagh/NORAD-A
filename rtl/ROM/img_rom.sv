@@ -337,6 +337,83 @@ module img_rom #(
             290: data_out = {8'd240, 8'd0, 1'b1, 1'b0};
             291: data_out = {8'd184, 8'd168, 1'b1, 1'b1};   // RESET
 
+
+
+
+
+
+            //  NEW YORK
+
+            292: data_out = {8'd0, 8'd0, 1'b0, 1'b1};
+            293: data_out = {8'd0, 8'd4, 1'b1, 1'b0};
+            294: data_out = {8'd3, 8'd0, 1'b1, 1'b0};
+            295: data_out = {8'd3, 8'd4, 1'b1, 1'b0};
+            296: data_out = {8'd8, 8'd4, 1'b0, 1'b1};
+            297: data_out = {8'd5, 8'd4, 1'b1, 1'b0};
+            298: data_out = {8'd5, 8'd2, 1'b1, 1'b0};
+            299: data_out = {8'd7, 8'd2, 1'b1, 1'b0};
+            300: data_out = {8'd5, 8'd2, 1'b0, 1'b1};
+            301: data_out = {8'd5, 8'd0, 1'b1, 1'b0};
+            302: data_out = {8'd8, 8'd0, 1'b1, 1'b0};
+            303: data_out = {8'd10, 8'd4, 1'b0, 1'b1};
+            304: data_out = {8'd10, 8'd0, 1'b1, 1'b0};
+            305: data_out = {8'd12, 8'd2, 1'b1, 1'b0};
+            306: data_out = {8'd14, 8'd0, 1'b1, 1'b0};
+            307: data_out = {8'd14, 8'd4, 1'b1, 1'b0};
+            308: data_out = {8'd18, 8'd4, 1'b0, 1'b1};
+            309: data_out = {8'd20, 8'd2, 1'b1, 1'b0};
+            310: data_out = {8'd20, 8'd0, 1'b1, 1'b0};
+            311: data_out = {8'd20, 8'd2, 1'b0, 1'b1};
+            312: data_out = {8'd22, 8'd4, 1'b1, 1'b0};
+            313: data_out = {8'd24, 8'd1, 1'b0, 1'b1};
+            314: data_out = {8'd25, 8'd0, 1'b1, 1'b0};
+            315: data_out = {8'd26, 8'd0, 1'b1, 1'b0};
+            316: data_out = {8'd27, 8'd1, 1'b1, 1'b0};
+            317: data_out = {8'd27, 8'd3, 1'b1, 1'b0};
+            318: data_out = {8'd26, 8'd4, 1'b1, 1'b0};
+            319: data_out = {8'd25, 8'd4, 1'b1, 1'b0};
+            320: data_out = {8'd24, 8'd3, 1'b1, 1'b0};
+            321: data_out = {8'd24, 8'd1, 1'b1, 1'b0};
+            322: data_out = {8'd29, 8'd0, 1'b0, 1'b1};
+            323: data_out = {8'd29, 8'd2, 1'b1, 1'b0};
+            324: data_out = {8'd32, 8'd0, 1'b1, 1'b0};
+            325: data_out = {8'd29, 8'd2, 1'b0, 1'b1};
+            326: data_out = {8'd31, 8'd2, 1'b1, 1'b0};
+            327: data_out = {8'd32, 8'd3, 1'b1, 1'b0};
+            328: data_out = {8'd31, 8'd4, 1'b1, 1'b0};
+            329: data_out = {8'd29, 8'd4, 1'b1, 1'b0};
+            330: data_out = {8'd29, 8'd2, 1'b1, 1'b0};
+            331: data_out = {8'd34, 8'd0, 1'b0, 1'b1};
+            332: data_out = {8'd34, 8'd4, 1'b1, 1'b0};
+            333: data_out = {8'd34, 8'd2, 1'b0, 1'b1};
+            334: data_out = {8'd37, 8'd4, 1'b1, 1'b0};
+            335: data_out = {8'd34, 8'd2, 1'b0, 1'b1};
+            336: data_out = {8'd37, 8'd0, 1'b1, 1'b0};
+            337: data_out = {8'd8, 8'd8, 1'b0, 1'b1};
+            338: data_out = {8'd30, 8'd22, 1'b1, 1'b0};
+            339: data_out = {8'd3, 8'd22, 1'b1, 1'b0};
+            340: data_out = {8'd24, 8'd8, 1'b1, 1'b0};
+            341: data_out = {8'd16, 8'd30, 1'b1, 1'b0};
+            342: data_out = {8'd8, 8'd8, 1'b1, 1'b0};
+            343: data_out = {8'd184, 8'd168, 1'b1, 1'b1};   // RESET
+
+
+
+        //   CURSOR NEW
+            344:  data_out = {8'd22, 8'd50, 1'b0, 1'b1};
+            345:  data_out = {8'd42, 8'd50, 1'b1, 1'b0};
+            346:  data_out = {8'd32, 8'd40, 1'b0, 1'b1};
+            347:  data_out = {8'd32, 8'd60, 1'b1, 1'b0};
+            348:  data_out = {8'd22, 8'd50, 1'b1, 1'b1};         // RESET
+
+
+
+
+
+
+
+            
+
             default: data_out = '0;
         endcase
     end
