@@ -34,8 +34,6 @@ module enemy_control_tb;
     enemy_control #(
         .OUT_WIDTH(DAC_WIDTH),
         .ADDRESSWIDTH(ADDRESSWIDTH),
-
-        .ADR_ENEMY_START('0),
         .DESTOY_ANIMATION_TIME(3),
         
         .X_BASE(X_BASE1),

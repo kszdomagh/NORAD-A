@@ -1,4 +1,4 @@
-25606351438586444
+25609862985211869
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -57168,6 +57168,13 @@ THT DIP DIL PDIP 2.54mm 10.16mm 400mil LongPads
 0
 16
 16
+DIYmicro
+MTM logo 6_5mm x 2_6mm
+
+
+0
+0
+0
 Desktop
 hihi2
 
@@ -57177,6 +57184,13 @@ hihi2
 0
 Desktop
 hihihi
+
+
+0
+0
+0
+Desktop
+logo_pcb
 
 
 0

@@ -23,7 +23,6 @@ module game_logic_top_tb;
 
     game_logic_top #(
         .ADDRESSWIDTH(16),
-        .DATAWIDTH(18),
         .OUT_WIDTH(8),
 
         .TIME_SPAWN_ENEMY1(1_000),
@@ -71,7 +70,7 @@ module game_logic_top_tb;
         #1_300_000 rst = 1;
         #20 rst = 0;
 
-        // Optional: add timeout
+        // timeout
         #100000000;
         $display("Simulation timeout reached.");
         $finish;

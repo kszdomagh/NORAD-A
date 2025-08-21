@@ -55,6 +55,9 @@ set sv_files {
     ../rtl/control_units/timer.sv
     ../rtl/control_units/game_logic_top.sv
     ../rtl/control_units/base_control.sv
+    ../rtl/control_units/fire_control.sv
+
+
 
     ../rtl/memory_manage.sv
     ../rtl/template_ram.sv

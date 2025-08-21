@@ -9,20 +9,26 @@ module game_logic_top#(
     parameter int ADDRESSWIDTH = 16, 
     parameter int OUT_WIDTH = 8,
 
+    parameter int DESTOY_ANIMATION_TIME = 100_000_000,
 
-    parameter int TIME_SPEED_ENEMY1 = 100_000_000,
+
+    parameter int TIME_SPEED_ENEMY1 = 30_000_000,
     parameter int TIME_SPEED_ENEMY2 = 80_000_000,
-    parameter int TIME_SPEED_ENEMY3 = 140_000_000,
+    parameter int TIME_SPEED_ENEMY3 = 40_000_000,
 
     parameter int TIME_SPAWN_ENEMY1 = 10_000_000,
     parameter int TIME_SPAWN_ENEMY2 = 12_000_000,
-    parameter int TIME_SPAWN_ENEMY3 = 4_000_000
+    parameter int TIME_SPAWN_ENEMY3 = 22_000_000
     )(
 
         input logic clk100MHz,
         input logic clk40MHz,
         input logic clk4MHz,
         input logic rst,
+
+        input wire [OUT_WIDTH-1:0] ycursor,
+        input wire [OUT_WIDTH-1:0] xcursor,
+        input wire click,
 
 
         //  ENTITIES 
@@ -47,8 +53,9 @@ module game_logic_top#(
 
         output wire base1_nuked,
         output wire base2_nuked,
-        output wire base3_nuked
+        output wire base3_nuked,
         
+        output wire [OUT_WIDTH-1:0] killcount
     );
     timeunit 1ns;
     timeprecision 1ps;
@@ -61,6 +68,8 @@ module game_logic_top#(
     // INTERNAL WIRES
     wire spawn_pulse1, spawn_pulse2, spawn_pulse3;
     wire speed_pulse1, speed_pulse2, speed_pulse3;
+
+    wire enemy1_kill, enemy2_kill, enemy3_kill;
 
     //MODULE DECLARATIONS
 
@@ -93,7 +102,7 @@ module game_logic_top#(
         .ADDRESSWIDTH(ADDRESSWIDTH),
 
     //  cosmetics
-        .DESTOY_ANIMATION_TIME(5),
+        .DESTOY_ANIMATION_TIME(DESTOY_ANIMATION_TIME),
 
     //  enemy range 
         .X_ENEMY_START(X_ENEMY_START),
@@ -109,7 +118,7 @@ module game_logic_top#(
         .spawn_pulse(spawn_pulse1),
         .speed_pulse(speed_pulse1),
 
-        .rockethit(0),
+        .rockethit(enemy1_kill),
         .adr_enemy_start(ADR_BOMBER_START),
 
         .spawn(spawn_enemy1),
@@ -126,7 +135,7 @@ module game_logic_top#(
         .ADDRESSWIDTH(ADDRESSWIDTH),
 
     //  cosmetics
-        .DESTOY_ANIMATION_TIME(5),
+        .DESTOY_ANIMATION_TIME(DESTOY_ANIMATION_TIME),
 
     //  enemy range 
         .X_ENEMY_START(X_ENEMY_START),
@@ -142,8 +151,8 @@ module game_logic_top#(
         .spawn_pulse(spawn_pulse2),
         .speed_pulse(speed_pulse2),
 
-        .rockethit(0),
-        .adr_enemy_start(ADR_FIGHTER_START),
+        .rockethit(enemy2_kill),
+        .adr_enemy_start(ADR_BOMBER_START),
 
         .spawn(spawn_enemy2),
         .xenemy(xenemy2),
@@ -160,7 +169,7 @@ module game_logic_top#(
         .ADDRESSWIDTH(ADDRESSWIDTH),
 
     //  cosmetics
-        .DESTOY_ANIMATION_TIME(5),
+        .DESTOY_ANIMATION_TIME(DESTOY_ANIMATION_TIME),
 
     //  enemy range 
         .X_ENEMY_START(X_ENEMY_START),
@@ -176,8 +185,8 @@ module game_logic_top#(
         .spawn_pulse(spawn_pulse3),
         .speed_pulse(speed_pulse3),
 
-        .rockethit(0),
-        .adr_enemy_start(ADR_SPYPLANE_START),
+        .rockethit(enemy3_kill),
+        .adr_enemy_start(ADR_BOMBER_START),
 
         .spawn(spawn_enemy3),
         .xenemy(xenemy3),
@@ -225,6 +234,36 @@ module game_logic_top#(
         .rst(rst),
         .base_nuked(base3_nuked),
         .xenemy(xenemy3)
+    );
+
+
+
+
+    fire_control #(
+        .ADDRESSWIDTH(ADDRESSWIDTH),
+        .OUT_WIDTH(OUT_WIDTH),
+        .XY_PRECISION(10)
+    ) u_fire_control_unit (
+        .clk(clk100MHz),
+        .rst(rst),
+
+        .xenemy1(xenemy1),
+        .yenemy1(yenemy1),
+
+        .xenemy2(xenemy2),
+        .yenemy2(yenemy2),
+
+        .xenemy3(xenemy3),
+        .yenemy3(yenemy3),
+
+        .xcursor(xcursor),
+        .ycursor(ycursor),
+        .rocketfire(click),
+        .killcount(killcount),
+
+        .enemy1_kill(enemy1_kill),
+        .enemy2_kill(enemy2_kill),
+        .enemy3_kill(enemy3_kill)
     );
 
 

@@ -59,6 +59,7 @@ module top_basys3 (
     wire Lmouse;
     wire Rmouse;
     logic [7:0] X_debug;
+    logic [OUT_WIDTH-1:0] killcount;
 
 
     //  debug signals
@@ -70,8 +71,8 @@ module top_basys3 (
     debounce u_debounce_reset (
         .clk(clk100MHz),
         .sw(sw0),
-        .db_level(rst),
-        .db_tick()
+        .db_level(),
+        .db_tick(rst)
     );
 
 
@@ -88,7 +89,7 @@ module top_basys3 (
         .clk40MHz(clk40MHz),
         .clk4MHz(clk4MHz),
 
-        .reset(rst)
+        .reset()    //not connected
 
     );
 
@@ -143,10 +144,10 @@ module top_basys3 (
 
     //      cursor control module
     cursor #(
-        .MAXVAL(VECTOR_MAX),
-        .MINVAL(VECTOR_MIN),
+        .MAXVAL(CURSORMAX),
+        .MINVAL(CURSORMIN),
         .OUTWIDTH(DAC_WIDTH),
-        .STEP(10)
+        .STEP(5)
     ) u_cursor_buttons (
         .clk(clk100MHz),
         .rst(rst),
@@ -177,6 +178,8 @@ module top_basys3 (
 
         .xcursor(xcursor),
         .ycursor(ycursor),
+        .button_click(btnC_db),
+        .killcount(killcount),
 
         .go_flag(),     //not connected
         .halt_flag(),   //not connected
@@ -200,7 +203,7 @@ module top_basys3 (
     num_to_hex #(
         .NUMBER_BIT(8)
     ) u_num_to_bcd(
-        .number(X_debug),
+        .number(killcount),
 
         .bcd_thousands(hex3),
         .bcd_hundreds(hex2),

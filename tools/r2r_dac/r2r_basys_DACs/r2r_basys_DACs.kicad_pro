@@ -500,7 +500,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "",
+      "plot": "r2r_outputs/",
       "pos_files": "",
       "specctra_dsn": "",
       "step": "",

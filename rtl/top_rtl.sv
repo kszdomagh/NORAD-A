@@ -17,6 +17,8 @@ module top_rtl#(
 
         input logic [OUT_WIDTH-1:0] xcursor,
         input logic [OUT_WIDTH-1:0] ycursor,
+        input logic button_click,
+        output wire [OUT_WIDTH-1:0] killcount,
 
 
         output logic go_flag,
@@ -96,7 +98,20 @@ module top_rtl#(
 
     game_logic_top #(
         .ADDRESSWIDTH(ADDRESSWIDTH),
-        .OUT_WIDTH(OUT_WIDTH)
+        .OUT_WIDTH(OUT_WIDTH),
+
+        //DESTROY PLANE ANIMATIONS TIME
+        .DESTOY_ANIMATION_TIME(3),
+
+        // SPAWN TIMES FOR ENEMIES
+        .TIME_SPAWN_ENEMY1(10_000_000),
+        .TIME_SPAWN_ENEMY2(12_000_000),
+        .TIME_SPAWN_ENEMY3(15_000_000),
+
+        //SPEEDS FOR ENEMIES
+        .TIME_SPEED_ENEMY1(50_000_000),
+        .TIME_SPEED_ENEMY2(40_000_000),
+        .TIME_SPEED_ENEMY3(30_000_000)
     ) u_game_logic_top (
         .clk100MHz(clk100MHz),
         .clk40MHz(clk40MHz),
@@ -115,11 +130,17 @@ module top_rtl#(
         .xenemy3(xenemy3),
         .yenemy3(yenemy3),
 
+        .click(button_click),
+        .xcursor(xcursor),
+        .ycursor(ycursor),
+        .killcount(killcount),
+
 
 
         .base1_nuked(base1_nuked),
         .base2_nuked(base2_nuked),
         .base3_nuked(base3_nuked)
+
     );
 
     memory_manage #(
@@ -149,17 +170,17 @@ module top_rtl#(
         .spawn_enemy1(spawn_enemy1),
         .xenemy1(xenemy1),
         .yenemy1(yenemy1),
-        .adr_enemy1(ADR_ICBM_START),
+        .adr_enemy1(ADR_BOMBER_START),
 
         .spawn_enemy2(spawn_enemy2),
         .xenemy2(xenemy2),
         .yenemy2(yenemy2),
-        .adr_enemy2(ADR_FIGHTER_START),
+        .adr_enemy2(ADR_BOMBER_START),
 
         .spawn_enemy3(spawn_enemy3),
         .xenemy3(xenemy3),
         .yenemy3(yenemy3),
-        .adr_enemy3(ADR_SPYPLANE_START),
+        .adr_enemy3(ADR_BOMBER_START),
 
         .base1_nuked(base1_nuked),
         .base2_nuked(base2_nuked),

@@ -8,18 +8,20 @@
 package img_pkg;
 
     // START OF ADRESSES FOR ROM IMAGES
-    localparam ADR_MAP_START = 0;
+    localparam ADR_MAP_START = 349;
 
-
-
+    //          FRAME 
     localparam ADR_FRAME_START = 42;
     localparam FRAME_MID_X = 128;
     localparam FRAME_MID_Y = FRAME_MID_X;
 
     //      CURSOR
-    localparam ADR_CURSOR_START = 344;
+    localparam ADR_CURSOR_START = 517;
     localparam CURSOR_MID_X = 8'd32;   //draw cursor at there coordinates
     localparam CURSOR_MID_Y = 8'd40;   //draw cursor at there coordinates
+
+    localparam CURSORMAX = 8'd235;
+    localparam CURSORMIN = 8'd15;
 
 
 
@@ -93,10 +95,6 @@ package img_pkg;
         localparam NUKE_MID_Y            = 8'd16;    
 
 
-
-
-
-
 /*///////////////////////////////////////////////////////////////////////////////////////////////
             FRIENDLY CITIES / BASES
 ///////////////////////////////////////////////////////////////////////////////////////////////*/
@@ -119,23 +117,15 @@ package img_pkg;
         localparam BASE3_MID_Y            = 8'd20;
 
 
-
-
-
-
-
-
-
-
     // HEIGHT FOR ENEMIES OR BASE POSITIONS - for enemies those are constatnts
     localparam X_BASE1 = 8'd100;
-    localparam Y_ENEMY1_BASE1 = 8'd50;
+    localparam Y_ENEMY1_BASE1 = 8'd35;
 
-    localparam X_BASE2 = 8'd60;
-    localparam Y_ENEMY2_BASE2 = 8'd125;
+    localparam X_BASE2 = 8'd113;
+    localparam Y_ENEMY2_BASE2 = 8'd135;
 
-    localparam X_BASE3 = 8'd110;
-    localparam Y_ENEMY3_BASE3 = 8'd200;
+    localparam X_BASE3 = 8'd120;
+    localparam Y_ENEMY3_BASE3 = 8'd192;
 
 
     // starting place for enemies - somewhere in the ocean to the right
