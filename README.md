@@ -1,7 +1,13 @@
-# uec2-lab1
+# NORAD-A
 
-**Wszystkie komendy należy wywoływać z głównego folderu projektu** (w tym wypadku `uec2_lab1_student`).\
-_Każdy plik w projekcie posiada nagłówek z krótkim opisem jego funkcji._
+NORAD-A to minimalistyczny symulator, w którym gracz wciela się w operatora systemu radarowego w trakcie narastającego kryzysu nuklearnego. Zadaniem gracza jest monitorowanie przestrzeni powietrznej, identyfikacja potencjalnych zagrożeń i szybkie podejmowanie decyzji w oparciu o niepełne informacje. Cały interfejs gry wyświetlany jest na oscyloskopie pracującym w trybie XY, podkreślając surowy charakter rozgrywki.
+
+
+
+
+
+
+# Instrukcja obsługi systemu plików
 
 ## Inicjalizacja środowiska
 
@@ -9,12 +15,6 @@ Aby rozpocząć pracę z projektem, należy uruchomić terminal w folderze proje
 
 ```bash
 . env.sh
-```
-
-Po tym kroku, jednorazowo (przy pierwszym uruchomieniu projektu) warto zapisać zmiany w repozytorium jako pierwszy *commit*:
-
-```bash
-git commit -am "Initial commit"
 ```
 
 Komendę `. env.sh` trzeba uruchomić za każdym razem, gdy rozpoczynamy pracę w nowej sesji terminala. Następnie, pozostając w głównym folderze, można wywoływać dostępne narzędzia:
