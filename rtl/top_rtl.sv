@@ -11,9 +11,8 @@ module top_rtl#(
     parameter int OUT_WIDTH = 8
     )(
 
-        input logic clk100MHz,
-        input logic clk40MHz,
-        input logic clk4MHz,
+        input logic clk_slow,
+        input logic clk_fast,
 
         input logic [OUT_WIDTH-1:0] xcursor,
         input logic [OUT_WIDTH-1:0] ycursor,
@@ -53,8 +52,7 @@ module top_rtl#(
     //wire Lmouse;
 
 
-    logic go;
-    logic halt;
+    logic go, halt;
 
     assign go_flag      = go;   //debug
     assign halt_flag    = halt;   //debug
@@ -67,7 +65,7 @@ module top_rtl#(
         .ADDRESSWIDTH(ADDRESSWIDTH),
         .DATAWIDTH(DATAWIDTH)
     ) u_vector_display (
-        .clk(clk4MHz),
+        .clk(clk_slow),
         .rst(rst),
         .go_master(go),
 
@@ -113,9 +111,8 @@ module top_rtl#(
         .TIME_SPEED_ENEMY2(40_000_000),
         .TIME_SPEED_ENEMY3(30_000_000)
     ) u_game_logic_top (
-        .clk100MHz(clk100MHz),
-        .clk40MHz(clk40MHz),
-        .clk4MHz(clk4MHz),
+        .clk_fast(clk_fast),
+        .clk_slow(clk_slow),
         .rst(rst),
 
         .spawn_enemy1(spawn_enemy1),
@@ -143,13 +140,14 @@ module top_rtl#(
 
     );
 
+
     memory_manage #(
         .ADR_WIDTH(ADDRESSWIDTH),
         .DATAWIDTH(DATAWIDTH),
         .OUT_WIDTH(OUT_WIDTH)
     ) u_memory_manage (
         //  control signals
-        .clk(clk100MHz),
+        .clk(clk_fast),
         .rst(rst),
         //  image ROM
         .adrROM(ROM_addr),
@@ -193,7 +191,7 @@ module top_rtl#(
         .BITWIDTH(DATAWIDTH),
         .DEPTH(1000) //1000 punktow moge zapisac
     ) u_RAM_module (
-        .clk(clk100MHz),
+        .clk(clk_fast),
 
         //  READ ONLY
         .adr_r(RAM_addr),

@@ -22,12 +22,16 @@ module fire_control #(
     // enemy x y 
     input logic [OUT_WIDTH-1:0] xenemy1,
     input logic [OUT_WIDTH-1:0] yenemy1,
+    input logic spawn_enemy1,
 
     input logic [OUT_WIDTH-1:0] xenemy2,
     input logic [OUT_WIDTH-1:0] yenemy2,
+    input logic spawn_enemy2,
 
     input logic [OUT_WIDTH-1:0] xenemy3,
     input logic [OUT_WIDTH-1:0] yenemy3,
+    input logic spawn_enemy3,
+
     output logic [OUT_WIDTH-1:0] killcount,
 
     //  kill signals
@@ -105,15 +109,15 @@ module fire_control #(
             end
 
             IDLE: begin //jezeli 
-                if ( rocketfire && (abs_diff(xcursor, xenemy1) <= XY_PRECISION) && (abs_diff(ycursor, yenemy1) <= XY_PRECISION) ) begin
+                if ( spawn_enemy1 && rocketfire && (abs_diff(xcursor, xenemy1) <= XY_PRECISION) && (abs_diff(ycursor, yenemy1) <= XY_PRECISION) ) begin
                     enemy1_kill_nxt = 1'b1;
                     killcount_nxt = killcount + 1;
                 end
-                if ( rocketfire && (abs_diff(xcursor, xenemy2) <= XY_PRECISION) && (abs_diff(ycursor, yenemy2) <= XY_PRECISION) ) begin
+                if ( spawn_enemy2 && rocketfire && (abs_diff(xcursor, xenemy2) <= XY_PRECISION) && (abs_diff(ycursor, yenemy2) <= XY_PRECISION) ) begin
                     enemy2_kill_nxt = 1'b1;
                     killcount_nxt = killcount + 1;
                 end
-                if ( rocketfire && (abs_diff(xcursor, xenemy3) <= XY_PRECISION) && (abs_diff(ycursor, yenemy3) <= XY_PRECISION) ) begin
+                if ( spawn_enemy3 && rocketfire && (abs_diff(xcursor, xenemy3) <= XY_PRECISION) && (abs_diff(ycursor, yenemy3) <= XY_PRECISION) ) begin
                     enemy3_kill_nxt = 1'b1;
                     killcount_nxt = killcount + 1;
                 end

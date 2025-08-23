@@ -4,9 +4,9 @@
 ## - rename the used ports (in each line, after get_ports) according to the top level signal names in the project
 
 ## Clock signal - NO LONGER NEEDED: TAKEN CARE OF BY CLK WIZ 0 XDC FILES
-set_property PACKAGE_PIN W5 [get_ports clk_in]
-	set_property IOSTANDARD LVCMOS33 [get_ports clk_in]
-# 	create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports clk]
+set_property PACKAGE_PIN W5 [get_ports clk_in1]
+	set_property IOSTANDARD LVCMOS33 [get_ports clk_in1]
+#	create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports clk]
 
 
 ## Switches
@@ -34,19 +34,19 @@ set_property PACKAGE_PIN V17 [get_ports {sw0}]
 	#set_property IOSTANDARD LVCMOS33 [get_ports {sw[10]}]
 #set_property PACKAGE_PIN R3 [get_ports {sw[11]}]
 	#set_property IOSTANDARD LVCMOS33 [get_ports {sw[11]}]
-#set_property PACKAGE_PIN W2 [get_ports {sw[12]}]
-	#set_property IOSTANDARD LVCMOS33 [get_ports {sw[12]}]
-#set_property PACKAGE_PIN U1 [get_ports {sw[13]}]
-	#set_property IOSTANDARD LVCMOS33 [get_ports {sw[13]}]
-#set_property PACKAGE_PIN T1 [get_ports {sw[14]}]
-	#set_property IOSTANDARD LVCMOS33 [get_ports {sw[14]}]
-#set_property PACKAGE_PIN R2 [get_ports SW15]
-	#set_property IOSTANDARD LVCMOS33 [get_ports SW15]
+set_property PACKAGE_PIN W2 [get_ports {sw12}]
+	set_property IOSTANDARD LVCMOS33 [get_ports {sw12}]
+set_property PACKAGE_PIN U1 [get_ports {sw13}]
+	set_property IOSTANDARD LVCMOS33 [get_ports {sw13}]
+set_property PACKAGE_PIN T1 [get_ports {sw14}]
+	set_property IOSTANDARD LVCMOS33 [get_ports {sw14}]
+set_property PACKAGE_PIN R2 [get_ports sw15]
+	set_property IOSTANDARD LVCMOS33 [get_ports sw15]
 
 
 ## LEDs
-#set_property PACKAGE_PIN U16 [get_ports {led[0]}]
-	#set_property IOSTANDARD LVCMOS33 [get_ports {led[0]}]
+set_property PACKAGE_PIN U16 [get_ports {led0}]
+	set_property IOSTANDARD LVCMOS33 [get_ports {led0}]
 #set_property PACKAGE_PIN E19 [get_ports {led[1]}]
 	#set_property IOSTANDARD LVCMOS33 [get_ports {led[1]}]
 #set_property PACKAGE_PIN U19 [get_ports {led[2]}]
@@ -69,14 +69,14 @@ set_property PACKAGE_PIN V17 [get_ports {sw0}]
 #	set_property IOSTANDARD LVCMOS33 [get_ports {led[10]}]
 #set_property PACKAGE_PIN U3 [get_ports {led[11]}]
 	#set_property IOSTANDARD LVCMOS33 [get_ports {led[11]}]
-#set_property PACKAGE_PIN P3 [get_ports {led[12]}]
-	#set_property IOSTANDARD LVCMOS33 [get_ports {led[12]}]
-#set_property PACKAGE_PIN N3 [get_ports {led[13]}]
-	#set_property IOSTANDARD LVCMOS33 [get_ports {led[13]}]
-#set_property PACKAGE_PIN P1 [get_ports {led[14]}]
-	#set_property IOSTANDARD LVCMOS33 [get_ports {led[14]}]
-#set_property PACKAGE_PIN L1 [get_ports {led[15]}]
-	#set_property IOSTANDARD LVCMOS33 [get_ports {led[15]}]
+set_property PACKAGE_PIN P3 [get_ports {led12}]
+	set_property IOSTANDARD LVCMOS33 [get_ports {led12}]
+set_property PACKAGE_PIN N3 [get_ports {led13}]
+	set_property IOSTANDARD LVCMOS33 [get_ports {led13}]
+set_property PACKAGE_PIN P1 [get_ports {led14}]
+	set_property IOSTANDARD LVCMOS33 [get_ports {led14}]
+set_property PACKAGE_PIN L1 [get_ports {led15}]
+	set_property IOSTANDARD LVCMOS33 [get_ports {led15}]
 
 
 ##7 segment display
@@ -272,12 +272,12 @@ set_property PACKAGE_PIN R18 [get_ports {JC[7]}]
 
 
 ##USB HID (PS/2)
-set_property PACKAGE_PIN C17 [get_ports PS2Clk]
-	set_property IOSTANDARD LVCMOS33 [get_ports PS2Clk]
-	set_property PULLUP true [get_ports PS2Clk]
-set_property PACKAGE_PIN B17 [get_ports PS2Data]
-	set_property IOSTANDARD LVCMOS33 [get_ports PS2Data]
-	set_property PULLUP true [get_ports PS2Data]
+#set_property PACKAGE_PIN C17 [get_ports PS2Clk]
+	#set_property IOSTANDARD LVCMOS33 [get_ports PS2Clk]
+	#set_property PULLUP true [get_ports PS2Clk]
+#set_property PACKAGE_PIN B17 [get_ports PS2Data]
+	#set_property IOSTANDARD LVCMOS33 [get_ports PS2Data]
+	#set_property PULLUP true [get_ports PS2Data]
 
 
 ##Quad SPI Flash

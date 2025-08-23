@@ -13,10 +13,11 @@
  */
 
 module top_basys3 (
-        input  wire clk_in,
+        input  wire clk_in1,
 
-        inout wire PS2Clk,
-        inout wire PS2Data,
+//        mouse not used
+//        inout wire PS2Clk,
+//        inout wire PS2Data,
 
         // x channel 8bit
         output wire [7:0] JB,
@@ -25,6 +26,7 @@ module top_basys3 (
 
         //reset
         input logic sw0,
+        output logic led0,
 
         //cursor
         input logic btnU,
@@ -32,6 +34,17 @@ module top_basys3 (
         input logic btnD,
         input logic btnL,
         input logic btnR,
+
+        //buttons leds
+        input logic sw15,
+        input logic sw14,
+        input logic sw13,
+        input logic sw12,
+
+        output logic led15,
+        output logic led14,
+        output logic led13,
+        output logic led12,
 
 
         //  7SEG
@@ -49,9 +62,8 @@ module top_basys3 (
     import vector_pkg::*;
     import img_pkg::*;
 
-    logic clk4MHz;
-    logic clk100MHz;
-    logic clk40MHz;
+    logic clk_fast;
+    logic clk_slow;
 
     //  mouse signals
     wire [7:0] Xmouse;
@@ -63,16 +75,22 @@ module top_basys3 (
 
 
     //  debug signals
+    assign led0 = rst;
+
+    assign led15 = sw15;
+    assign led14 = sw14;
+    assign led13 = sw13;
+    assign led12 = sw12;
 
 
 
 
     //  debounce for reset
     debounce u_debounce_reset (
-        .clk(clk100MHz),
+        .clk(clk_fast),
         .sw(sw0),
-        .db_level(),
-        .db_tick(rst)
+        .db_level(rst),
+        .db_tick()
     );
 
 
@@ -83,11 +101,11 @@ module top_basys3 (
 
     //  clk manager
     clk_wiz_0 u_clk_manager (
-        .clk_in(clk_in),
+        .clk_in1(clk_in1),
 
-        .clk100MHz(clk100MHz),
-        .clk40MHz(clk40MHz),
-        .clk4MHz(clk4MHz),
+        .clk100MHz(),       //not connectewd timimg req not met
+        .clk80MHz(clk_fast),
+        .clk5MHz(clk_slow),
 
         .reset()    //not connected
 
@@ -98,7 +116,7 @@ module top_basys3 (
 
     //  debounce for cursor buttons
     debounce u_debounce_UP (
-        .clk(clk100MHz),
+        .clk(clk_fast),
         .reset(rst),
         .sw(btnU),
         .db_level(),
@@ -106,7 +124,7 @@ module top_basys3 (
     );
 
     debounce u_debounce_DOWN (
-        .clk(clk100MHz),
+        .clk(clk_fast),
         .reset(rst),
         .sw(btnD),
         .db_level(),
@@ -114,7 +132,7 @@ module top_basys3 (
     );
 
     debounce u_debounce_LEFT (
-        .clk(clk100MHz),
+        .clk(clk_fast),
         .reset(rst),
         .sw(btnL),
         .db_level(),
@@ -123,7 +141,7 @@ module top_basys3 (
 
 
     debounce u_debounce_RIGHT (
-        .clk(clk100MHz),
+        .clk(clk_fast),
         .reset(rst),
         .sw(btnR),
         .db_level(),
@@ -131,7 +149,7 @@ module top_basys3 (
     );
 
     debounce u_debounce_CENTER (
-        .clk(clk100MHz),
+        .clk(clk_fast),
         .reset(rst),
         .sw(btnC),
         .db_level(),
@@ -148,8 +166,8 @@ module top_basys3 (
         .MINVAL(CURSORMIN),
         .OUTWIDTH(DAC_WIDTH),
         .STEP(5)
-    ) u_cursor_buttons (
-        .clk(clk100MHz),
+    ) u_cursor_manage (
+        .clk(clk_fast),
         .rst(rst),
 
         //cursor control
@@ -171,9 +189,8 @@ module top_basys3 (
 
     //  top rtl
     top_rtl u_top_rtl(
-        .clk100MHz(clk100MHz),
-        .clk40MHz(clk40MHz),
-        .clk4MHz(clk4MHz),
+        .clk_fast(clk_fast),
+        .clk_slow(clk_slow),
         .rst(rst),
 
         .xcursor(xcursor),
@@ -213,7 +230,7 @@ module top_basys3 (
     );
 
     disp_hex_mux u_bcd_display (
-        .clk(clk100MHz),
+        .clk(clk_fast),
         .reset(rst),
         .sseg(seg),
         .an(an),
@@ -234,7 +251,7 @@ module top_basys3 (
 
 /*    //      MOUSE CONTROL MODULE
     MouseCtl u_MouseCtl (
-        .clk(clk100MHz),
+        .clk(clk_fast),
         .rst(rst),
         
         .ps2_clk(PS2Clk),

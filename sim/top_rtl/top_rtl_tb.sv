@@ -21,9 +21,8 @@ module top_rtl_tb;
         .DATAWIDTH(DATAWIDTH),
         .OUT_WIDTH(OUT_WIDTH)
     ) u_DUT (
-        .clk100MHz(clk100MHz),
-        .clk40MHz(clk40MHz),
-        .clk4MHz(clk4MHz),
+        .clk_fast(clk100MHz),
+        .clk_slow(clk4MHz),
         .rst(rst),
 
         .go_flag(go_flag),

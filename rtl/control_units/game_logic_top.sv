@@ -21,9 +21,8 @@ module game_logic_top#(
     parameter int TIME_SPAWN_ENEMY3 = 22_000_000
     )(
 
-        input logic clk100MHz,
-        input logic clk40MHz,
-        input logic clk4MHz,
+        input logic clk_fast,
+        input logic clk_slow,
         input logic rst,
 
         input wire [OUT_WIDTH-1:0] ycursor,
@@ -82,8 +81,8 @@ module game_logic_top#(
         .TIME_SLOW2(TIME_SPAWN_ENEMY2),
         .TIME_SLOW3(TIME_SPAWN_ENEMY3)
     ) u_timer_cluster (
-        .clk100MHz(clk100MHz),
-        .clk4MHz(clk4MHz),
+        .clk_fast(clk_fast),
+        .clk_slow(clk_slow),
         .rst(rst),
 
         .speed1_pulse(speed_pulse1),
@@ -112,7 +111,7 @@ module game_logic_top#(
         .X_BASE(X_BASE1),
         .Y_ENEMY_BASE(Y_ENEMY1_BASE1)
     ) u_enemy1_control (
-        .clk(clk100MHz),
+        .clk(clk_fast),
         .rst(rst),
         
         .spawn_pulse(spawn_pulse1),
@@ -145,7 +144,7 @@ module game_logic_top#(
         .X_BASE(X_BASE2),
         .Y_ENEMY_BASE(Y_ENEMY2_BASE2)
     ) u_enemy2_control (
-        .clk(clk100MHz),
+        .clk(clk_fast),
         .rst(rst),
         
         .spawn_pulse(spawn_pulse2),
@@ -179,7 +178,7 @@ module game_logic_top#(
         .X_BASE(X_BASE3),
         .Y_ENEMY_BASE(Y_ENEMY3_BASE3)
     ) u_enemy3_control (
-        .clk(clk100MHz),
+        .clk(clk_fast),
         .rst(rst),
         
         .spawn_pulse(spawn_pulse3),
@@ -204,7 +203,7 @@ module game_logic_top#(
         .X_BASE(X_BASE1),
         .Y_ENEMY_BASE(Y_ENEMY1_BASE1)
     ) u_base1_NEWYORK (
-        .clk(clk100MHz),
+        .clk(clk_fast),
         .rst(rst),
         .base_nuked(base1_nuked),
         .xenemy(xenemy1)
@@ -217,7 +216,7 @@ module game_logic_top#(
         .X_BASE(X_BASE2),
         .Y_ENEMY_BASE(Y_ENEMY2_BASE2)
     ) u_base2_NEWYORK (
-        .clk(clk100MHz),
+        .clk(clk_fast),
         .rst(rst),
         .base_nuked(base2_nuked),
         .xenemy(xenemy2)
@@ -230,7 +229,7 @@ module game_logic_top#(
         .X_BASE(X_BASE3),
         .Y_ENEMY_BASE(Y_ENEMY3_BASE3)
     ) u_base3_NEWYORK (
-        .clk(clk100MHz),
+        .clk(clk_fast),
         .rst(rst),
         .base_nuked(base3_nuked),
         .xenemy(xenemy3)
@@ -244,17 +243,20 @@ module game_logic_top#(
         .OUT_WIDTH(OUT_WIDTH),
         .XY_PRECISION(10)
     ) u_fire_control_unit (
-        .clk(clk100MHz),
+        .clk(clk_fast),
         .rst(rst),
 
         .xenemy1(xenemy1),
         .yenemy1(yenemy1),
+        .spawn_enemy1(spawn_enemy1),
 
         .xenemy2(xenemy2),
         .yenemy2(yenemy2),
+        .spawn_enemy2(spawn_enemy2),
 
         .xenemy3(xenemy3),
         .yenemy3(yenemy3),
+        .spawn_enemy3(spawn_enemy3),
 
         .xcursor(xcursor),
         .ycursor(ycursor),

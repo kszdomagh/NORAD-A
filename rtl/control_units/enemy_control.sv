@@ -60,6 +60,11 @@ module enemy_control #(
         if(rst) begin
             state <= RESET;
 
+            xenemy    <= X_ENEMY_START;
+            yenemy    <= Y_ENEMY_BASE;
+            spawn     <= 1'b0;
+            adr_enemy <= adr_enemy_nxt;
+
         end else begin
             state <= state_nxt;
             

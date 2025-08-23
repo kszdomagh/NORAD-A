@@ -7,11 +7,10 @@
 (* BLOCK_STUB = "true" *)
 module clk_wiz_0 (
   reset,
-  clk_in,
+  clk_in1,
   clk100MHz,
-  clk40MHz,
-  clk4MHz,
-  locked
+  clk80MHz,
+  clk5MHz
 );
 
   (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 reset RST" *)
@@ -21,7 +20,7 @@ module clk_wiz_0 (
   (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 clock_CLK_IN1 CLK_IN1" *)
   (* X_INTERFACE_MODE = "slave clock_CLK_IN1" *)
   (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME clock_CLK_IN1, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN , ASSOCIATED_BUSIF , ASSOCIATED_PORT , ASSOCIATED_RESET , INSERT_VIP 0, BOARD.ASSOCIATED_PARAM CLK_IN1_BOARD_INTERFACE" *)
-  input clk_in;
+  input clk_in1;
   (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 clock_CLK_OUT1 CLK_OUT1" *)
   (* X_INTERFACE_MODE = "master clock_CLK_OUT1" *)
   (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME clock_CLK_OUT1, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN , ASSOCIATED_BUSIF , ASSOCIATED_PORT , ASSOCIATED_RESET , INSERT_VIP 0" *)
@@ -29,13 +28,11 @@ module clk_wiz_0 (
   (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 clock_CLK_OUT2 CLK_OUT2" *)
   (* X_INTERFACE_MODE = "master clock_CLK_OUT2" *)
   (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME clock_CLK_OUT2, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN , ASSOCIATED_BUSIF , ASSOCIATED_PORT , ASSOCIATED_RESET , INSERT_VIP 0" *)
-  output clk40MHz;
+  output clk80MHz;
   (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 clock_CLK_OUT3 CLK_OUT3" *)
   (* X_INTERFACE_MODE = "master clock_CLK_OUT3" *)
   (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME clock_CLK_OUT3, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN , ASSOCIATED_BUSIF , ASSOCIATED_PORT , ASSOCIATED_RESET , INSERT_VIP 0" *)
-  output clk4MHz;
-  (* X_INTERFACE_IGNORE = "true" *)
-  output locked;
+  output clk5MHz;
 
   // stub module has no contents
 

@@ -43,6 +43,8 @@ module base_control #(
     always_ff@(posedge clk) begin
         if(rst) begin
             state <= RESET;
+            
+            base_nuked <= 0;
 
         end else begin
             state <= state_nxt;

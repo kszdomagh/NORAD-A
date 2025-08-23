@@ -33,9 +33,8 @@ module game_logic_top_tb;
         .TIME_SPEED_ENEMY2(1_200),
         .TIME_SPEED_ENEMY3(1_900)
     ) u_DUT (
-        .clk100MHz(clk),
-        .clk40MHz(clk_slow),
-        .clk4MHz(clk_slow),
+        .clk_fast(clk),
+        .clk_slow(clk_slow),
         .rst(rst),
 
         .spawn_enemy1(spawn_enemy1),

@@ -21,8 +21,8 @@ module enemy_control_tb;
         .TIME2(224),
         .TIME_SLOW1(60)
     ) u_timer_cluster (
-        .clk100MHz(clk),
-        .clk4MHz(clk_slow),
+        .clk_fast(clk),
+        .clk_slow(clk_slow),
         .rst(rst),
         .speed1_pulse(speed1_pulse),
         .speed2_pulse(speed2_pulse),

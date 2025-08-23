@@ -29,7 +29,6 @@ set xdc_files {
     constraints/top_basys3.xdc
     constraints/clk_wiz_0.xdc
     constraints/clk_wiz_0_ooc.xdc
-    constraints/clk_wiz_0_late.xdc
     constraints/clk_wiz_0_board.xdc
 }
 
@@ -62,6 +61,7 @@ set sv_files {
     ../rtl/memory_manage.sv
     ../rtl/template_ram.sv
     ../rtl/uwu_rom.sv
+    ../rtl/cdc_module.sv
 
     ../rtl/cursor.sv
 
