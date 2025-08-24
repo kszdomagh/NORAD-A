@@ -14,11 +14,12 @@ module top_rtl#(
         input logic clk_slow,
         input logic clk_fast,
 
+
         input logic [OUT_WIDTH-1:0] xcursor,
         input logic [OUT_WIDTH-1:0] ycursor,
         input logic button_click,
         output wire [OUT_WIDTH-1:0] killcount,
-
+        input logic startgame,
 
         output logic go_flag,
         output logic halt_flag,
@@ -44,12 +45,17 @@ module top_rtl#(
     logic [DATAWIDTH-1:0] RAM_data;
     logic [DATAWIDTH-1:0] RAM_write_data;
 
-    //logic enable_vector;
 
-   // wire [11:0] Xmouse;
-    //wire [11:0] Ymouse;
-    //wire Rmouse;
-    //wire Lmouse;
+
+    logic [ADDRESSWIDTH-1:0] startscreen_addr;
+    logic [DATAWIDTH-1:0] startscreen_data;
+
+    logic [ADDRESSWIDTH-1:0] endscreen_addr;
+    logic [DATAWIDTH-1:0] endscreen_data;
+
+    logic [ADDRESSWIDTH-1:0] vectordisplay_addr;
+    logic [DATAWIDTH-1:0] vectordisplay_data;
+
 
 
     logic go, halt;
@@ -69,8 +75,8 @@ module top_rtl#(
         .rst(rst),
         .go_master(go),
 
-        .data_in(RAM_data),
-        .addr(RAM_addr),
+        .data_in(vectordisplay_data),
+        .addr(vectordisplay_addr),
         .halt(halt),
 
         .x_ch(xch),
@@ -211,6 +217,48 @@ module top_rtl#(
     ) u_img_rom (
         .addr(ROM_addr),
         .data_out(ROM_data)
+    );
+
+
+    screen_manage #(
+        .ADRESSWIDTH(ADDRESSWIDTH),
+        .DATAWIDTH(DATAWIDTH)
+    ) u_screen_manage (
+        .adr_endscreen(endscreen_addr),
+        .data_endscreen(endscreen_data),
+
+        .adr_ram(RAM_addr),
+        .data_ram(RAM_data),
+
+        .adr_startscreen(startscreen_addr),
+        .data_startscreen(startscreen_data),
+
+        .base1_nuked(base1_nuked),
+        .base2_nuked(base2_nuked),
+        .base3_nuked(base3_nuked),
+        .start_game(startgame),
+
+        .adr_in(vectordisplay_addr),
+        .data_out(vectordisplay_data)
+    );
+
+
+
+    start_screen_rom #(
+        .ADDRESSWIDTH(ADDRESSWIDTH),
+        .DATAWIDTH(DATAWIDTH)
+    ) u_start_rom (
+        .addr(startscreen_addr),
+        .data_out(startscreen_data)
+    );
+
+
+    end_screen_rom #(
+        .ADDRESSWIDTH(ADDRESSWIDTH),
+        .DATAWIDTH(DATAWIDTH)
+    ) u_end_rom (
+        .addr(endscreen_addr),
+        .data_out(endscreen_data)
     );
 
 endmodule

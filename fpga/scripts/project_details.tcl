@@ -41,6 +41,9 @@ set sv_files {
 
     ../rtl/ROM/img_pkg.sv
     ../rtl/ROM/img_rom.sv
+    ../rtl/ROM/end_screen_rom.sv
+    ../rtl/ROM/start_screen_rom.sv
+
 
 
     ../rtl/vector_display/bresenham.sv
@@ -57,7 +60,7 @@ set sv_files {
     ../rtl/control_units/fire_control.sv
 
 
-
+    ../rtl/screen_manage.sv
     ../rtl/memory_manage.sv
     ../rtl/template_ram.sv
     ../rtl/uwu_rom.sv

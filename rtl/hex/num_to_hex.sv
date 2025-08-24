@@ -1,5 +1,5 @@
 module num_to_hex #( 
-    parameter int NUMBER_BIT = 10 // up to 1023 decimal
+    parameter int NUMBER_BIT = 10 
 )(
     input  logic [NUMBER_BIT-1:0] number,
     output logic [3:0] bcd_thousands,
@@ -7,35 +7,28 @@ module num_to_hex #(
     output logic [3:0] bcd_tens,
     output logic [3:0] bcd_ones
 );
-    logic [NUMBER_BIT-1:0] bin_reg;
-    logic [3:0] thousands, hundreds, tens, ones;
+
+    logic [NUMBER_BIT+16-1:0] shift_reg; 
     int i;
 
     always_comb begin
-        // reset all
-        thousands = 0;
-        hundreds  = 0;
-        tens      = 0;
-        ones      = 0;
-        bin_reg   = number;
+        shift_reg = '0;
+        shift_reg[NUMBER_BIT-1:0] = number;
 
-        // Double dabble algorithm
-        for (i = NUMBER_BIT-1; i >= 0; i--) begin
-            // Add 3 if >= 5 before shifting
-            if (thousands >= 5) thousands += 3;
-            if (hundreds  >= 5) hundreds  += 3;
-            if (tens      >= 5) tens      += 3;
-            if (ones      >= 5) ones      += 3;
+        // algorytm double dabble
+        for (i = 0; i < NUMBER_BIT; i++) begin
+            if (shift_reg[NUMBER_BIT+3:NUMBER_BIT]   >= 5) shift_reg[NUMBER_BIT+3:NUMBER_BIT]   += 3; // ones
+            if (shift_reg[NUMBER_BIT+7:NUMBER_BIT+4] >= 5) shift_reg[NUMBER_BIT+7:NUMBER_BIT+4] += 3; // tens
+            if (shift_reg[NUMBER_BIT+11:NUMBER_BIT+8]>= 5) shift_reg[NUMBER_BIT+11:NUMBER_BIT+8]+= 3; // hundreds
+            if (shift_reg[NUMBER_BIT+15:NUMBER_BIT+12]>= 5) shift_reg[NUMBER_BIT+15:NUMBER_BIT+12]+= 3; // thousands
 
-            // Shift left by 1
-            {thousands, hundreds, tens, ones, bin_reg} =
-                {thousands, hundreds, tens, ones, bin_reg} << 1;
+            shift_reg = shift_reg << 1;
         end
 
-        bcd_thousands = thousands;
-        bcd_hundreds  = hundreds;
-        bcd_tens      = tens;
-        bcd_ones      = ones;
+        bcd_ones      = shift_reg[NUMBER_BIT+3:NUMBER_BIT];
+        bcd_tens      = shift_reg[NUMBER_BIT+7:NUMBER_BIT+4];
+        bcd_hundreds  = shift_reg[NUMBER_BIT+11:NUMBER_BIT+8];
+        bcd_thousands = shift_reg[NUMBER_BIT+15:NUMBER_BIT+12];
     end
-endmodule
 
+endmodule

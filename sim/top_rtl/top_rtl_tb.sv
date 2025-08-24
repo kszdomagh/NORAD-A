@@ -15,6 +15,8 @@ module top_rtl_tb;
     logic [OUT_WIDTH-1:0] xsignal;
     logic [OUT_WIDTH-1:0] ysignal;
 
+    logic startgame;
+
     //MODULE DECLARATIONS
     top_rtl #(
         .ADDRESSWIDTH(ADDRESSWIDTH),
@@ -27,6 +29,8 @@ module top_rtl_tb;
 
         .go_flag(go_flag),
         .halt_flag(halt_flag),
+
+        .startgame(startgame),
 
 
         .xcursor(8'd150),
@@ -56,6 +60,7 @@ module top_rtl_tb;
         rst = 1;
         #20 rst = 0;
         
+        startgame = 0;          //CHANGE THIS TO 1 TO SEE THE GAME
 
         // Optional: add timeout
         #10000000;

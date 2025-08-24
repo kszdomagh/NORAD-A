@@ -37,9 +37,6 @@ module top_basys3 (
 
         //buttons leds
         input logic sw15,
-        input logic sw14,
-        input logic sw13,
-        input logic sw12,
 
         output logic led15,
         output logic led14,
@@ -73,14 +70,12 @@ module top_basys3 (
     logic [7:0] X_debug;
     logic [OUT_WIDTH-1:0] killcount;
 
+    logic sw15_db;
+
 
     //  debug signals
     assign led0 = rst;
-
     assign led15 = sw15;
-    assign led14 = sw14;
-    assign led13 = sw13;
-    assign led12 = sw12;
 
 
 
@@ -157,6 +152,13 @@ module top_basys3 (
     );
 
 
+    debounce u_debounce_START (
+        .clk(clk_fast),
+        .reset(rst),
+        .sw(sw15),
+        .db_level(sw15_db),
+        .db_tick()
+    );
 
 
 
@@ -202,9 +204,16 @@ module top_basys3 (
         .halt_flag(),   //not connected
 
 
-        .xch( {JB[4], JB[5], JB[6], JB[7], JB[0], JB[1], JB[2], JB[3]} ),
+        //.xch( {JB[4], JB[5], JB[6], JB[7], JB[0], JB[1], JB[2], JB[3]} ),
         //      y_ch is flipped lsb x_ch = msb dac_x
-        .ych( {JC[0], JC[1], JC[2], JC[3], JC[4], JC[5], JC[6], JC[7]} )
+        //.ych( {JC[0], JC[1], JC[2], JC[3], JC[4], JC[5], JC[6], JC[7]} )
+
+        .startgame(sw15_db),
+
+        // {JB[7], JB[3], JB[6], JB[2], JB[5], JB[1], JB[4], JB[0]}
+
+        .xch( {JB[7], JB[3], JB[6], JB[2], JB[5], JB[1], JB[4], JB[0]} ),
+        .ych( {JC[7], JC[3], JC[6], JC[2], JC[5], JC[1], JC[4], JC[0]}  )
 
     );
 
