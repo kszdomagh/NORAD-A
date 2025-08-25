@@ -1,34 +1,42 @@
-module num_to_hex #( 
-    parameter int NUMBER_BIT = 10 
+module num_to_hex #(
+    parameter int NUMBER_BIT = 10 // up to 1023 decimal
 )(
-    input  logic [NUMBER_BIT-1:0] number,
+    input logic [NUMBER_BIT-1:0] number,
     output logic [3:0] bcd_thousands,
     output logic [3:0] bcd_hundreds,
     output logic [3:0] bcd_tens,
     output logic [3:0] bcd_ones
 );
 
-    logic [NUMBER_BIT+16-1:0] shift_reg; 
+    logic [NUMBER_BIT-1:0] bin_reg;
+    logic [15:0] bcd_reg; // 16-bit BCD register [thousands, hundreds, tens, ones]
     int i;
 
     always_comb begin
-        shift_reg = '0;
-        shift_reg[NUMBER_BIT-1:0] = number;
+        // Initialize
+        bin_reg = number;
+        bcd_reg = 16'b0;
 
-        // algorytm double dabble
+        // Double dabble algorithm - CORRECT implementation
         for (i = 0; i < NUMBER_BIT; i++) begin
-            if (shift_reg[NUMBER_BIT+3:NUMBER_BIT]   >= 5) shift_reg[NUMBER_BIT+3:NUMBER_BIT]   += 3; // ones
-            if (shift_reg[NUMBER_BIT+7:NUMBER_BIT+4] >= 5) shift_reg[NUMBER_BIT+7:NUMBER_BIT+4] += 3; // tens
-            if (shift_reg[NUMBER_BIT+11:NUMBER_BIT+8]>= 5) shift_reg[NUMBER_BIT+11:NUMBER_BIT+8]+= 3; // hundreds
-            if (shift_reg[NUMBER_BIT+15:NUMBER_BIT+12]>= 5) shift_reg[NUMBER_BIT+15:NUMBER_BIT+12]+= 3; // thousands
+            // First shift left
+            {bcd_reg, bin_reg} = {bcd_reg, bin_reg} << 1;
 
-            shift_reg = shift_reg << 1;
+            // Then check each BCD digit and add 3 if >= 8
+            // This must be done AFTER the shift
+            if (bcd_reg[3:0] > 4)
+                bcd_reg[3:0] = bcd_reg[3:0] + 3;
+            if (bcd_reg[7:4] > 4)
+                bcd_reg[7:4] = bcd_reg[7:4] + 3;
+            if (bcd_reg[11:8] > 4)
+                bcd_reg[11:8] = bcd_reg[11:8] + 3;
         end
 
-        bcd_ones      = shift_reg[NUMBER_BIT+3:NUMBER_BIT];
-        bcd_tens      = shift_reg[NUMBER_BIT+7:NUMBER_BIT+4];
-        bcd_hundreds  = shift_reg[NUMBER_BIT+11:NUMBER_BIT+8];
-        bcd_thousands = shift_reg[NUMBER_BIT+15:NUMBER_BIT+12];
+        // Assign outputs
+        bcd_thousands = bcd_reg[15:12];
+        bcd_hundreds = bcd_reg[11:8];
+        bcd_tens = bcd_reg[7:4];
+        bcd_ones = bcd_reg[3:0];
     end
 
 endmodule

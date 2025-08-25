@@ -580,6 +580,29 @@ module img_rom #(
 
 
 
+        //  NEW YORK MAP
+
+        522: data_out = {8'd8, 8'd8, 1'b0, 1'b1};
+        523: data_out = {8'd30, 8'd22, 1'b1, 1'b0};
+        524: data_out = {8'd3, 8'd22, 1'b1, 1'b0};
+        525: data_out = {8'd24, 8'd8, 1'b1, 1'b0};
+        526: data_out = {8'd16, 8'd30, 1'b1, 1'b0};
+        527: data_out = {8'd8, 8'd8, 1'b1, 1'b0};
+        528: data_out = {8'd33, 8'd11, 1'b0, 1'b1};
+        529: data_out = {8'd33, 8'd26, 1'b1, 1'b0};
+        530: data_out = {8'd42, 8'd11, 1'b1, 1'b0};
+        531: data_out = {8'd42, 8'd26, 1'b1, 1'b0};
+        532: data_out = {8'd46, 8'd26, 1'b0, 1'b1};
+        533: data_out = {8'd50, 8'd19, 1'b1, 1'b0};
+        534: data_out = {8'd50, 8'd11, 1'b1, 1'b0};
+        535: data_out = {8'd50, 8'd19, 1'b0, 1'b1};
+        536: data_out = {8'd54, 8'd26, 1'b1, 1'b0};
+        537: data_out = {8'd0, 8'd0, 1'b1, 1'b1}; // RESET
+
+
+
+
+
 
 
             

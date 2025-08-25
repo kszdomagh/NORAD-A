@@ -100,19 +100,19 @@ package img_pkg;
 ///////////////////////////////////////////////////////////////////////////////////////////////*/
 
         //      NEW YORK = BASE1
-        localparam ADR_BASE1_START        = 292;
-        localparam BASE1_MID_X            = 8'd16;
-        localparam BASE1_MID_Y            = 8'd20;
+        localparam ADR_BASE1_START        = 522;
+        localparam BASE1_MID_X            = 8'd34;
+        localparam BASE1_MID_Y            = 8'd19;
 
 
         //      NEW YORK = BASE2
-        localparam ADR_BASE2_START        = 292;
+        localparam ADR_BASE2_START        = 522;
         localparam BASE2_MID_X            = 8'd16;
         localparam BASE2_MID_Y            = 8'd20;
 
 
         //      NEW YORK = BASE3
-        localparam ADR_BASE3_START        = 292;
+        localparam ADR_BASE3_START        = 522;
         localparam BASE3_MID_X            = 8'd16;
         localparam BASE3_MID_Y            = 8'd20;
 

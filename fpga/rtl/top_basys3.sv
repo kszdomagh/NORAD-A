@@ -204,16 +204,18 @@ module top_basys3 (
         .halt_flag(),   //not connected
 
 
+
+        //      old tht with pins DAC
         //.xch( {JB[4], JB[5], JB[6], JB[7], JB[0], JB[1], JB[2], JB[3]} ),
         //      y_ch is flipped lsb x_ch = msb dac_x
         //.ych( {JC[0], JC[1], JC[2], JC[3], JC[4], JC[5], JC[6], JC[7]} )
 
         .startgame(sw15_db),
 
-        // {JB[7], JB[3], JB[6], JB[2], JB[5], JB[1], JB[4], JB[0]}
 
-        .xch( {JB[7], JB[3], JB[6], JB[2], JB[5], JB[1], JB[4], JB[0]} ),
-        .ych( {JC[7], JC[3], JC[6], JC[2], JC[5], JC[1], JC[4], JC[0]}  )
+        //      new smd with sma connectors DAC
+        .xch( {JB[3], JB[7], JB[2], JB[6], JB[1], JB[5], JB[0], JB[4]} ),
+        .ych( {JC[3], JC[7], JC[2], JC[6], JC[1], JC[5], JC[0], JC[4]} )
 
     );
 
