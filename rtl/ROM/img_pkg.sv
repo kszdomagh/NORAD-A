@@ -91,8 +91,8 @@ package img_pkg;
 
         //      NUKE
         localparam ADR_NUKE_START        = 236;
-        localparam NUKE_MID_X            = 8'd239;   
-        localparam NUKE_MID_Y            = 8'd16;    
+        localparam NUKE_MID_X            = 8'd220;   
+        localparam NUKE_MID_Y            = 8'd10;    
 
 
 /*///////////////////////////////////////////////////////////////////////////////////////////////
@@ -101,8 +101,8 @@ package img_pkg;
 
         //      NEW YORK = BASE1
         localparam ADR_BASE1_START        = 522;
-        localparam BASE1_MID_X            = 8'd34;
-        localparam BASE1_MID_Y            = 8'd19;
+        localparam BASE1_MID_X            = 8'd16;
+        localparam BASE1_MID_Y            = 8'd18;
 
 
         //      NEW YORK = BASE2
@@ -118,14 +118,14 @@ package img_pkg;
 
 
     // HEIGHT FOR ENEMIES OR BASE POSITIONS - for enemies those are constatnts
-    localparam X_BASE1 = 8'd100;
-    localparam Y_ENEMY1_BASE1 = 8'd35;
+    localparam X_BASE1 = 8'd95;
+    localparam Y_ENEMY1_BASE1 = 8'd30;
 
-    localparam X_BASE2 = 8'd113;
-    localparam Y_ENEMY2_BASE2 = 8'd135;
+    localparam X_BASE2 = 8'd95;
+    localparam Y_ENEMY2_BASE2 = 8'd110;
 
-    localparam X_BASE3 = 8'd120;
-    localparam Y_ENEMY3_BASE3 = 8'd192;
+    localparam X_BASE3 = 8'd140;
+    localparam Y_ENEMY3_BASE3 = 8'd185;
 
 
     // starting place for enemies - somewhere in the ocean to the right

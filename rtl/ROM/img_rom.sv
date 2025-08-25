@@ -277,7 +277,7 @@ module img_rom #(
             232: data_out = {8'd223, 8'd1, 1'b1, 1'b0};
             233: data_out = {8'd233, 8'd9, 1'b1, 1'b0};
             234: data_out = {8'd239, 8'd0, 1'b1, 1'b0};
-            235: data_out = {8'd184, 8'd168, 1'b1, 1'b1};   // RESET
+            235: data_out = {8'd239, 8'd0, 1'b1, 1'b1};   // RESET
 
             // Nuke
             236: data_out = {8'd235, 8'd0, 1'b0, 1'b1};
@@ -581,7 +581,6 @@ module img_rom #(
 
 
         //  NEW YORK MAP
-
         522: data_out = {8'd8, 8'd8, 1'b0, 1'b1};
         523: data_out = {8'd30, 8'd22, 1'b1, 1'b0};
         524: data_out = {8'd3, 8'd22, 1'b1, 1'b0};

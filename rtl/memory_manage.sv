@@ -23,7 +23,7 @@ module memory_manage #(
     input logic rst,
     input logic halt,
     output logic go,
-    output logic [4:0] state_debug,
+    // output logic [4:0] state_debug,
 
     //  ROM signals
     input logic [DATAWIDTH-1:0] dataROM,
@@ -109,7 +109,7 @@ module memory_manage #(
     state_t state, state_nxt;
 
     always_ff@(posedge clk) begin
-        state_debug <= state_nxt;
+        //state_debug <= state_nxt;
 
         if(rst) begin
             state <= RESET;
@@ -319,7 +319,7 @@ module memory_manage #(
                 if(posROM & lineROM) begin
                     // no nothing
                 end else if(base1_nuked) begin  //draw nuke
-                    dataWRITE_nxt = {xROM - NUKE_MID_X + X_BASE1, yROM - NUKE_MID_X + Y_ENEMY1_BASE1, lineROM, posROM};
+                    dataWRITE_nxt = {xROM - NUKE_MID_X + X_BASE1, yROM - NUKE_MID_Y + Y_ENEMY1_BASE1, lineROM, posROM};
                     adrWRITE_nxt = adrWRITE + 1;
                 end else begin      //draw base
                     dataWRITE_nxt = {xROM - BASE1_MID_X + X_BASE1, yROM - BASE1_MID_X + Y_ENEMY1_BASE1, lineROM, posROM};
@@ -343,7 +343,7 @@ module memory_manage #(
                 if(posROM & lineROM) begin
                     // no nothing
                 end else if(base2_nuked) begin  //draw nuke
-                    dataWRITE_nxt = {xROM - NUKE_MID_X + X_BASE2, yROM - NUKE_MID_X + Y_ENEMY2_BASE2, lineROM, posROM};
+                    dataWRITE_nxt = {xROM - NUKE_MID_X + X_BASE2, yROM - NUKE_MID_Y + Y_ENEMY2_BASE2, lineROM, posROM};
                     adrWRITE_nxt = adrWRITE + 1;
                 end else begin      //draw base
                     dataWRITE_nxt = {xROM - BASE2_MID_X + X_BASE2, yROM - BASE2_MID_X + Y_ENEMY2_BASE2, lineROM, posROM};
@@ -366,7 +366,7 @@ module memory_manage #(
                 if(posROM & lineROM) begin
                     // no nothing
                 end else if(base3_nuked) begin  //draw nuke
-                    dataWRITE_nxt = {xROM - NUKE_MID_X + X_BASE3, yROM - NUKE_MID_X + Y_ENEMY3_BASE3, lineROM, posROM};
+                    dataWRITE_nxt = {xROM - NUKE_MID_X + X_BASE3, yROM - NUKE_MID_Y + Y_ENEMY3_BASE3, lineROM, posROM};
                     adrWRITE_nxt = adrWRITE + 1;
                 end else begin      //draw base
                     dataWRITE_nxt = {xROM - BASE3_MID_X + X_BASE3, yROM - BASE3_MID_X + Y_ENEMY3_BASE3, lineROM, posROM};

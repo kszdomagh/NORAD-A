@@ -10,6 +10,7 @@ module timer #(
 )(
     input  logic clk,
     input  logic rst,
+    input logic [30:0] dec,
     output logic pulse
 );
 
@@ -21,7 +22,7 @@ module timer #(
             count <= 0;
             pulse <= 0;
         end else begin
-            if (count == TIMER_TIME-1) begin
+            if (count == TIMER_TIME-1 - (dec << 12) ) begin
                 count <= 0;
                 pulse <= 1;
             end else begin

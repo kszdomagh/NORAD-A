@@ -39,9 +39,9 @@ module top_basys3 (
         input logic sw15,
 
         output logic led15,
-        output logic led14,
-        output logic led13,
-        output logic led12,
+        //output logic led14,
+        //output logic led13,
+        //output logic led12,
 
 
         //  7SEG
@@ -62,15 +62,9 @@ module top_basys3 (
     logic clk_fast;
     logic clk_slow;
 
-    //  mouse signals
-    wire [7:0] Xmouse;
-    wire [7:0] Ymouse;
-    wire Lmouse;
-    wire Rmouse;
-    logic [7:0] X_debug;
     logic [OUT_WIDTH-1:0] killcount;
-
     logic sw15_db;
+    logic rst;
 
 
     //  debug signals
@@ -85,7 +79,8 @@ module top_basys3 (
         .clk(clk_fast),
         .sw(sw0),
         .db_level(rst),
-        .db_tick()
+        .db_tick(),
+        .reset(1'b0)
     );
 
 
@@ -102,7 +97,7 @@ module top_basys3 (
         .clk80MHz(clk_fast),
         .clk5MHz(clk_slow),
 
-        .reset()    //not connected
+        .reset(1'b0)    //not connected
 
     );
 
@@ -243,7 +238,8 @@ module top_basys3 (
     disp_hex_mux u_bcd_display (
         .clk(clk_fast),
         .reset(rst),
-        .sseg(seg),
+        .sseg( {1'b0, seg} ),
+        .dp_in(4'b0000),
         .an(an),
 
         .hex0(hex0), // prawo

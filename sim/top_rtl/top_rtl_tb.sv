@@ -60,7 +60,7 @@ module top_rtl_tb;
         rst = 1;
         #20 rst = 0;
         
-        startgame = 0;          //CHANGE THIS TO 1 TO SEE THE GAME
+        startgame = 1;          //CHANGE THIS TO 1 TO SEE THE GAME
 
         // Optional: add timeout
         #10000000;

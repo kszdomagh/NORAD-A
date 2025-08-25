@@ -7,7 +7,6 @@
 //////////////////////////////////////////////////////////////////////////////
 module base_control #(
     parameter int OUT_WIDTH = 8,
-    parameter int ADDRESSWIDTH = 0,
     
     //  BASE XY 
     parameter int X_BASE = 0,

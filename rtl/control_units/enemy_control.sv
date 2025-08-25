@@ -89,7 +89,7 @@ module enemy_control #(
                 else state_nxt = FLY;
             end
 
-            DESTROYED: state_nxt = (xenemy < X_BASE) ? GONE : ( (destroyed_counter==0) ? IDLE : DESTROYED);
+            DESTROYED: state_nxt = (xenemy < X_BASE) ? GONE :  ( (destroyed_counter==0) ? IDLE : DESTROYED);
 
             GONE: state_nxt = GONE;
 
@@ -100,8 +100,12 @@ module enemy_control #(
     // outputs always comb
     always_comb begin
 
+        //defaults
         adr_enemy_nxt = adr_enemy_start;
         yenemy_nxt = Y_ENEMY_BASE;
+        xenemy_nxt = xenemy;
+        spawn_nxt = spawn;
+        destroyed_counter = destroyed_counter;
 
 
         case(state)

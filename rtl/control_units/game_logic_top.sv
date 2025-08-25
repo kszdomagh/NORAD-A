@@ -84,6 +84,7 @@ module game_logic_top#(
         .clk_fast(clk_fast),
         .clk_slow(clk_slow),
         .rst(rst),
+        .dec( { 23'd0, killcount} ),        //make it harder
 
         .speed1_pulse(speed_pulse1),
         .speed2_pulse(speed_pulse2),
@@ -197,7 +198,6 @@ module game_logic_top#(
 
 
     base_control #(
-        .ADDRESSWIDTH(ADDRESSWIDTH),
         .DESTOY_ANIMATION_TIME(3),
         .OUT_WIDTH(OUT_WIDTH),
         .X_BASE(X_BASE1),
@@ -210,7 +210,6 @@ module game_logic_top#(
     );
 
     base_control #(
-        .ADDRESSWIDTH(ADDRESSWIDTH),
         .DESTOY_ANIMATION_TIME(3),
         .OUT_WIDTH(OUT_WIDTH),
         .X_BASE(X_BASE2),
@@ -223,7 +222,6 @@ module game_logic_top#(
     );
 
     base_control #(
-        .ADDRESSWIDTH(ADDRESSWIDTH),
         .DESTOY_ANIMATION_TIME(3),
         .OUT_WIDTH(OUT_WIDTH),
         .X_BASE(X_BASE3),

@@ -99,6 +99,8 @@ module fire_control #(
         enemy2_kill_nxt = 1'b0;
         enemy3_kill_nxt = 1'b0;
 
+        killcount_nxt = killcount;
+
         case(state)
 
             RESET: begin
