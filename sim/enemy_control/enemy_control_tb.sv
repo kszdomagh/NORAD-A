@@ -26,7 +26,8 @@ module enemy_control_tb;
         .rst(rst),
         .speed1_pulse(speed1_pulse),
         .speed2_pulse(speed2_pulse),
-        .slow1_pulse(slow1_pulse)
+        .slow1_pulse(slow1_pulse),
+        .dec(0)
 
     );
 
@@ -34,7 +35,7 @@ module enemy_control_tb;
     enemy_control #(
         .OUT_WIDTH(DAC_WIDTH),
         .ADDRESSWIDTH(ADDRESSWIDTH),
-        .DESTOY_ANIMATION_TIME(3),
+        .DESTOY_ANIMATION_TIME(10_000),
         
         .X_BASE(X_BASE1),
         .Y_ENEMY_BASE(Y_ENEMY1_BASE1),
@@ -55,7 +56,8 @@ module enemy_control_tb;
         .xenemy(xenemy),
         .yenemy(yenemy),
         .spawn(spawn),
-        .adr_enemy(adr_enemy)
+        .adr_enemy(adr_enemy),
+        .adr_enemy_start(ADR_BOMBER_START)
     );
 
 

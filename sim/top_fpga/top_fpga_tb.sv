@@ -57,7 +57,7 @@ module top_fpga_tb;
      */
 
     top_basys3 dut (
-        .clk_in(clk),
+        .clk_in1(clk),
         .btnC(rst),
 
 

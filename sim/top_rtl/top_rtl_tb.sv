@@ -63,7 +63,7 @@ module top_rtl_tb;
         startgame = 1;          //CHANGE THIS TO 1 TO SEE THE GAME
 
         // Optional: add timeout
-        #10000000;
+        #10000000000;
         $display("Simulation timeout reached.");
         $finish;
     end

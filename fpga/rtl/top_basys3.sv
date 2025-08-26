@@ -23,6 +23,8 @@ module top_basys3 (
         output wire [7:0] JB,
         // y channel 8bit
         output wire [7:0] JC,
+        //  oscilo trig
+        output wire JA1,
 
         //reset
         input logic sw0,
@@ -37,11 +39,10 @@ module top_basys3 (
 
         //buttons leds
         input logic sw15,
+        input logic sw14,
 
         output logic led15,
-        //output logic led14,
-        //output logic led13,
-        //output logic led12,
+        output logic led14,
 
 
         //  7SEG
@@ -64,12 +65,14 @@ module top_basys3 (
 
     logic [OUT_WIDTH-1:0] killcount;
     logic sw15_db;
+    logic sw14_db;
     logic rst;
 
 
     //  debug signals
     assign led0 = rst;
-    assign led15 = sw15;
+    assign led15 = sw15_db;
+    assign led14 = sw14_db;
 
 
 
@@ -156,6 +159,15 @@ module top_basys3 (
     );
 
 
+    debounce u_debounce_MTM (
+        .clk(clk_fast),
+        .reset(rst),
+        .sw(sw14),
+        .db_level(sw14_db),
+        .db_tick()
+    );
+
+
 
     //      cursor control module
     cursor #(
@@ -195,8 +207,8 @@ module top_basys3 (
         .button_click(btnC_db),
         .killcount(killcount),
 
-        .go_flag(),     //not connected
-        .halt_flag(),   //not connected
+        .go_flag(JA1),     //not connected
+        .halt_flag(halt_flag),   //not connected
 
 
 
@@ -206,6 +218,7 @@ module top_basys3 (
         //.ych( {JC[0], JC[1], JC[2], JC[3], JC[4], JC[5], JC[6], JC[7]} )
 
         .startgame(sw15_db),
+        .mtm_show(sw14_db),
 
 
         //      new smd with sma connectors DAC
@@ -224,9 +237,9 @@ module top_basys3 (
     logic [3:0] hex3;
 
     num_to_hex #(
-        .NUMBER_BIT(8)
+        .BIN_WIDTH(14)
     ) u_num_to_bcd(
-        .number(killcount),
+        .bin_in({6'd0, killcount}),
 
         .bcd_thousands(hex3),
         .bcd_hundreds(hex2),

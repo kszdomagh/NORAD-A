@@ -30,7 +30,6 @@ module memory_manage_tb;
         .rst(rst),
         .halt(halt),
         .go(go),
-        .state_debug(state_debug_bits),
 
         //  ROM signals
         .adrROM(adrROM),

@@ -9,7 +9,7 @@ module game_logic_top#(
     parameter int ADDRESSWIDTH = 16, 
     parameter int OUT_WIDTH = 8,
 
-    parameter int DESTOY_ANIMATION_TIME = 100_000_000,
+    parameter int DESTOY_ANIMATION_TIME = 5_000_000,
 
 
     parameter int TIME_SPEED_ENEMY1 = 30_000_000,
@@ -239,7 +239,7 @@ module game_logic_top#(
     fire_control #(
         .ADDRESSWIDTH(ADDRESSWIDTH),
         .OUT_WIDTH(OUT_WIDTH),
-        .XY_PRECISION(10)
+        .XY_PRECISION(13)
     ) u_fire_control_unit (
         .clk(clk_fast),
         .rst(rst),

@@ -1,3 +1,12 @@
+//////////////////////////////////////////////////////////////////////////////
+/*
+ Module name:   start_screen_rom
+ Author:        IG
+ Description:   ROM memory for all used graphics and more
+
+                after each object there is a RESET signal (LINE=1, POS=1)
+ */
+//////////////////////////////////////////////////////////////////////////////
 module img_rom #(
     parameter int ADDRESSWIDTH = 4,  // 4 bits => 16 entries
     parameter int DATAWIDTH = 18  // 8+8+1+1 = 18 bits
@@ -606,7 +615,7 @@ module img_rom #(
 
             
 
-            default: data_out = '0;
+            default: data_out = {8'd0, 8'd0, 1'b1, 1'b1};
         endcase
     end
 

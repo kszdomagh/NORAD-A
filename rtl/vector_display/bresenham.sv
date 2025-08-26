@@ -10,7 +10,9 @@
  */
 //////////////////////////////////////////////////////////////////////////////
 module bresenham #(
-    parameter   BRES_WIDTH = 9
+    parameter   BRES_WIDTH = 9,
+    parameter CEASE_CYCLES = 2  // number of cycles to hold
+
     )(  // signed coordinate width
     input  wire logic clk,             // clock
     input  wire logic rst,             // reset
@@ -42,6 +44,7 @@ module bresenham #(
     logic signed [BRES_WIDTH:0] err;  // a bit wider as signed
     logic signed [BRES_WIDTH:0] dx, dy;
     logic movx, movy;  // horizontal/vertical move required
+    logic [$clog2(CEASE_CYCLES+1)-1:0] cease_cnt;       // counter for cease state
     always_comb begin
         movx = (2*err >= dy);
         movy = (2*err <= dx);
@@ -54,6 +57,11 @@ module bresenham #(
     always_ff @(posedge clk) begin
         case (state)
             DRAW: begin
+                if (cease_cnt < CEASE_CYCLES) begin
+                    cease_cnt <= cease_cnt + 1;  // CEASE: hold x, y, err
+                end else begin
+                    cease_cnt <= 0;
+                    // Normal DRAW movement
                     if (x == x_end && y == y_end) begin
                         state <= IDLE;
                         busy <= 0;
@@ -64,7 +72,7 @@ module bresenham #(
                             err <= err + dy;
                         end
                         if (movy) begin
-                            y <= y + 1;  // always down
+                            y <= y + 1;
                             err <= err + dx;
                         end
                         if (movx && movy) begin
@@ -73,7 +81,9 @@ module bresenham #(
                             err <= err + dy + dx;
                         end
                     end
+                end
             end
+
             INIT_0: begin
                 state <= INIT_1;
                 dx <= right ? xb - xa : xa - xb;  // dx = abs(xb - xa)

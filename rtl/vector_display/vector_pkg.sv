@@ -37,6 +37,8 @@ package vector_pkg;
     localparam VECTOR_MAX = 255;
     localparam VECTOR_MIN = 0;
 
+    localparam CEASE_CYCLES = 2;
+
 
 
     //PARAMETERS FOR DATA

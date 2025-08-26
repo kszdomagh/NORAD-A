@@ -13,18 +13,17 @@ module top_rtl#(
 
         input logic clk_slow,
         input logic clk_fast,
-
+        input logic rst,
 
         input logic [OUT_WIDTH-1:0] xcursor,
         input logic [OUT_WIDTH-1:0] ycursor,
         input logic button_click,
         output wire [OUT_WIDTH-1:0] killcount,
         input logic startgame,
+        input logic mtm_show,
 
         output logic go_flag,
         output logic halt_flag,
-
-        input logic rst,
         
         output wire [OUT_WIDTH-1:0] xch,
         output wire [OUT_WIDTH-1:0] ych
@@ -56,6 +55,9 @@ module top_rtl#(
     logic [ADDRESSWIDTH-1:0] vectordisplay_addr;
     logic [DATAWIDTH-1:0] vectordisplay_data;
 
+    logic [ADDRESSWIDTH-1:0] mtm_addr;
+    logic [DATAWIDTH-1:0] mtm_data;
+
 
 
     logic go, halt;
@@ -69,7 +71,8 @@ module top_rtl#(
     top_vector_display #(
         .OUT_WIDTH(OUT_WIDTH),
         .ADDRESSWIDTH(ADDRESSWIDTH),
-        .DATAWIDTH(DATAWIDTH)
+        .DATAWIDTH(DATAWIDTH),
+        .CEASE_CYCLES(CEASE_CYCLES)
     ) u_vector_display (
         .clk(clk_slow),
         .rst(rst),
@@ -98,6 +101,8 @@ module top_rtl#(
 
     wire base1_nuked, base2_nuked, base3_nuked;
 
+    logic [ADDRESSWIDTH-1:0] adr_enemy1, adr_enemy2, adr_enemy3;
+
 
 
     game_logic_top #(
@@ -105,7 +110,7 @@ module top_rtl#(
         .OUT_WIDTH(OUT_WIDTH),
 
         //DESTROY PLANE ANIMATIONS TIME
-        .DESTOY_ANIMATION_TIME(5_000_000),
+        .DESTOY_ANIMATION_TIME(40_000_000), //  half a second
 
         // SPAWN TIMES FOR ENEMIES
         .TIME_SPAWN_ENEMY1(10_000_000),
@@ -142,7 +147,11 @@ module top_rtl#(
 
         .base1_nuked(base1_nuked),
         .base2_nuked(base2_nuked),
-        .base3_nuked(base3_nuked)
+        .base3_nuked(base3_nuked),
+
+        .adr_enemy1(adr_enemy1),
+        .adr_enemy2(adr_enemy2),
+        .adr_enemy3(adr_enemy3)
 
     );
 
@@ -174,17 +183,17 @@ module top_rtl#(
         .spawn_enemy1(spawn_enemy1),
         .xenemy1(xenemy1),
         .yenemy1(yenemy1),
-        .adr_enemy1(ADR_BOMBER_START),
+        .adr_enemy1(adr_enemy1),
 
         .spawn_enemy2(spawn_enemy2),
         .xenemy2(xenemy2),
         .yenemy2(yenemy2),
-        .adr_enemy2(ADR_BOMBER_START),
+        .adr_enemy2(adr_enemy2),
 
         .spawn_enemy3(spawn_enemy3),
         .xenemy3(xenemy3),
         .yenemy3(yenemy3),
-        .adr_enemy3(ADR_BOMBER_START),
+        .adr_enemy3(adr_enemy3),
 
         .base1_nuked(base1_nuked),
         .base2_nuked(base2_nuked),
@@ -233,13 +242,28 @@ module top_rtl#(
         .adr_startscreen(startscreen_addr),
         .data_startscreen(startscreen_data),
 
+        .adr_mtm(mtm_addr),
+        .data_mtm(mtm_data),
+
         .base1_nuked(base1_nuked),
         .base2_nuked(base2_nuked),
         .base3_nuked(base3_nuked),
         .start_game(startgame),
+        .mtm_show(mtm_show),
+        
 
         .adr_in(vectordisplay_addr),
         .data_out(vectordisplay_data)
+    );
+
+
+
+    mtm_rom #(
+        .ADDRESSWIDTH(ADDRESSWIDTH),
+        .DATAWIDTH(DATAWIDTH)
+    ) u_mtm_rom (
+        .addr(mtm_addr),
+        .data_out(mtm_data)
     );
 
 

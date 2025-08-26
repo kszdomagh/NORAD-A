@@ -63,10 +63,7 @@ module vector_manage_tb;
         .clk(clk),
         .rst(rst),
 
-        .x(i_x),
-        .y(i_y),
-        .line(line),
-        .pos(pos),
+        .data_in( {i_x, i_y, line, pos} ),
 
         .done(done),
         .busy(busy),

@@ -43,8 +43,9 @@ module enemy_control #(
     logic [OUT_WIDTH-1:0] xenemy_nxt;
     logic spawn_nxt, hit_nxt;
 
-    logic [3:0] destroyed_counter;
-
+    localparam int COUNTER_WIDTH = $clog2(DESTOY_ANIMATION_TIME+1);
+    logic [COUNTER_WIDTH-1:0] destroyed_counter;
+    logic [COUNTER_WIDTH-1:0] destroyed_counter_nxt;
 
     typedef enum logic [4:0] {
         RESET             = 5'd0,
@@ -64,6 +65,7 @@ module enemy_control #(
             yenemy    <= Y_ENEMY_BASE;
             spawn     <= 1'b0;
             adr_enemy <= adr_enemy_nxt;
+            destroyed_counter   <= DESTOY_ANIMATION_TIME;
 
         end else begin
             state <= state_nxt;
@@ -72,6 +74,7 @@ module enemy_control #(
             yenemy    <= yenemy_nxt;
             spawn     <= spawn_nxt;
             adr_enemy <= adr_enemy_nxt;
+            destroyed_counter   <= destroyed_counter_nxt;
         end
     end
 
@@ -89,7 +92,17 @@ module enemy_control #(
                 else state_nxt = FLY;
             end
 
-            DESTROYED: state_nxt = (xenemy < X_BASE) ? GONE :  ( (destroyed_counter==0) ? IDLE : DESTROYED);
+            DESTROYED: begin
+                
+                if(destroyed_counter < DESTOY_ANIMATION_TIME) begin
+                    state_nxt = DESTROYED;
+                end else if(xenemy < X_BASE) begin
+                    state_nxt = GONE;
+                end else begin
+                    state_nxt = IDLE;
+                end
+
+            end
 
             GONE: state_nxt = GONE;
 
@@ -105,7 +118,7 @@ module enemy_control #(
         yenemy_nxt = Y_ENEMY_BASE;
         xenemy_nxt = xenemy;
         spawn_nxt = spawn;
-        destroyed_counter = destroyed_counter;
+        destroyed_counter_nxt = destroyed_counter;
 
 
         case(state)
@@ -116,7 +129,7 @@ module enemy_control #(
             end
 
             IDLE: begin
-                destroyed_counter = DESTOY_ANIMATION_TIME;
+                destroyed_counter_nxt = 0;  
                 xenemy_nxt = X_ENEMY_START;
                 spawn_nxt = 1'b0;
 
@@ -125,7 +138,6 @@ module enemy_control #(
             FLY: begin
                 xenemy_nxt = xenemy;
                 spawn_nxt = 1'b1;
-
                 if(speed_pulse) begin
                     xenemy_nxt = xenemy - 1;
                 end
@@ -136,7 +148,7 @@ module enemy_control #(
                 spawn_nxt = 1'b1;
                 adr_enemy_nxt = ADR_EXPLOSION_START;
 
-                if(speed_pulse) destroyed_counter = destroyed_counter-1;
+                destroyed_counter_nxt = destroyed_counter+1; //potem se dodaje az bedzie liczba w parametrze
 
             end
 
@@ -151,30 +163,5 @@ module enemy_control #(
 
     end
 
-
-
-
-/* 
-
-
-        if(en) begin
-            if(spawn_pulse & (spawn_nxt==1'b0) ) begin      // spawning enemy
-                spawn_nxt = 1'b1;
-                xenemy_nxt = X_ENEMY_START;
-            end
-
-            if(speed_pulse & spawn) xenemy_nxt = xenemy - 1;
-
-        end else begin
-            spawn_nxt     = 1'b0;
-            xenemy_nxt    = X_ENEMY_START;
-        end
-    end
-
-    always_ff@(posedge clk) begin
-
-    end
-
-*/
 
 endmodule

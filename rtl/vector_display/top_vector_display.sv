@@ -2,7 +2,8 @@ module top_vector_display #(
     
     parameter int OUT_WIDTH = 8,
     parameter int ADDRESSWIDTH = 8,
-    parameter int DATAWIDTH = 18
+    parameter int DATAWIDTH = 18,
+    parameter CEASE_CYCLES = 4
     
     )(
 
@@ -67,7 +68,8 @@ module top_vector_display #(
     );
 
     bresenham #(
-        .BRES_WIDTH(OUT_WIDTH+1)
+        .BRES_WIDTH(OUT_WIDTH+1),
+        .CEASE_CYCLES(CEASE_CYCLES)
     ) u_bresenham (
         .clk(clk),
         .rst(rst),
