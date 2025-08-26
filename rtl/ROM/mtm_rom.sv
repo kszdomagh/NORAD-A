@@ -1,3 +1,10 @@
+//////////////////////////////////////////////////////////////////////////////
+/*
+ Module name:   mtm_rom
+ Author:        kszdom
+ Description:   ROM memory for MTM logo
+ */
+//////////////////////////////////////////////////////////////////////////////
 module mtm_rom #(
     parameter int ADDRESSWIDTH = 14,  // 4 bits => 16 entries
     parameter int DATAWIDTH = 18  // 8+8+1+1 = 18 bits

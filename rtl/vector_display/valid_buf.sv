@@ -2,7 +2,7 @@
 /*
  Module name:   valid buf
  Author:        kszdom
- Description:  module used for gating output 
+ Description:  module used for gating output only when valid
  */
 //////////////////////////////////////////////////////////////////////////////
 module valid_buf #(

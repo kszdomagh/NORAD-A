@@ -4,7 +4,8 @@
  Author:        kszdom
  Description:  timer cluster
 
- TIME=100_000_00 IS EQUAL TO PULSE BEING SENT EVERY SECOND DUE TO CLK BEEING 100MHz
+ TIME = 80_000_00 IS EQUAL TO PULSE BEING SENT EVERY SECOND DUE TO CLK FAST BEEING 80MHz
+ CLK SLOW IS 5MHZ
 
  to add more timers please:
         - add a new parameter; choose a name for it,

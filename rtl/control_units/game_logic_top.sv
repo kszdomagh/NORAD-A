@@ -2,7 +2,9 @@
 /*
  Module name:   game_logic_top
  Author:        kszdom
- Description:  
+ Description:   top module for all game related submodules. 
+
+                this module only has information about the positions and states of enemies - drawing takes place in the memory_manage module
  */
 //////////////////////////////////////////////////////////////////////////////
 module game_logic_top#(

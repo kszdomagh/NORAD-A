@@ -1,3 +1,10 @@
+//////////////////////////////////////////////////////////////////////////////
+/*
+ Module name:   cursor
+ Author:        kszdom
+ Description:  module used for translating button presses to cursor control signals
+ */
+//////////////////////////////////////////////////////////////////////////////
 module cursor #(
     parameter int OUTWIDTH = 8,          // szerokość współrzędnych
     parameter int STEP     = 1,            

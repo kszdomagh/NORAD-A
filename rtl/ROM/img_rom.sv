@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /*
  Module name:   start_screen_rom
- Author:        IG
+ Author:        IG, kszdom
  Description:   ROM memory for all used graphics and more
 
                 after each object there is a RESET signal (LINE=1, POS=1)
@@ -351,7 +351,7 @@ module img_rom #(
 
 
 
-            //  NEW YORK
+            //  NEW YORK    OLD
 
             292: data_out = {8'd0, 8'd0, 1'b0, 1'b1};
             293: data_out = {8'd0, 8'd4, 1'b1, 1'b0};

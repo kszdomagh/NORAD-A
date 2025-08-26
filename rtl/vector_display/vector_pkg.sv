@@ -3,9 +3,6 @@
  Module name:   vector_pkg
  Author:        kszdom
  Description:  module used for holding all constants for vector stuff
-
-    Change Log:
-        13.08.2025 - kszdom - changed ADDRESSWIDTH from 4 to 16 bits. more memory space needed
  */
 //////////////////////////////////////////////////////////////////////////////
 package vector_pkg;

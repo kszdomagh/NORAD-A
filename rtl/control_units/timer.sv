@@ -2,7 +2,8 @@
 /*
  Module name:   timer
  Author:        kszdom
- Description:  simple timer with parameters; one timer of speed_timer_cluster 
+ Description:   simple timer with parameters; one timer out of many in  speed_timer_cluster.
+                timer time = parameter - (dec signal)*2^14
  */
 //////////////////////////////////////////////////////////////////////////////
 module timer #(
@@ -22,7 +23,7 @@ module timer #(
             count <= 0;
             pulse <= 0;
         end else begin
-            if (count == TIMER_TIME-1 - (dec << 12) ) begin
+            if (count == TIMER_TIME-1 - (dec << 14) ) begin
                 count <= 0;
                 pulse <= 1;
             end else begin

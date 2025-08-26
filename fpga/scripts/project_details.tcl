@@ -35,8 +35,6 @@ set xdc_files {
 # Specify SystemVerilog design files location   -- EDIT
 set sv_files {
 
-
-    ../rtl/ROM_pkg.sv
     ../rtl/vector_display/vector_pkg.sv
 
     ../rtl/ROM/img_pkg.sv
@@ -64,7 +62,6 @@ set sv_files {
     ../rtl/screen_manage.sv
     ../rtl/memory_manage.sv
     ../rtl/template_ram.sv
-    ../rtl/uwu_rom.sv
 
     ../rtl/cursor.sv
 
@@ -86,10 +83,9 @@ set verilog_files {
 }
 
 # Specify VHDL design files location            -- EDIT
-set vhdl_files {
-    ../rtl/mouse_uec/MouseCtl.vhd
-    ../rtl/mouse_uec/Ps2Interface.vhd
-}
+# set vhdl_files {
+#
+# }
 
 # Specify files for a memory initialization     -- EDIT
 # set mem_files {

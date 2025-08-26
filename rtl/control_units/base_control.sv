@@ -2,7 +2,7 @@
 /*
  Module name:   base_control
  Author:        kszdom
- Description:  control module for enemy
+ Description:  control module for base behaviour.
  */
 //////////////////////////////////////////////////////////////////////////////
 module base_control #(

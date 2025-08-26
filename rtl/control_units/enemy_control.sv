@@ -2,7 +2,7 @@
 /*
  Module name:   enemy_control
  Author:        kszdom
- Description:  control module for enemy
+ Description:  control module for enemy entity
  */
 //////////////////////////////////////////////////////////////////////////////
 module enemy_control #(

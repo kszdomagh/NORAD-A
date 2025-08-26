@@ -1,16 +1,10 @@
-/**
- * San Jose State University
- * EE178 Lab #4
- * Author: prof. Eric Crabilla
- *
- * Modified by:
- * 2025  AGH University of Science and Technology
- * MTM UEC2
- * Piotr Kaczmarczyk
- *
- * Description:
- * Top level synthesizable module including the project top and all the FPGA-referred modules.
+//////////////////////////////////////////////////////////////////////////////
+/*
+ Module name:   top_basys3
+ Author:        kszdom
+ Description:  top level synthesizable module including the project top and all the hardware-related modules.
  */
+//////////////////////////////////////////////////////////////////////////////
 
 module top_basys3 (
         input  wire clk_in1,

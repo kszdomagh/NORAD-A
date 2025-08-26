@@ -1,4 +1,10 @@
-// Listing 4.21
+//////////////////////////////////////////////////////////////////////////////
+/*
+ Module name:   debounce
+ Author:        unknown - taken from MTM UEC2 LAB6 about UART https://wiki.mtm.agh.edu.pl/pl/students/courses/uec/uec2/lab06
+ Description:   module used for debouncing switches and buttons
+ */
+//////////////////////////////////////////////////////////////////////////////
 module debounce
    (
     input wire clk, reset,

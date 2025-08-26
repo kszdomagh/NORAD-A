@@ -2,7 +2,7 @@
 /*
  Module name:   ROM_pkg
  Author:        kszdom
- Description:  module used for holding all constants related to images in ROM memory
+ Description:   module used for holding all constants related to images in ROM memory.
  */
 //////////////////////////////////////////////////////////////////////////////
 package img_pkg;
@@ -17,8 +17,8 @@ package img_pkg;
 
     //      CURSOR
     localparam ADR_CURSOR_START = 517;
-    localparam CURSOR_MID_X = 8'd32;   //draw cursor at there coordinates
-    localparam CURSOR_MID_Y = 8'd40;   //draw cursor at there coordinates
+    localparam CURSOR_MID_X = 8'd32;   //draw cursor at these coordinates
+    localparam CURSOR_MID_Y = 8'd40;   //draw cursor at these coordinates
 
     localparam CURSORMAX = 8'd235;
     localparam CURSORMIN = 8'd15;
@@ -131,7 +131,14 @@ package img_pkg;
     // starting place for enemies - somewhere in the ocean to the right
     localparam X_ENEMY_START = 8'd235; //255 is max 
     localparam X_ENEMY_END = 8'd20; 
-    
+
+
+
+
+
+
+    localparam X_MISSILE_START = 8'd20;
+    localparam Y_MISSILE_START = 8'd30;
 
 
 

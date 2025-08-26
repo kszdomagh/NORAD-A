@@ -7,6 +7,7 @@
   Change log: 
     05.08.2025 - kszdom - changed signed values to unsigned values
     13.08.2025 - kszdom - added enable input port
+    26.08.2025 - kszdom - added cease drawing behav to solve issue in DRAW state
  */
 //////////////////////////////////////////////////////////////////////////////
 module bresenham #(

@@ -2,7 +2,7 @@
 /*
  Module name:   fire_control
  Author:        kszdom
- Description:  control module for cursor and rocket fire
+ Description:   control module for cursor and rocket fire
  */
 //////////////////////////////////////////////////////////////////////////////
 module fire_control #(

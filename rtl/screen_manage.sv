@@ -1,3 +1,10 @@
+//////////////////////////////////////////////////////////////////////////////
+/*
+ Module name:   screen_manage
+ Author:        kszdom
+ Description:   module used for controlling whats beeing displayed
+ */
+//////////////////////////////////////////////////////////////////////////////
 module screen_manage #(
     parameter int DATAWIDTH = 18,
     parameter int ADRESSWIDTH = 8

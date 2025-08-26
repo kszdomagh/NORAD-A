@@ -1,4 +1,10 @@
-// Listing 4.15
+//////////////////////////////////////////////////////////////////////////////
+/*
+ Module name:   disp_hex_mux
+ Author:        unknown - taken from MTM UEC2 LAB6 about UART https://wiki.mtm.agh.edu.pl/pl/students/courses/uec/uec2/lab06
+ Description:   module for displaying stuff on basys3 7-segment display
+ */
+//////////////////////////////////////////////////////////////////////////////
 module disp_hex_mux
    (
     input wire clk, reset,
