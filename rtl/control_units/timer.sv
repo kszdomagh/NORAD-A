@@ -18,7 +18,7 @@ module timer #(
     localparam int COUNT_WIDTH = $clog2(TIMER_TIME);    //calc the width of count number
     logic [COUNT_WIDTH-1:0] count;
 
-    always_ff @(posedge clk or posedge rst) begin
+    always_ff @(posedge clk) begin
         if (rst) begin
             count <= 0;
             pulse <= 0;

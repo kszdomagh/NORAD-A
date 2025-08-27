@@ -117,14 +117,17 @@ module top_rtl#(
         .DESTOY_ANIMATION_TIME(40_000_000), //  half a second
 
         // SPAWN TIMES FOR ENEMIES
-        .TIME_SPAWN_ENEMY1(10_000_000),
-        .TIME_SPAWN_ENEMY2(12_000_000),
-        .TIME_SPAWN_ENEMY3(15_000_000),
+        .TIME_SPAWN_ENEMY1(19_000_000),
+        .TIME_SPAWN_ENEMY2(20_000_000),
+        .TIME_SPAWN_ENEMY3(18_000_000),
 
         //SPEEDS FOR ENEMIES
-        .TIME_SPEED_ENEMY1(50_000_000),
-        .TIME_SPEED_ENEMY2(40_000_000),
-        .TIME_SPEED_ENEMY3(30_000_000)
+        .TIME_SPEED_ENEMY1(55_000_000),
+        .TIME_SPEED_ENEMY2(20_000_000),
+        .TIME_SPEED_ENEMY3(40_000_000),
+
+        //TIME FOR ENEMY TO CHANGE SKIN
+        .TIME_ENEMY_RANDOM(10_000_000)
     ) u_game_logic_top (
         .clk_fast(clk_fast),
         .clk_slow(clk_slow),

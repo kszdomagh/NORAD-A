@@ -66,7 +66,7 @@ module top_rtl_tb;
         rst = 1;
         #20 rst = 0;
 
-        show_death = 1;
+        show_death = 0;
         mtm_show = 0;
         startgame = 1;          //CHANGE THIS TO 1 TO SEE THE GAME
         button_click = 1;

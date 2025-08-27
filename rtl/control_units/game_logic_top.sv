@@ -20,7 +20,9 @@ module game_logic_top#(
 
     parameter int TIME_SPAWN_ENEMY1 = 10_000_000,
     parameter int TIME_SPAWN_ENEMY2 = 12_000_000,
-    parameter int TIME_SPAWN_ENEMY3 = 22_000_000
+    parameter int TIME_SPAWN_ENEMY3 = 22_000_000,
+
+    parameter int TIME_ENEMY_RANDOM = 10_000_000
     )(
 
         input logic clk_fast,
@@ -68,7 +70,6 @@ module game_logic_top#(
 
     import vector_pkg::*;
     import img_pkg::*;
-    //import uwu_pkg::*;
 
 
     // INTERNAL WIRES
@@ -76,6 +77,8 @@ module game_logic_top#(
     wire speed_pulse1, speed_pulse2, speed_pulse3;
 
     wire enemy1_kill, enemy2_kill, enemy3_kill;
+
+    logic [ADDRESSWIDTH-1:0] adr_enemy_random;
 
     //MODULE DECLARATIONS
 
@@ -86,7 +89,16 @@ module game_logic_top#(
 
         .TIME_SLOW1(TIME_SPAWN_ENEMY1),
         .TIME_SLOW2(TIME_SPAWN_ENEMY2),
-        .TIME_SLOW3(TIME_SPAWN_ENEMY3)
+        .TIME_SLOW3(TIME_SPAWN_ENEMY3),
+
+        .TIME_ENEMY_RANDOM(TIME_ENEMY_RANDOM),
+
+        .ADR_START_1(ADR_BOMBER_START),
+        .ADR_START_2(ADR_FIGHTER_START),
+        .ADR_START_3(ADR_SPYPLANE_START),
+
+        .ADRESSWIDTH(ADDRESSWIDTH)
+
     ) u_timer_cluster (
         .clk_fast(clk_fast),
         .clk_slow(clk_slow),
@@ -100,7 +112,9 @@ module game_logic_top#(
 
         .slow1_pulse(spawn_pulse1),
         .slow2_pulse(spawn_pulse2),
-        .slow3_pulse(spawn_pulse3)
+        .slow3_pulse(spawn_pulse3),
+
+        .adr_enemy_random(adr_enemy_random)
     );
 
 
@@ -126,7 +140,7 @@ module game_logic_top#(
         .speed_pulse(speed_pulse1),
 
         .rockethit(enemy1_kill),
-        .adr_enemy_start(ADR_BOMBER_START),
+        .adr_enemy_start(adr_enemy_random),
 
         .spawn(spawn_enemy1),
         .xenemy(xenemy1),
@@ -159,7 +173,7 @@ module game_logic_top#(
         .speed_pulse(speed_pulse2),
 
         .rockethit(enemy2_kill),
-        .adr_enemy_start(ADR_BOMBER_START),
+        .adr_enemy_start(adr_enemy_random),
 
         .spawn(spawn_enemy2),
         .xenemy(xenemy2),
@@ -193,7 +207,7 @@ module game_logic_top#(
         .speed_pulse(speed_pulse3),
 
         .rockethit(enemy3_kill),
-        .adr_enemy_start(ADR_BOMBER_START),
+        .adr_enemy_start(adr_enemy_random),
 
         .spawn(spawn_enemy3),
         .xenemy(xenemy3),

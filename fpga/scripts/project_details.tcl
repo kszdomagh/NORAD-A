@@ -57,6 +57,7 @@ set sv_files {
     ../rtl/control_units/enemy_control.sv
     ../rtl/control_units/timer_cluster.sv
     ../rtl/control_units/timer.sv
+    ../rtl/control_units/random_enemy_adr.sv
     ../rtl/control_units/game_logic_top.sv
     ../rtl/control_units/base_control.sv
     ../rtl/control_units/fire_control.sv

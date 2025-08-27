@@ -114,7 +114,7 @@ module enemy_control #(
     always_comb begin
 
         //defaults
-        adr_enemy_nxt = adr_enemy_start;
+        adr_enemy_nxt = adr_enemy;      //latch it duting idle state
         yenemy_nxt = Y_ENEMY_BASE;
         xenemy_nxt = xenemy;
         spawn_nxt = spawn;
@@ -129,6 +129,7 @@ module enemy_control #(
             end
 
             IDLE: begin
+                adr_enemy_nxt = adr_enemy_start;
                 destroyed_counter_nxt = 0;  
                 xenemy_nxt = X_ENEMY_START;
                 spawn_nxt = 1'b0;
