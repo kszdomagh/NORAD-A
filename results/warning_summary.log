@@ -1,6 +1,6 @@
 Warnings, critical warnings and errors from synthesis and implementation
 
-Created: 2025-08-27 02:57:26
+Created: 2025-08-27 03:10:10
 
 ----SYNTHESIS----
 WARNING: [Synth 8-315] illegal expression in output port connection [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:248]

@@ -8,6 +8,8 @@
     05.08.2025 - kszdom - changed signed values to unsigned values
     13.08.2025 - kszdom - added enable input port
     26.08.2025 - kszdom - added cease drawing behav to solve issue in DRAW state
+    27.09.2025 - kszdom - changed switch confition and logic from (stay > endy) 
+                           to (stax > endx)
  */
 //////////////////////////////////////////////////////////////////////////////
 module bresenham #(
@@ -28,24 +30,29 @@ module bresenham #(
     );
 
     // line properties
-    logic swap;   // swap points to ensure endy >= stay
+    logic swap;   // swap points to ensure xa <= xb (swap by X)
     logic right;  // drawing direction
+    logic up;     // direction for y (+1 or -1)
     logic signed [BRES_WIDTH-1:0] xa, ya;  // start point
     logic signed [BRES_WIDTH-1:0] xb, yb;  // end point
     logic signed [BRES_WIDTH-1:0] x_end, y_end;  // register end point
+
+    // swap based on X (user request)
     always_comb begin
-        swap = (stay > endy);  // swap points if stay is below endy - FOR NOW IT WORKS BUT MAKE IT NOT SWAP
+        swap = (stax > endx);  // swap points if stax is greater than endx
         xa = swap ? endx : stax;
         xb = swap ? stax : endx;
         ya = swap ? endy : stay;
         yb = swap ? stay : endy;
+        up = (ya < yb); // if true we should increment y, else decrement
     end
 
     // error values
     logic signed [BRES_WIDTH:0] err;  // a bit wider as signed
-    logic signed [BRES_WIDTH:0] dx, dy;
+    logic signed [BRES_WIDTH:0] dx, dy; // dx positive, dy negative (we keep same err math)
     logic movx, movy;  // horizontal/vertical move required
     logic [$clog2(CEASE_CYCLES+1)-1:0] cease_cnt;       // counter for cease state
+
     always_comb begin
         movx = (2*err >= dy);
         movy = (2*err <= dx);
@@ -68,18 +75,17 @@ module bresenham #(
                         busy <= 0;
                         done <= 1;
                     end else begin
-                        if (movx) begin
-                            x <= right ? x + 1 : x - 1;
-                            err <= err + dy;
-                        end
-                        if (movy) begin
-                            y <= y + 1;
-                            err <= err + dx;
-                        end
+                        // use mutually-exclusive branches to avoid multiple non-blocking assignments
                         if (movx && movy) begin
                             x <= right ? x + 1 : x - 1;
-                            y <= y + 1;
+                            y <= up    ? y + 1 : y - 1;
                             err <= err + dy + dx;
+                        end else if (movx) begin
+                            x <= right ? x + 1 : x - 1;
+                            err <= err + dy;
+                        end else if (movy) begin
+                            y <= up ? y + 1 : y - 1;
+                            err <= err + dx;
                         end
                     end
                 end
@@ -87,8 +93,13 @@ module bresenham #(
 
             INIT_0: begin
                 state <= INIT_1;
-                dx <= right ? xb - xa : xa - xb;  // dx = abs(xb - xa)
-                dy <= ya - yb;  // dy = -abs(yb - ya)
+                // xa <= xb now ensured by swap (swap based on X)
+                dx <= xb - xa;  // dx = abs(xb - xa) (should be >= 0)
+                // make dy negative absolute value so err = dx + dy works the same as before
+                if (yb >= ya)
+                    dy <= - (yb - ya);
+                else
+                    dy <= - (ya - yb);
             end
             INIT_1: begin
                 state <= DRAW;
@@ -97,6 +108,7 @@ module bresenham #(
                 y <= ya;
                 x_end <= xb;
                 y_end <= yb;
+                cease_cnt <= 0;
             end
             default: begin  // IDLE
                 done <= 0;
