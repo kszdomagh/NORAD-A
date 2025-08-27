@@ -1,4 +1,5 @@
-<img width="3440" height="720" alt="image" src="https://github.com/user-attachments/assets/ab41edb1-c486-485d-81ad-bcf7b18dbb7e" />
+<img width="2580" height="540" alt="image" src="https://github.com/user-attachments/assets/abf812cc-be3e-4356-b338-4d3236958ec8" />
+
 
 # NORAD-A
 
@@ -6,8 +7,8 @@ NORAD-A to minimalistyczny symulator, w którym gracz wciela się w operatora sy
 
 
 
+# Instrukcja obsługi gry
+bla bla bla bla
 
-
-
-# Instrukcja obsługi systemu plików
-
+# Konfiguracja sprzętu
+bla bla ble ble ble blu b lu blu
