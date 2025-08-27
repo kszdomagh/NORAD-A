@@ -422,7 +422,7 @@ module memory_manage #(
                 if((posROM & lineROM) || !spawn_missile) begin
                     // no nothing
                 end else begin
-                    dataWRITE_nxt = {xROM - PATRIOT_MID_X + x_missile, yROM + PATRIOTBASE_Y + y_missile, lineROM, posROM};
+                    dataWRITE_nxt = {xROM - PATRIOT_MID_X + x_missile, yROM - PATRIOT_MID_Y + y_missile, lineROM, posROM};
                     adrWRITE_nxt = adrWRITE + 1;
                 end
 

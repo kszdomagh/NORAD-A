@@ -19,8 +19,11 @@ module top_rtl#(
         input logic [OUT_WIDTH-1:0] ycursor,
         input logic button_click,
         output wire [OUT_WIDTH-1:0] killcount,
+
+
         input logic startgame,
         input logic mtm_show,
+        input logic show_death,
 
         output logic go_flag,
         output logic halt_flag,
@@ -259,6 +262,7 @@ module top_rtl#(
         .base3_nuked(base3_nuked),
         .start_game(startgame),
         .mtm_show(mtm_show),
+        .show_death(show_death),
         
 
         .adr_in(vectordisplay_addr),

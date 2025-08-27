@@ -66,10 +66,10 @@ package img_pkg;
         localparam AIM9X_MID_X          = 8'd226;   
         localparam AIM9X_MID_Y          = 8'd226;   
 
-        //      PATRIOT
-        localparam ADR_PATRIOT_START     = 178;
-        localparam PATRIOT_MID_X         = 8'd226;   
-        localparam PATRIOT_MID_Y         = 8'd226;   
+    //      PATRIOT
+        localparam ADR_PATRIOT_START = 178;
+        localparam PATRIOT_MID_X = 8'd226;
+        localparam PATRIOT_MID_Y = 8'd30;
 
         //      INTERCEPTOR
         localparam ADR_INTERCEPTOR_START = 198;
@@ -99,14 +99,14 @@ package img_pkg;
             FRIENDLY CITIES / BASES
 ///////////////////////////////////////////////////////////////////////////////////////////////*/
 
-        //      NEW YORK = BASE1
-        localparam ADR_BASE1_START        = 522;
+        //      MIAMI = BASE1
+        localparam ADR_BASE1_START        = 554;
         localparam BASE1_MID_X            = 8'd16;
         localparam BASE1_MID_Y            = 8'd18;
 
 
-        //      NEW YORK = BASE2
-        localparam ADR_BASE2_START        = 522;
+        //      COL = BASE2
+        localparam ADR_BASE2_START        = 573;
         localparam BASE2_MID_X            = 8'd16;
         localparam BASE2_MID_Y            = 8'd20;
 
@@ -118,11 +118,11 @@ package img_pkg;
 
 
     // HEIGHT FOR ENEMIES OR BASE POSITIONS - for enemies those are constatnts
-    localparam X_BASE1 = 8'd95;
-    localparam Y_ENEMY1_BASE1 = 8'd30;
+    localparam X_BASE1 = 8'd98;
+    localparam Y_ENEMY1_BASE1 = 8'd24;
 
     localparam X_BASE2 = 8'd95;
-    localparam Y_ENEMY2_BASE2 = 8'd110;
+    localparam Y_ENEMY2_BASE2 = 8'd104;
 
     localparam X_BASE3 = 8'd140;
     localparam Y_ENEMY3_BASE3 = 8'd185;

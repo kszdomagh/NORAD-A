@@ -224,25 +224,25 @@ module img_rom #(
             177: data_out = {8'd184, 8'd168, 1'b1, 1'b1};   // RESET
 
             // Patriot
-            178: data_out = {8'd227, 8'd209, 1'b0, 1'b1};
-            179: data_out = {8'd223, 8'd209, 1'b1, 1'b0};
-            180: data_out = {8'd226, 8'd209, 1'b0, 1'b1};
-            181: data_out = {8'd226, 8'd211, 1'b1, 1'b0};
-            182: data_out = {8'd232, 8'd211, 1'b1, 1'b0};
-            183: data_out = {8'd227, 8'd217, 1'b1, 1'b0};
-            184: data_out = {8'd227, 8'd228, 1'b1, 1'b0};
-            185: data_out = {8'd230, 8'd228, 1'b1, 1'b0};
-            186: data_out = {8'd227, 8'd231, 1'b1, 1'b0};
-            187: data_out = {8'd226, 8'd236, 1'b1, 1'b0};
-            188: data_out = {8'd225, 8'd240, 1'b1, 1'b0};
-            189: data_out = {8'd224, 8'd236, 1'b1, 1'b0};
-            190: data_out = {8'd223, 8'd231, 1'b1, 1'b0};
-            191: data_out = {8'd220, 8'd228, 1'b1, 1'b0};
-            192: data_out = {8'd223, 8'd228, 1'b1, 1'b0};
-            193: data_out = {8'd223, 8'd217, 1'b1, 1'b0};
-            194: data_out = {8'd218, 8'd211, 1'b1, 1'b0};
-            195: data_out = {8'd224, 8'd211, 1'b1, 1'b0};
-            196: data_out = {8'd224, 8'd209, 1'b1, 1'b0};
+            178: data_out = {8'd209, 8'd28, 1'b0, 1'b1};
+            179: data_out = {8'd209, 8'd32, 1'b1, 1'b0};
+            180: data_out = {8'd209, 8'd29, 1'b0, 1'b1};
+            181: data_out = {8'd211, 8'd29, 1'b1, 1'b0};
+            182: data_out = {8'd211, 8'd23, 1'b1, 1'b0};
+            183: data_out = {8'd217, 8'd28, 1'b1, 1'b0};
+            184: data_out = {8'd228, 8'd28, 1'b1, 1'b0};
+            185: data_out = {8'd228, 8'd25, 1'b1, 1'b0};
+            186: data_out = {8'd231, 8'd28, 1'b1, 1'b0};
+            187: data_out = {8'd236, 8'd29, 1'b1, 1'b0};
+            188: data_out = {8'd240, 8'd30, 1'b1, 1'b0};
+            189: data_out = {8'd236, 8'd31, 1'b1, 1'b0};
+            190: data_out = {8'd231, 8'd32, 1'b1, 1'b0};
+            191: data_out = {8'd228, 8'd35, 1'b1, 1'b0};
+            192: data_out = {8'd228, 8'd32, 1'b1, 1'b0};
+            193: data_out = {8'd217, 8'd32, 1'b1, 1'b0};
+            194: data_out = {8'd211, 8'd37, 1'b1, 1'b0};
+            195: data_out = {8'd211, 8'd31, 1'b1, 1'b0};
+            196: data_out = {8'd209, 8'd31, 1'b1, 1'b0};
             197: data_out = {8'd184, 8'd168, 1'b1, 1'b1};   // RESET
 
             // Interceptor
@@ -621,14 +621,46 @@ module img_rom #(
             548:  data_out = {8'd4, 8'd14, 1'b1, 1'b0};
             549:  data_out = {8'd15, 8'd9, 1'b0, 1'b1};
             550:  data_out = {8'd14, 8'd16, 1'b1, 1'b0};
-            551:  data_out = {8'd18, 8'd9, 1'b0, 1'b1};
-            552:  data_out = {8'd16, 8'd18, 1'b1, 1'b0};
-            553:  data_out = {8'd16, 8'd18, 1'b1, 1'b1};    //RESET
+            551: data_out = {8'd18, 8'd9, 1'b0, 1'b1};
+            552: data_out = {8'd16, 8'd18, 1'b1, 1'b0};
+            553: data_out = {8'd16, 8'd18, 1'b1, 1'b1};    // RESET
 
-            // MISSILE
-            554:  data_out = {8'd0, 8'd0, 1'b0, 1'b1};  //pos
-            555:  data_out = {8'd0, 8'd0, 1'b1, 1'b0};  //line
-            556:  data_out = {8'd0, 8'd0, 1'b1, 1'b1};    //RESET
+            // MIA
+            554: data_out = {8'd8, 8'd8, 1'b0, 1'b1};   // STAR
+            555: data_out = {8'd30, 8'd22, 1'b1, 1'b0};
+            556: data_out = {8'd3, 8'd22, 1'b1, 1'b0};
+            557: data_out = {8'd24, 8'd8, 1'b1, 1'b0};
+            558: data_out = {8'd16, 8'd30, 1'b1, 1'b0};
+            559: data_out = {8'd8, 8'd8, 1'b1, 1'b0};
+            560: data_out = {8'd33, 8'd11, 1'b0, 1'b1};
+            561: data_out = {8'd33, 8'd28, 1'b1, 1'b0}; // text DC
+            562: data_out = {8'd40, 8'd21, 1'b1, 1'b0};
+            563: data_out = {8'd47, 8'd28, 1'b1, 1'b0};
+            564: data_out = {8'd47, 8'd11, 1'b1, 1'b0};
+            565: data_out = {8'd53, 8'd28, 1'b0, 1'b1};
+            566: data_out = {8'd53, 8'd11, 1'b1, 1'b0};
+            567: data_out = {8'd56, 8'd11, 1'b0, 1'b1};
+            568: data_out = {8'd64, 8'd28, 1'b1, 1'b0};
+            569: data_out = {8'd72, 8'd11, 1'b1, 1'b0};
+            570: data_out = {8'd59, 8'd18, 1'b0, 1'b1};
+            571: data_out = {8'd69, 8'd18, 1'b1, 1'b0};
+            572: data_out = {8'd69, 8'd18, 1'b1, 1'b1};    // RESET
+
+            // COL
+            573: data_out = {8'd8, 8'd8, 1'b0, 1'b1};   //STAR
+            574: data_out = {8'd30, 8'd22, 1'b1, 1'b0};
+            575: data_out = {8'd3, 8'd22, 1'b1, 1'b0};
+            576: data_out = {8'd24, 8'd8, 1'b1, 1'b0};
+            577: data_out = {8'd16, 8'd30, 1'b1, 1'b0};
+            578: data_out = {8'd8, 8'd8, 1'b1, 1'b0};   //text
+            579: data_out = {8'd45, 8'd11, 1'b0, 1'b1};
+            580: data_out = {8'd39, 8'd11, 1'b1, 1'b0};
+            581: data_out = {8'd36, 8'd14, 1'b1, 1'b0};
+            582: data_out = {8'd36, 8'd26, 1'b1, 1'b0};
+            583: data_out = {8'd39, 8'd29, 1'b1, 1'b0};
+            584: data_out = {8'd45, 8'd29, 1'b1, 1'b0};
+            595: data_out = {8'd45, 8'd29, 1'b1, 1'b1};     // RESET
+
 
 
 

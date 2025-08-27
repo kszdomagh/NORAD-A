@@ -17,6 +17,8 @@ module top_rtl_tb;
 
     logic startgame;
     logic button_click;
+    logic mtm_show;
+    logic show_death;
 
     //MODULE DECLARATIONS
     top_rtl #(
@@ -32,10 +34,12 @@ module top_rtl_tb;
         .halt_flag(halt_flag),
 
         .startgame(startgame),
+        .mtm_show(mtm_show),
+        .show_death(show_death),
 
 
-        .xcursor(8'd150),
-        .ycursor(8'd150),
+        .xcursor(8'd200),
+        .ycursor(8'd60),
         .button_click(button_click),
 
         .xch(xsignal),
@@ -61,7 +65,9 @@ module top_rtl_tb;
     initial begin
         rst = 1;
         #20 rst = 0;
-        
+
+        show_death = 1;
+        mtm_show = 0;
         startgame = 1;          //CHANGE THIS TO 1 TO SEE THE GAME
         button_click = 1;
 

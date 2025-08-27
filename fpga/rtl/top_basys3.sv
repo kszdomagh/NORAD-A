@@ -20,10 +20,6 @@ module top_basys3 (
         //  oscilo trig
         output wire JA1,
 
-        //reset
-        input logic sw0,
-        output logic led0,
-
         //cursor
         input logic btnU,
         input logic btnC,
@@ -32,12 +28,13 @@ module top_basys3 (
         input logic btnR,
 
         //buttons leds
+        input logic sw0,
         input logic sw15,
         input logic sw14,
 
         output logic led15,
         output logic led14,
-
+        output logic led0,
 
         //  7SEG
         output wire [6:0] seg,
