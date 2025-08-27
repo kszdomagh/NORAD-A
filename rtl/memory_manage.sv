@@ -56,7 +56,9 @@ module memory_manage #(
     input logic spawn_enemy3,
     input logic [ADR_WIDTH-1:0] adr_enemy3,
 
-
+    input logic [OUT_WIDTH-1:0] x_missile,
+    input logic [OUT_WIDTH-1:0] y_missile,
+    input logic spawn_missile,
 
 
     input logic base1_nuked,
@@ -81,6 +83,11 @@ module memory_manage #(
     logic [DATAWIDTH-1:0] dataWRITE_nxt;
 
 
+    logic missile_count;
+
+    reg wrote_first; // flag to track if first write happened in teh missile state
+
+
     typedef enum logic [4:0] { //5 bit state so 65 states possible
         //CONTROL SIGNALS
         DONE            = 5'd0,
@@ -101,6 +108,8 @@ module memory_manage #(
         DRAW_BASE1 = 5'd16,
         DRAW_BASE2 = 5'd17,
         DRAW_BASE3 = 5'd18,
+        DRAW_MISSILE_BASE = 5'd19,
+        DRAW_MISSILE = 5'd20,
 
         //DRAW INTERACTABLES
         DRAW_CURSOR = 5'd12
@@ -141,7 +150,10 @@ module memory_manage #(
 
             DRAW_BASE1:state_nxt = (posROM & lineROM) ? DRAW_BASE2 : DRAW_BASE1;
             DRAW_BASE2:state_nxt = (posROM & lineROM) ? DRAW_BASE3 : DRAW_BASE2;
-            DRAW_BASE3:state_nxt = (posROM & lineROM) ? DRAW_RESET : DRAW_BASE3;
+            DRAW_BASE3:state_nxt = (posROM & lineROM) ? DRAW_MISSILE_BASE : DRAW_BASE3;
+
+            DRAW_MISSILE_BASE:state_nxt = (posROM & lineROM) ? DRAW_MISSILE : DRAW_MISSILE_BASE;
+            DRAW_MISSILE:state_nxt = ((posROM & lineROM) || !spawn_missile) ? DRAW_RESET : DRAW_MISSILE;
 
             DRAW_RESET: state_nxt = DONE;
 
@@ -361,7 +373,7 @@ module memory_manage #(
             BELOW YOU ARE NOW DRAWING THE LAST BASE (BOTTOM ONE)
 ///////////////////////////////////////////////////////////////////////////////////////////////*/
             DRAW_BASE3: begin
-                if (state != state_nxt) adrROM_nxt = 0; //next state adr start
+                if (state != state_nxt) adrROM_nxt = ADR_PATRIOTBASE_START; //next state adr start
                 
                 if(posROM & lineROM) begin
                     // no nothing
@@ -379,6 +391,45 @@ module memory_manage #(
             end
 
 
+
+/*///////////////////////////////////////////////////////////////////////////////////////////////
+            BELOW YOU ARE NOW DRAWING THE BASE FOR ROCKETS PATRIOT SYSTEM
+///////////////////////////////////////////////////////////////////////////////////////////////*/
+            DRAW_MISSILE_BASE: begin
+                if (state != state_nxt) adrROM_nxt = ADR_PATRIOT_START; //next state adr start
+                
+                if(posROM & lineROM) begin
+                    // no nothing
+                end else begin
+                    dataWRITE_nxt = {xROM - PATRIOTBASE_MID_X + PATRIOTBASE_X, yROM - PATRIOTBASE_MID_Y + PATRIOTBASE_Y, lineROM, posROM};
+                    adrWRITE_nxt = adrWRITE + 1;
+                end
+
+                if(state_nxt == DRAW_MISSILE_BASE) begin
+                    adrROM_nxt = adrROM + 1;
+                end
+            end
+
+
+
+
+/*///////////////////////////////////////////////////////////////////////////////////////////////
+            BELOW YOU ARE NOW DRAWING THE MISSILE - PATRIOT
+///////////////////////////////////////////////////////////////////////////////////////////////*/
+            DRAW_MISSILE: begin
+                if (state != state_nxt) adrROM_nxt = 0; //next state adr start
+                
+                if((posROM & lineROM) || !spawn_missile) begin
+                    // no nothing
+                end else begin
+                    dataWRITE_nxt = {xROM - PATRIOT_MID_X + x_missile, yROM + PATRIOTBASE_Y + y_missile, lineROM, posROM};
+                    adrWRITE_nxt = adrWRITE + 1;
+                end
+
+                if(state_nxt == DRAW_MISSILE) begin
+                    adrROM_nxt = adrROM + 1;
+                end
+            end
 
 
 

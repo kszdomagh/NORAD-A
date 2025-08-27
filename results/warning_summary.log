@@ -1,6 +1,6 @@
 Warnings, critical warnings and errors from synthesis and implementation
 
-Created: 2025-08-26 21:39:32
+Created: 2025-08-27 02:57:26
 
 ----SYNTHESIS----
 WARNING: [Synth 8-315] illegal expression in output port connection [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:248]
@@ -15,6 +15,7 @@ WARNING: [Synth 8-327] inferring latch for variable 'adr_mtm_reg' [C:/Users/Hp/D
 WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
 WARNING: [Synth 8-6430] The Block RAM "u_top_rtl/u_RAM_module/ram_reg" may get memory collision error if read and write address collide. Use attribute (* rw_addr_collision= "yes" *) to avoid collision 
 WARNING: [Synth 8-3332] Sequential element (u_bresenham/FSM_onehot_state_reg[0]) is unused and will be removed from module top_vector_display.
+WARNING: [Synth 8-3332] Sequential element (u_missile_fire_control/u_bresenham/FSM_onehot_state_reg[0]) is unused and will be removed from module game_logic_top.
 
 ----IMPLEMENTATION----
 CLEAR :)

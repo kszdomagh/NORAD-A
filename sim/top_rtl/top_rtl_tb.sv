@@ -7,7 +7,7 @@ module top_rtl_tb;
     logic rst;
 
     import vector_pkg::*;
-    import ROM_pkg::*;
+    import img_pkg::*;
 
     // INTERNAL WIRES
     logic halt_flag;
@@ -16,6 +16,7 @@ module top_rtl_tb;
     logic [OUT_WIDTH-1:0] ysignal;
 
     logic startgame;
+    logic button_click;
 
     //MODULE DECLARATIONS
     top_rtl #(
@@ -35,6 +36,7 @@ module top_rtl_tb;
 
         .xcursor(8'd150),
         .ycursor(8'd150),
+        .button_click(button_click),
 
         .xch(xsignal),
         .ych(ysignal)
@@ -61,6 +63,7 @@ module top_rtl_tb;
         #20 rst = 0;
         
         startgame = 1;          //CHANGE THIS TO 1 TO SEE THE GAME
+        button_click = 1;
 
         // Optional: add timeout
         #10000000000;
@@ -83,7 +86,7 @@ module top_rtl_tb;
 
     always @(posedge clk100MHz) begin
         
-        if (halt_count == 2) begin
+        if (halt_count == 4) begin
             $display("Recieved HALT signal at time: %t", $time);
             $display("Ending simulation. Check output files.");
             $display("PASSED :3");

@@ -43,6 +43,9 @@ set sv_files {
     ../rtl/ROM/start_screen_rom.sv
     ../rtl/ROM/mtm_rom.sv
 
+    ../rtl/missile/missile_main.sv
+    ../rtl/missile/missile_top.sv
+
 
 
     ../rtl/vector_display/bresenham.sv

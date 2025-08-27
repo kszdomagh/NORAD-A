@@ -103,6 +103,7 @@ module top_rtl#(
 
     logic [ADDRESSWIDTH-1:0] adr_enemy1, adr_enemy2, adr_enemy3;
 
+    logic [OUT_WIDTH-1:0] x_missile, y_missile;
 
 
     game_logic_top #(
@@ -151,7 +152,11 @@ module top_rtl#(
 
         .adr_enemy1(adr_enemy1),
         .adr_enemy2(adr_enemy2),
-        .adr_enemy3(adr_enemy3)
+        .adr_enemy3(adr_enemy3),
+
+        .x_missile(x_missile),
+        .y_missile(y_missile),
+        .spawn_missile(spawn_missile)
 
     );
 
@@ -197,7 +202,11 @@ module top_rtl#(
 
         .base1_nuked(base1_nuked),
         .base2_nuked(base2_nuked),
-        .base3_nuked(base3_nuked)
+        .base3_nuked(base3_nuked),
+
+        .x_missile(x_missile),
+        .y_missile(y_missile),
+        .spawn_missile(spawn_missile)
 
     );
 

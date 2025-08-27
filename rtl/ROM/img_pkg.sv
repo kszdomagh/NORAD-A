@@ -132,13 +132,24 @@ package img_pkg;
     localparam X_ENEMY_START = 8'd235; //255 is max 
     localparam X_ENEMY_END = 8'd20; 
 
+    // locations for base on map
+    localparam PATRIOTBASE_X = 8'd20;
+    localparam PATRIOTBASE_Y = 8'd80;
+        // grapgics stuff
+    localparam ADR_PATRIOTBASE_START = 538;
+    localparam PATRIOTBASE_MID_X = 8'd17;
+    localparam PATRIOTBASE_MID_Y = 8'd7;
+        // grapgics stuff + place rockets fly from (need mids still)
+    localparam PATRIOT_START_X = 8'd27;
+    localparam PATRIOT_START_Y = 8'd32;
 
 
 
 
+    localparam ADR_MISSILE_START = 554;
 
-    localparam X_MISSILE_START = 8'd20;
-    localparam Y_MISSILE_START = 8'd30;
+    localparam X_MISSILE_START = PATRIOTBASE_MID_X + PATRIOTBASE_X;
+    localparam Y_MISSILE_START = PATRIOTBASE_MID_Y + PATRIOTBASE_Y;
 
 
 

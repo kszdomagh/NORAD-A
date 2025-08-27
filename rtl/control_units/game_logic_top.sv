@@ -50,6 +50,11 @@ module game_logic_top#(
         output wire spawn_enemy3,
         output wire [ADDRESSWIDTH-1:0] adr_enemy3,
 
+        //  MISSILE
+
+        output wire [OUT_WIDTH-1:0] x_missile,
+        output wire [OUT_WIDTH-1:0] y_missile,
+        output wire spawn_missile,
 
 
         output wire base1_nuked,
@@ -238,34 +243,58 @@ module game_logic_top#(
 
 
 
-    fire_control #(
-        .ADDRESSWIDTH(ADDRESSWIDTH),
+    missile_top #(
+        .CEASE_CYCLES(MISSILE_CEASE_CYCLES),
         .OUT_WIDTH(OUT_WIDTH),
-        .XY_PRECISION(13)
+        .FRAME_MAX(VECTOR_MAX),
+        .FRAME_MIN(VECTOR_MIN),
+        .XY_PRECISION(XY_PRECISION)
+    ) u_missile_fire_control (
+        .clk_fast(clk_fast),
+        .rst(rst),
+
+        .fired(click),
+        
+        // to-from enemy1
+        .hit1(enemy1_kill),
+        .spawn_enemy1(spawn_enemy1),
+        .xenemy1(xenemy1),
+        .yenemy1(yenemy1),
+
+        // to-from enemy2
+        .hit2(enemy2_kill),
+        .spawn_enemy2(spawn_enemy2),
+        .xenemy2(xenemy2),
+        .yenemy2(yenemy2),
+
+        // to-from enemy3
+        .hit3(enemy3_kill),
+        .spawn_enemy3(spawn_enemy3),
+        .xenemy3(xenemy3),
+        .yenemy3(yenemy3),
+
+        .x_missile(x_missile),
+        .y_missile(y_missile),
+        .spawn_missile(spawn_missile),
+
+        .xcursor(xcursor),
+        .ycursor(ycursor)
+    );
+
+
+
+
+    fire_control #(
+        .OUT_WIDTH(OUT_WIDTH)
     ) u_fire_control_unit (
         .clk(clk_fast),
         .rst(rst),
 
-        .xenemy1(xenemy1),
-        .yenemy1(yenemy1),
-        .spawn_enemy1(spawn_enemy1),
-
-        .xenemy2(xenemy2),
-        .yenemy2(yenemy2),
-        .spawn_enemy2(spawn_enemy2),
-
-        .xenemy3(xenemy3),
-        .yenemy3(yenemy3),
-        .spawn_enemy3(spawn_enemy3),
-
-        .xcursor(xcursor),
-        .ycursor(ycursor),
-        .rocketfire(click),
         .killcount(killcount),
 
-        .enemy1_kill(enemy1_kill),
-        .enemy2_kill(enemy2_kill),
-        .enemy3_kill(enemy3_kill)
+        .hit1(enemy1_kill),
+        .hit2(enemy2_kill),
+        .hit3(enemy3_kill)
     );
 
 

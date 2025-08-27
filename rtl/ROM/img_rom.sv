@@ -18,13 +18,12 @@ module img_rom #(
     always_comb begin
         unique case (addr)
             //                  x       y       line    pos
-
+            0:  data_out = {8'd0, 8'd0, 1'b0, 1'b1};
 
 
 
             //      USA MAP     TEMP
-            0:  data_out = {8'd150, 8'd255, 1'b0, 1'b1};
-            1:  data_out = {8'd142, 8'd227, 1'b1, 1'b0};
+            1:  data_out = {8'd142, 8'd227, 1'b0, 1'b1};
             2:  data_out = {8'd131, 8'd225, 1'b1, 1'b0};
             3:  data_out = {8'd132, 8'd245, 1'b1, 1'b0};
             4:  data_out = {8'd111, 8'd209, 1'b1, 1'b0};
@@ -589,25 +588,47 @@ module img_rom #(
 
 
 
-        //  NEW YORK MAP
-        522: data_out = {8'd8, 8'd8, 1'b0, 1'b1};
-        523: data_out = {8'd30, 8'd22, 1'b1, 1'b0};
-        524: data_out = {8'd3, 8'd22, 1'b1, 1'b0};
-        525: data_out = {8'd24, 8'd8, 1'b1, 1'b0};
-        526: data_out = {8'd16, 8'd30, 1'b1, 1'b0};
-        527: data_out = {8'd8, 8'd8, 1'b1, 1'b0};
-        528: data_out = {8'd33, 8'd11, 1'b0, 1'b1};
-        529: data_out = {8'd33, 8'd26, 1'b1, 1'b0};
-        530: data_out = {8'd42, 8'd11, 1'b1, 1'b0};
-        531: data_out = {8'd42, 8'd26, 1'b1, 1'b0};
-        532: data_out = {8'd46, 8'd26, 1'b0, 1'b1};
-        533: data_out = {8'd50, 8'd19, 1'b1, 1'b0};
-        534: data_out = {8'd50, 8'd11, 1'b1, 1'b0};
-        535: data_out = {8'd50, 8'd19, 1'b0, 1'b1};
-        536: data_out = {8'd54, 8'd26, 1'b1, 1'b0};
-        537: data_out = {8'd0, 8'd0, 1'b1, 1'b1}; // RESET
+            //  NEW YORK MAP
+            522: data_out = {8'd8, 8'd8, 1'b0, 1'b1};
+            523: data_out = {8'd30, 8'd22, 1'b1, 1'b0};
+            524: data_out = {8'd3, 8'd22, 1'b1, 1'b0};
+            525: data_out = {8'd24, 8'd8, 1'b1, 1'b0};
+            526: data_out = {8'd16, 8'd30, 1'b1, 1'b0};
+            527: data_out = {8'd8, 8'd8, 1'b1, 1'b0};
+            528: data_out = {8'd33, 8'd11, 1'b0, 1'b1};
+            529: data_out = {8'd33, 8'd26, 1'b1, 1'b0};
+            530: data_out = {8'd42, 8'd11, 1'b1, 1'b0};
+            531: data_out = {8'd42, 8'd26, 1'b1, 1'b0};
+            532: data_out = {8'd46, 8'd26, 1'b0, 1'b1};
+            533: data_out = {8'd50, 8'd19, 1'b1, 1'b0};
+            534: data_out = {8'd50, 8'd11, 1'b1, 1'b0};
+            535: data_out = {8'd50, 8'd19, 1'b0, 1'b1};
+            536: data_out = {8'd54, 8'd26, 1'b1, 1'b0};
+            537: data_out = {8'd0, 8'd0, 1'b1, 1'b1}; // RESET
 
 
+            //   PATRIOT BASE
+            538:  data_out = {8'd7, 8'd6, 1'b0, 1'b1};
+            539:  data_out = {8'd11, 8'd7, 1'b1, 1'b0};
+            540:  data_out = {8'd11, 8'd9, 1'b1, 1'b0};
+            541:  data_out = {8'd22, 8'd9, 1'b1, 1'b0};
+            542:  data_out = {8'd22, 8'd7, 1'b1, 1'b0};
+            543:  data_out = {8'd27, 8'd6, 1'b1, 1'b0};
+            544:  data_out = {8'd3, 8'd14, 1'b0, 1'b1};
+            545:  data_out = {8'd22, 8'd31, 1'b1, 1'b0};
+            546:  data_out = {8'd25, 8'd27, 1'b1, 1'b0};
+            547:  data_out = {8'd8, 8'd10, 1'b1, 1'b0};
+            548:  data_out = {8'd4, 8'd14, 1'b1, 1'b0};
+            549:  data_out = {8'd15, 8'd9, 1'b0, 1'b1};
+            550:  data_out = {8'd14, 8'd16, 1'b1, 1'b0};
+            551:  data_out = {8'd18, 8'd9, 1'b0, 1'b1};
+            552:  data_out = {8'd16, 8'd18, 1'b1, 1'b0};
+            553:  data_out = {8'd16, 8'd18, 1'b1, 1'b1};    //RESET
+
+            // MISSILE
+            554:  data_out = {8'd0, 8'd0, 1'b0, 1'b1};  //pos
+            555:  data_out = {8'd0, 8'd0, 1'b1, 1'b0};  //line
+            556:  data_out = {8'd0, 8'd0, 1'b1, 1'b1};    //RESET
 
 
 

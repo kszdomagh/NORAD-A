@@ -7,7 +7,11 @@
 //////////////////////////////////////////////////////////////////////////////
 module missile_top#(
     parameter int OUT_WIDTH = 8,
-    parameter  CEASE_CYCLES = 4_000_000
+    parameter  CEASE_CYCLES = 4_000_000,
+    parameter FRAME_MAX = 255,
+    parameter FRAME_MIN = 0,
+    parameter XY_PRECISION = 12
+
     )(
         input logic clk_fast,
         input logic rst,
@@ -36,7 +40,8 @@ module missile_top#(
 
         
         output wire [OUT_WIDTH-1:0] x_missile,
-        output wire [OUT_WIDTH-1:0] y_missile
+        output wire [OUT_WIDTH-1:0] y_missile,
+        output wire spawn_missile
         
     );
 
@@ -46,7 +51,7 @@ module missile_top#(
     import vector_pkg::*;
     import img_pkg::*;
 
-    logic bren_go, bren_done, valid_drawing;
+    logic bren_done, valid_drawing;
 
     wire [OUT_WIDTH-1:0] xflying_end, yflying_end;
     wire [OUT_WIDTH:0] xbren, ybren;
@@ -54,14 +59,19 @@ module missile_top#(
 
 
 
-    missile_main #() u_missile_main (
+    missile_main #(
+        .OUT_WIDTH(OUT_WIDTH),
+        .FRAME_MAX(FRAME_MAX),
+        .FRAME_MIN(FRAME_MIN),
+        .XY_PRECISION(XY_PRECISION)
+    ) u_missile_main (
         .clk(clk_fast),
         .rst(rst),
 
         .fired(fired),
         .valid_drawing(valid_drawing),
         .bren_done(bren_done),
-        .bren_go(bren_go),
+        .bren_go(spawn_missile),
 
         .xcursor(xcursor),
         .ycursor(ycursor),
@@ -97,12 +107,12 @@ module missile_top#(
 
     bresenham #(
         .BRES_WIDTH(OUT_WIDTH+1),
-        .CEASE_CYCLES(CEASE_CYCLES)   // half a sec
+        .CEASE_CYCLES(CEASE_CYCLES)
     ) u_bresenham (
         .clk(clk_fast),
         .rst(rst),
-        .go(bren_go), 
-        .enable(bren_go),
+        .go(spawn_missile), 
+        .enable(spawn_missile),
 
         .done(bren_done),
         .busy(draw_busy),
@@ -124,7 +134,7 @@ module missile_top#(
     ) u_valid_buf (
         .clk(clk_fast),
         .rst(rst),
-        .enable(1'b1),
+        .enable(1),
 
         .valid(valid_drawing),
 

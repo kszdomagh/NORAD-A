@@ -10,8 +10,6 @@ module missile_main #(
     parameter int OUT_WIDTH = 8,
     parameter int FRAME_MIN = 0,
     parameter int FRAME_MAX = 255,
-    parameter int ADR_WIDTH = 16,
-    parameter int DATAWIDTH = 18,
     parameter    XY_PRECISION = 12
     )(
 
@@ -63,8 +61,6 @@ module missile_main #(
     logic [OUT_WIDTH-1:0] xflying_end_nxt;
     logic [OUT_WIDTH-1:0] yflying_end_nxt;
 
-    logic [OUT_WIDTH-1:0] xcursor_latched, ycursor_latched, xcursor_latched_nxt, ycursor_latched_nxt;
-
     logic hit1_nxt, hit2_nxt, hit3_nxt;
 
     //  func to check the difference
@@ -99,8 +95,6 @@ module missile_main #(
             hit1 <= '0;
             hit2 <= '0;
             hit3 <= '0;
-            xcursor_latched <= '0;
-            ycursor_latched <= '0;
 
         end else begin
             state <= state_nxt;
@@ -111,8 +105,7 @@ module missile_main #(
             hit1 <= hit1_nxt;
             hit2 <= hit2_nxt;
             hit3 <= hit3_nxt;
-            xcursor_latched <= xcursor_latched_nxt;
-            ycursor_latched <= ycursor_latched_nxt;
+
         end
     end
 
@@ -161,8 +154,6 @@ module missile_main #(
         hit2_nxt = 1'b0;
         hit3_nxt = 1'b0;
 
-        xcursor_latched_nxt = xcursor_latched;
-        ycursor_latched_nxt = ycursor_latched;
 
 
         case(state)
@@ -185,8 +176,6 @@ module missile_main #(
                 bren_go_nxt = 1'b1;
                 xflying_end_nxt = xcursor;
                 yflying_end_nxt = ycursor;
-                xcursor_latched_nxt = xcursor;
-                ycursor_latched_nxt = ycursor;
             end
 
             FLYING: begin
