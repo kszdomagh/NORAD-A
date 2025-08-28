@@ -34,7 +34,7 @@ package vector_pkg;
     localparam VECTOR_MAX = 255;
     localparam VECTOR_MIN = 0;
 
-    localparam CEASE_CYCLES = 2;
+    localparam CEASE_CYCLES = 3;
     localparam MISSILE_CEASE_CYCLES = 1_000_000;
     localparam XY_PRECISION = 13;
 

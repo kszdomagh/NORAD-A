@@ -14,6 +14,6 @@ sv work ../../rtl/vector_display/vector_pkg.sv \
         ../../rtl/vector_display/top_vector_display.sv \
         ../../rtl/vector_display/bresenham.sv \
         ../../rtl/vector_display/valid_buf.sv \
-        ../../rtl/uwu_rom.sv \
+        ../../rtl/unused/uwu_rom.sv \
         top_vector_display_tb.sv
 

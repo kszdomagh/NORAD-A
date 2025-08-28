@@ -15,7 +15,7 @@ module cursor #(
     input  logic rst,
     input  logic btnR,                    // "prawy przycisk myszy” 
     input  logic btnL,                    // „lewy przycisk myszy” 
-    input  logic btnC,                    // „środkowy przycisk myszy” 
+    //  input  logic btnC,                    // „środkowy przycisk myszy”  - unused
     input  logic btnU,                    // „górny przycisk myszy” 
     input  logic btnD,                    // „dolny przycisk myszy” 
     output logic [OUTWIDTH-1:0] ycursor,

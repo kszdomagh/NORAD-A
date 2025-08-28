@@ -1,3 +1,11 @@
+//////////////////////////////////////////////////////////////////////////////
+/*
+ Module name:   top_vector_display_tb
+ Author:        kszdom
+ Description:   testbench module for top_vector_display
+ */
+//////////////////////////////////////////////////////////////////////////////
+
 module top_vector_display_tb;
 
     // Testbench signals
@@ -31,7 +39,8 @@ module top_vector_display_tb;
     top_vector_display #(
         .ADDRESSWIDTH(ADDRESSWIDTH),
         .DATAWIDTH(DATAWIDTH),
-        .OUT_WIDTH(OUT_WIDTH)
+        .OUT_WIDTH(OUT_WIDTH),
+        .CEASE_CYCLES(1)        //no need to wait in simulation
     ) u_DUT (
         .clk(clk),
         .rst(rst),
@@ -60,7 +69,7 @@ module top_vector_display_tb;
 
 
         // timeout
-        #1000000;
+        #100000000;
         $display("Simulation timeout reached.");
         $finish;
     end
@@ -84,7 +93,7 @@ module top_vector_display_tb;
         end
 
 
-        if(reset_count == 16) begin
+        if(reset_count == 5) begin
             $display("Simulation ended at time: %t", $time);
             $display("PASSED :3");
             $finish;

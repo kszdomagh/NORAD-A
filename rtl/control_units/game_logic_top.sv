@@ -114,7 +114,8 @@ module game_logic_top#(
         .slow2_pulse(spawn_pulse2),
         .slow3_pulse(spawn_pulse3),
 
-        .adr_enemy_random(adr_enemy_random)
+        .adr_enemy_random(adr_enemy_random),
+        .adr_enemy_pulse()
     );
 
 

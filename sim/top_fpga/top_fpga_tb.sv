@@ -1,89 +1,110 @@
-/**
- * San Jose State University
- * EE178 Lab #4
- * Author: prof. Eric Crabilla
- *
- * Modified by:
- * 2025  AGH University of Science and Technology
- * MTM UEC2
- * Piotr Kaczmarczyk
- *
- * Description:
- * Testbench for top_fpga.
- * Thanks to the tiff_writer module, an expected image
- * produced by the project is exported to a tif file.
- * Since the vs signal is connected to the go input of
- * the tiff_writer, the first (top-left) pixel of the tif
- * will not correspond to the vga project (0,0) pixel.
- * The active image (not blanked space) in the tif file
- * will be shifted down by the number of lines equal to
- * the difference between VER_SYNC_START and VER_TOTAL_TIME.
+//////////////////////////////////////////////////////////////////////////////
+/*
+ Module name:   top_fpga_tb
+ Author:        kszdom
+ Description:   testbench module for top_basys3
  */
+//////////////////////////////////////////////////////////////////////////////
+
+`timescale 1ns/1ps
 
 module top_fpga_tb;
 
-    timeunit 1ns;
-    timeprecision 1ps;
+  // clock + reset
+  logic clk_in1;
+  logic sw0;     // reset switch
+  logic sw14;    // mtm_show switch
+  logic sw15;    // startgame switch
 
-    /**
-     *  Local parameters
-     */
+  // buttons
+  logic btnU, btnD, btnL, btnR, btnC;
 
-    localparam CLK_PERIOD = 10;     // 100 MHz
+  // outputs
+  wire [7:0] JB;
+  wire [7:0] JC;
+  wire JA1;
+  wire led15, led14, led0;
+  wire [6:0] seg;
+  wire [3:0] an;
 
+  // clock gen 100 MHz
+  localparam CLK_PERIOD = 10;
+  initial begin
+    clk_in1 = 0;
+    forever #(CLK_PERIOD/2) clk_in1 = ~clk_in1;
+  end
 
-    /**
-     * Local variables and signals
-     */
+  // DUT instance
+  top_basys3 dut (
+    .clk_in1(clk_in1),
+    .JB(JB),
+    .JC(JC),
+    .JA1(JA1),
+    .btnU(btnU),
+    .btnC(btnC),
+    .btnD(btnD),
+    .btnL(btnL),
+    .btnR(btnR),
+    .sw0(sw0),
+    .sw15(sw15),
+    .sw14(sw14),
+    .led15(led15),
+    .led14(led14),
+    .led0(led0),
+    .seg(seg),
+    .an(an)
+  );
 
-    logic clk, rst;
-    logic [7:0] portB, portA, JB, JC;
+  // stimulus
+  initial begin
+    // init
+    sw0 = 0;
+    sw14 = 0;
+    sw15 = 0;
+    btnU = 0; btnD = 0; btnL = 0; btnR = 0; btnC = 0;
 
-    assign portB = {JB[7], JB[6], JB[5], JB[4], JB[3], JB[2], JB[1], JB[0]};
-    assign portA = {JC[7], JC[6], JC[5], JC[4], JC[3], JC[2], JC[1], JC[0]};
+    // reset pulse
+    #100;
+    sw0 = 1;
+    #200;
+    sw0 = 0;
 
-    /**
-     * Clock generation
-     */
+    // wait a bit
+    #1000;
 
-    initial begin
-        clk = 1'b0;
-        forever #(CLK_PERIOD/2) clk = ~clk;
+    // press startgame
+    sw15 = 1;
+    #200;
+    sw15 = 0;
+
+    // move cursor around
+    repeat (3) begin
+      #500 btnU = 1; #200 btnU = 0;
+      #500 btnR = 1; #200 btnR = 0;
+      #500 btnD = 1; #200 btnD = 0;
+      #500 btnL = 1; #200 btnL = 0;
     end
 
+    // center button click
+    #1000 btnC = 1;
+    #200 btnC = 0;
 
-    /**
-     * Submodules instances
-     */
+    // enable MTM show
+    #2000 sw14 = 1;
+    #500 sw14 = 0;
+  end
 
-    top_basys3 dut (
-        .clk_in1(clk),
-        .btnC(rst),
+  // stop simulation when JA1 is asserted
+  always @(posedge JA1) begin
+    $display("JA1 received at time %t, stopping simulation.", $time);
+    $finish;
+  end
 
-
-        .JB(JB),
-        .JC(JC)
-    );
-
-
-
-    /**
-     * Main test
-     */
-
-    initial begin
-        rst = 1'b0;
-        # 1000 rst = 1'b1;
-        # 2000 rst = 1'b0;
-
-        $display("If simulation ends before the testbench");
-        $display("completes, use the menu option to run all.");
-        $display("Prepare to wait a long time...");
-
-        // End the simulation.
-        #1000000;
-        $display("Simulation timeout reached.");
-        $finish;
-    end
+  // timeout just in case JA1 never comes
+  initial begin
+    #5_000_000;
+    $display("Timeout: JA1 was never asserted.");
+    $finish;
+  end
 
 endmodule

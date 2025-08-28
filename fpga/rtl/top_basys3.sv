@@ -172,7 +172,6 @@ module top_basys3 (
 
         //cursor control
         .btnU(btnU_db),
-        .btnC(btnC_db),
         .btnD(btnD_db),
         .btnL(btnL_db),
         .btnR(btnR_db),
@@ -183,9 +182,7 @@ module top_basys3 (
 
     );
 
-
-
-
+    logic halt_flag;
 
     //  top rtl
     top_rtl u_top_rtl(
@@ -198,8 +195,11 @@ module top_basys3 (
         .button_click(btnC_db),
         .killcount(killcount),
 
-        .go_flag(JA1),     //not connected
-        .halt_flag(halt_flag),   //not connected
+        .go_flag(JA1),     //used as triger
+        .halt_flag(halt_flag),   // not used abymore - debug signal
+
+        //  debug signal
+        .show_death(0),
 
 
 
@@ -242,7 +242,7 @@ module top_basys3 (
     disp_hex_mux u_bcd_display (
         .clk(clk_fast),
         .reset(rst),
-        .sseg( {1'b0, seg} ),
+        .sseg( seg ),
         .dp_in(4'b0000),
         .an(an),
 

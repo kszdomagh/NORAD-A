@@ -11,7 +11,7 @@
 
 sv work ../../rtl/ROM/img_pkg.sv \
         ../../rtl/vector_display/vector_pkg.sv \
-        ../../rtl/uwu_rom.sv \
+        ../../rtl/ROM/img_rom.sv \
         ../../rtl/template_ram.sv \
         ../../rtl/memory_manage.sv \
         memory_manage_tb.sv

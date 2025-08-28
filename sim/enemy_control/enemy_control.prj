@@ -13,6 +13,7 @@ sv work ../../rtl/vector_display/vector_pkg.sv \
         ../../rtl/ROM/img_pkg.sv \
         ../../rtl/control_units/enemy_control.sv \
         ../../rtl/control_units/timer_cluster.sv \
+        ../../rtl/control_units/random_enemy_adr.sv \
         ../../rtl/control_units/timer.sv \
         enemy_control_tb.sv
 

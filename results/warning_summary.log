@@ -1,16 +1,11 @@
 Warnings, critical warnings and errors from synthesis and implementation
 
-Created: 2025-08-27 20:28:24
+Created: 2025-08-28 17:15:47
 
 ----SYNTHESIS----
-WARNING: [Synth 8-7071] port 'adr_enemy_pulse' of module 'timer_cluster' is unconnected for instance 'u_timer_cluster' [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/control_units/game_logic_top.sv:102]
-WARNING: [Synth 8-7023] instance 'u_timer_cluster' of module 'timer_cluster' has 12 connections declared, but only 11 given [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/control_units/game_logic_top.sv:102]
-WARNING: [Synth 8-7071] port 'show_death' of module 'top_rtl' is unconnected for instance 'u_top_rtl' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:191]
-WARNING: [Synth 8-7023] instance 'u_top_rtl' of module 'top_rtl' has 14 connections declared, but only 13 given [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:191]
-WARNING: [Synth 8-315] illegal expression in output port connection [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:245]
+WARNING: [Synth 8-689] width (7) of port connection 'sseg' does not match port width (8) of module 'disp_hex_mux' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:245]
 WARNING: [Synth 8-7129] Port inx[8] in module valid_buf is either unconnected or has no load
 WARNING: [Synth 8-7129] Port iny[8] in module valid_buf is either unconnected or has no load
-WARNING: [Synth 8-7129] Port btnC in module cursor is either unconnected or has no load
 WARNING: [Synth 8-3936] Found unconnected internal register 'read_rw_reg' and it is trimmed from '16' to '10' bits. [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/template_ram.sv:48]
 WARNING: [Synth 8-3936] Found unconnected internal register 'read_r_reg' and it is trimmed from '16' to '10' bits. [C:/Users/Hp/Desktop/oscilo_game_uec/rtl/template_ram.sv:49]
 WARNING: [Synth 8-6430] The Block RAM "template_ram:/ram_reg" may get memory collision error if read and write address collide. Use attribute (* rw_addr_collision= "yes" *) to avoid collision 

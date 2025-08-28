@@ -101,6 +101,8 @@ module top_rtl#(
     logic [OUT_WIDTH-1:0] yenemy3;
     logic spawn_enemy3;
 
+    logic spawn_missile;
+
 
     wire base1_nuked, base2_nuked, base3_nuked;
 

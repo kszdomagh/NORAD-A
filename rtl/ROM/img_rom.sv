@@ -661,6 +661,43 @@ module img_rom #(
             584: data_out = {8'd45, 8'd29, 1'b1, 1'b0};
             595: data_out = {8'd45, 8'd29, 1'b1, 1'b1};     // RESET
 
+            // NEW PATRIOT BASE
+            596: data_out = {8'd5, 8'd0, 1'b0, 1'b1};
+            597: data_out = {8'd22, 8'd0, 1'b1, 1'b0};
+            598: data_out = {8'd22, 8'd2, 1'b1, 1'b0};
+            599: data_out = {8'd5, 8'd2, 1'b1, 1'b0};
+            600: data_out = {8'd5, 8'd0, 1'b1, 1'b0};
+            601: data_out = {8'd10, 8'd2, 1'b0, 1'b1};
+            602: data_out = {8'd12, 8'd5, 1'b1, 1'b0};
+            603: data_out = {8'd9, 8'd5, 1'b1, 1'b0};
+            604: data_out = {8'd9, 8'd6, 1'b1, 1'b0};
+            605: data_out = {8'd8, 8'd9, 1'b1, 1'b0};
+            606: data_out = {8'd6, 8'd8, 1'b0, 1'b1};
+            607: data_out = {8'd27, 8'd27, 1'b1, 1'b0};
+            608: data_out = {8'd25, 8'd29, 1'b1, 1'b0};
+            609: data_out = {8'd4, 8'd10, 1'b1, 1'b0};
+            610: data_out = {8'd6, 8'd8, 1'b1, 1'b0};
+            611: data_out = {8'd4, 8'd10, 1'b0, 1'b1};
+            612: data_out = {8'd2, 8'd12, 1'b1, 1'b0};
+            613: data_out = {8'd23, 8'd31, 1'b1, 1'b0};
+            614: data_out = {8'd25, 8'd29, 1'b1, 1'b0};
+            615: data_out = {8'd21, 8'd20, 1'b0, 1'b1};
+            616: data_out = {8'd20, 8'd18, 1'b1, 1'b0};
+            617: data_out = {8'd21, 8'd20, 1'b0, 1'b1};
+            618: data_out = {8'd20, 8'd19, 1'b1, 1'b0};
+            619: data_out = {8'd20, 8'd18, 1'b0, 1'b1};
+            620: data_out = {8'd17, 8'd7, 1'b1, 1'b0};
+            621: data_out = {8'd18, 8'd7, 1'b1, 1'b0};
+            622: data_out = {8'd20, 8'd13, 1'b1, 1'b0};
+            623: data_out = {8'd19, 8'd14, 1'b1, 1'b0};
+            624: data_out = {8'd9, 8'd6, 1'b0, 1'b1};
+            625: data_out = {8'd19, 8'd6, 1'b1, 1'b0};
+            626: data_out = {8'd19, 8'd5, 1'b1, 1'b0};
+            627: data_out = {8'd12, 8'd5, 1'b1, 1'b0};
+            628: data_out = {8'd18, 8'd5, 1'b0, 1'b1};
+            629: data_out = {8'd15, 8'd2, 1'b1, 1'b0};
+            630: data_out = {8'd22, 8'd2, 1'b1, 1'b0};
+            631: data_out = {8'd22, 8'd2, 1'b1, 1'b1};  //  RESET
 
 
 

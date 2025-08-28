@@ -9,27 +9,38 @@
 # https://docs.xilinx.com/r/en-US/ug900-vivado-logic-simulation/Project-File-.prj-Syntax
 
 
-sv work ../../rtl/uwu_rom.sv \
-        ../../rtl/vga_timing.sv \
-        ../../mmcm/draw_bg.sv \
+sv work ../../rtl/vector_display/vector_pkg.sv \
+        ../../rtl/ROM/img_pkg.sv \
+        ../../rtl/vector_display/bresenham.sv \
+        ../../rtl/vector_display/top_vector_display.sv \
+        ../../rtl/vector_display/valid_buf.sv \
+        ../../rtl/vector_display/vector_manage.sv \
+        ../../rtl/control_units/enemy_control.sv \
+        ../../rtl/control_units/timer_cluster.sv \
+        ../../rtl/control_units/timer.sv \
+        ../../rtl/control_units/game_logic_top.sv \
+        ../../rtl/control_units/base_control.sv \
+        ../../rtl/control_units/fire_control.sv \
+        ../../rtl/control_units/random_enemy_adr.sv \
+        ../../rtl/memory_manage.sv \
         ../../rtl/top_rtl.sv \
-
-        ../rtl/vector_display/rtl/vector_display/vector_pkg.sv.sv \
-        ../rtl/vector_display/rtl/vector_display/
-        ../rtl/vector_display/rtl/vector_display/
-        ../rtl/vector_display/rtl/vector_display/
-        ../rtl/vector_display/rtl/vector_display/
-        ../rtl/vector_display/rtl/vector_display/
-        ../rtl/vector_display/rtl/vector_display/
-        ../rtl/vector_display/rtl/vector_display/
-        
-
-
-
-        ../../fpga/rtl/top_vga_basys3.sv \
+        ../../rtl/cursor.sv \
+        ../../rtl/template_ram.sv \
+        ../../rtl/screen_manage.sv \
+        ../../rtl/missile/missile_top.sv \
+        ../../rtl/missile/missile_main.sv \
+        ../../rtl/ROM/mtm_rom.sv \
+        ../../rtl/ROM/img_rom.sv \
+        ../../rtl/hex/num_to_hex.sv \
+        ../../rtl/hex/disp_hex_mux.sv \
+        ../../rtl/ROM/end_screen_rom.sv \
+        ../../rtl/ROM/start_screen_rom.sv \
+        ../../fpga/rtl/top_basys3.sv \
         top_fpga_tb.sv
 
 
 # compile glbl module - required for IP simulation
-verilog work ../../rtl/mmcm/clk_wiz0.v \
-             ../../rtl/mmcm/clk_wiz0_clk_wiz.v 
+verilog work ../../rtl/mmcm/clk_wiz_0.v \
+             ../../rtl/mmcm/clk_wiz_0_clk_wiz.v \
+             ../../rtl/debounce.v \
+             ../../sim/common/glbl.v \

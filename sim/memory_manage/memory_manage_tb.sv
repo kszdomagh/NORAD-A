@@ -1,3 +1,10 @@
+//////////////////////////////////////////////////////////////////////////////
+/*
+ Module name:   memory_manage_tb
+ Author:        kszdom
+ Description:   testbench module for memory_manage
+ */
+//////////////////////////////////////////////////////////////////////////////
 module memory_manage_tb;
 
     // Testbench signals
@@ -5,7 +12,7 @@ module memory_manage_tb;
     logic rst;
 
     import vector_pkg::*;
-	import ROM_pkg::*;
+	import img_pkg::*;
 
     // INTERNAL WIRES
     logic [DATAWIDTH-1:0] dataROM;
@@ -39,21 +46,32 @@ module memory_manage_tb;
         .adrWRITE(adrWRITE),
         .dataWRITE(dataWRITE),
 
-        //  MOUSE POS SIGNALS
+        //  TEST SIGNALS
         .xcursor(100),
         .ycursor(120),
 
         .spawn_enemy1(1),
         .xenemy1(200),
-        .yenemy1(53)
+        .yenemy1(53),
+        .base1_nuked(0),
+        .base2_nuked(0),
+        .base3_nuked(1),
+
+        .adr_enemy1(ADR_START_BOMBER),
+        .adr_enemy2(ADR_START_BOMBER),
+        .adr_enemy3(ADR_START_BOMBER),
+
+        .spawn_enemy2(0),
+        .spawn_enemy3(0),
+        .spawn_missile(0)
 
 	);
 
 
-    uwu_rom #(
+    img_rom #(
         .ADDRESSWIDTH(ADDRESSWIDTH),
         .DATAWIDTH(DATAWIDTH)
-    ) u_uwu_rom (
+    ) u_img_rom (
         .addr(adrROM),
         .data_out(dataROM)
     );
@@ -101,6 +119,7 @@ module memory_manage_tb;
 
     // Stimulus block
     initial begin
+        $display("Simulation begun.");
         rst = 1;
         halt = 0;
         #20 rst = 0;

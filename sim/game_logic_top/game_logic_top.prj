@@ -16,6 +16,11 @@ sv work ../../rtl/vector_display/vector_pkg.sv \
         ../../rtl/control_units/fire_control.sv \
         ../../rtl/control_units/timer_cluster.sv \
         ../../rtl/control_units/timer.sv \
+        ../../rtl/missile/missile_top.sv \
+        ../../rtl/missile/missile_main.sv \
+        ../../rtl/vector_display/bresenham.sv \
+        ../../rtl/vector_display/valid_buf.sv \
+        ../../rtl/control_units/random_enemy_adr.sv \
         ../../rtl/control_units/game_logic_top.sv \
         game_logic_top_tb.sv
 

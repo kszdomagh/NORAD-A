@@ -133,12 +133,12 @@ package img_pkg;
     localparam X_ENEMY_END = 8'd20; 
 
     // locations for base on map
-    localparam PATRIOTBASE_X = 8'd20;
-    localparam PATRIOTBASE_Y = 8'd80;
+    localparam PATRIOTBASE_X = 8'd18;
+    localparam PATRIOTBASE_Y = 8'd89;
         // grapgics stuff
-    localparam ADR_PATRIOTBASE_START = 538;
-    localparam PATRIOTBASE_MID_X = 8'd17;
-    localparam PATRIOTBASE_MID_Y = 8'd7;
+    localparam ADR_PATRIOTBASE_START = 596;
+    localparam PATRIOTBASE_MID_X = 8'd15;
+    localparam PATRIOTBASE_MID_Y = 8'd15;
         // grapgics stuff + place rockets fly from (need mids still)
     localparam PATRIOT_START_X = 8'd27;
     localparam PATRIOT_START_Y = 8'd32;

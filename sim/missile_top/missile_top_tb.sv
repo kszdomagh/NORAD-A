@@ -1,3 +1,11 @@
+//////////////////////////////////////////////////////////////////////////////
+/*
+ Module name:   missile_top_tb
+ Author:        kszdom
+ Description:   testbench module for missile_top
+ */
+//////////////////////////////////////////////////////////////////////////////
+
 `timescale 1ns/1ps
 
 module missile_top_tb;
@@ -61,6 +69,7 @@ module missile_top_tb;
     // Stimulus
     initial begin
         // Initialize inputs
+        $display("starting sim");
         rst = 1;
         xcursor = 0; ycursor = 0;
         fired = 0;
@@ -72,6 +81,8 @@ module missile_top_tb;
         #20;
         rst = 0;
 
+        $display("reset released");
+
 
         // Move cursor and fire
         #10;
@@ -80,10 +91,13 @@ module missile_top_tb;
         #10;
         fired = 0;
 
+        $display("1st fire signal sent");
+
 
 
         #100000
 
+        $display("2nd fire signal sent");
         // Move cursor and fire
         #10;
         xcursor = 120; ycursor = 80;
@@ -91,6 +105,9 @@ module missile_top_tb;
         #150;
         xcursor = 24; ycursor = 10;
         fired = 0;
+
+        $display("simulation ended");
+        $display("please check waveforms; time: %t", $time);
 
 
         // Wait for missile to fly
@@ -101,7 +118,7 @@ module missile_top_tb;
 
     // Optional: monitor outputs
     initial begin
-        $monitor("Time=%0t x_missile=%0d y_missile=%0d hit1=%b hit2=%b hit3=%b",
+        $monitor("time=%0t x=%0d y=%0d hit1=%b hit2=%b hit3=%b",
                   $time, x_missile, y_missile, hit1, hit2, hit3);
     end
 

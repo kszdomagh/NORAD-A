@@ -1,3 +1,10 @@
+//////////////////////////////////////////////////////////////////////////////
+/*
+ Module name:   cursor_tb
+ Author:        kszdom
+ Description:   testbench module for cursor
+ */
+//////////////////////////////////////////////////////////////////////////////
 module cursor_tb;
 
     localparam int OUTWIDTH = 8;
@@ -7,7 +14,7 @@ module cursor_tb;
 
     logic clk;
     logic rst;
-    logic btnR, btnL, btnC, btnU, btnD;
+    logic btnR, btnL, btnU, btnD;
     logic [OUTWIDTH-1:0] ycursor, xcursor;
 
     // clkgen
@@ -25,7 +32,6 @@ module cursor_tb;
         .rst(rst),
         .btnR(btnR),
         .btnL(btnL),
-        .btnC(btnC),
         .btnU(btnU),
         .btnD(btnD),
         .ycursor(ycursor),
@@ -39,7 +45,6 @@ module cursor_tb;
         rst   = 1;
         btnR  = 0;
         btnL  = 0;
-        btnC  = 0;
         btnU  = 0;
         btnD  = 0;
 
@@ -93,8 +98,8 @@ module cursor_tb;
 
     // monitor
     initial begin
-        $monitor("T=%0t | X=%0d, Y=%0d | R=%b L=%b U=%b D=%b C=%b",
-                 $time, xcursor, ycursor, btnR, btnL, btnU, btnD, btnC);
+        $monitor("T=%0t | X=%0d, Y=%0d | R=%b L=%b U=%b D=%b",
+                 $time, xcursor, ycursor, btnR, btnL, btnU, btnD,);
     end
 
 endmodule
