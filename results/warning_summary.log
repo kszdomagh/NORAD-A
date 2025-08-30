@@ -1,6 +1,6 @@
 Warnings, critical warnings and errors from synthesis and implementation
 
-Created: 2025-08-28 17:15:47
+Created: 2025-08-30 01:39:49
 
 ----SYNTHESIS----
 WARNING: [Synth 8-689] width (7) of port connection 'sseg' does not match port width (8) of module 'disp_hex_mux' [C:/Users/Hp/Desktop/oscilo_game_uec/fpga/rtl/top_basys3.sv:245]

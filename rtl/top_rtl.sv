@@ -124,12 +124,12 @@ module top_rtl#(
         .TIME_SPAWN_ENEMY3(18_000_000),
 
         //SPEEDS FOR ENEMIES
-        .TIME_SPEED_ENEMY1(55_000_000),
+        .TIME_SPEED_ENEMY1(35_000_000),
         .TIME_SPEED_ENEMY2(20_000_000),
-        .TIME_SPEED_ENEMY3(40_000_000),
+        .TIME_SPEED_ENEMY3(28_000_000),
 
         //TIME FOR ENEMY TO CHANGE SKIN
-        .TIME_ENEMY_RANDOM(10_000_000)
+        .TIME_ENEMY_RANDOM(1_000_000)
     ) u_game_logic_top (
         .clk_fast(clk_fast),
         .clk_slow(clk_slow),
